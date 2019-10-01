@@ -1,0 +1,16 @@
+.idea
+sandbox/*
+*.pyc
+*/__pycache__/
+todo
+results
+.config
+env
+
+*.dot
+*.svg
+artifacts
+
+antarctic.egg-info
+dist
+build
