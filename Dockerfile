@@ -22,4 +22,4 @@ RUN pip install --no-cache-dir httpretty pytest==4.3.1 pytest-cov pytest-html sp
 
 WORKDIR /antarctic
 
-CMD py.test --cov=antarctic  --cov-report html:antarctic/html-coverage --cov-report term --html=artifacts/html-report/report.html test
+CMD py.test --cov=antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test
