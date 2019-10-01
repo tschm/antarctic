@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+  antarctic:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    extra_hosts:
+      - quantsrv:192.168.100.15
+    env_file:
+      - .config
