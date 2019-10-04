@@ -36,7 +36,7 @@ build:
 
 test:
 	mkdir -p artifacts
-	docker-compose -f docker-compose.test.yml down -v --rmi all --remove-orphans
+	#docker-compose -f docker-compose.test.yml down -v --rmi all --remove-orphans
 	docker-compose -f docker-compose.test.yml run sut
 
 teamcity: test doc

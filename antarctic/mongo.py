@@ -3,9 +3,11 @@ import random
 import string
 
 import pandas as pd
+import pyarrow as pa
+
 from pymongo import MongoClient
 
-from pyutil.timeseries.merge import merge
+#from pyutil.timeseries.merge import merge
 
 
 def mongo_client(host=None, port=None, database=None, username=None, password=None, authSource=None):
@@ -30,8 +32,8 @@ class _MongoObject(object):
     @staticmethod
     def __parse(x=None):
         try:
-            return pd.read_msgpack(x)
-        except ValueError:
+            return pa.deserialize_pandas(x)
+        except TypeError:
             return x
 
     def __init__(self, mongo_dict):
@@ -67,7 +69,7 @@ class _Collection(object):
 
         if value is not None:
             try:
-                self.__col.update_one(kwargs, {"$set": {"data": value.to_msgpack(), "now": pd.Timestamp("now")}}, upsert=True)
+                self.__col.update_one(kwargs, {"$set": {"data": pa.serialize_pandas(df=value).to_pybytes(), "now": pd.Timestamp("now")}}, upsert=True)
             except AttributeError:
                 self.__col.update_one(kwargs, {"$set": {"data": value, "now": pd.Timestamp("now")}}, upsert=True)
 
@@ -101,9 +103,9 @@ class _Collection(object):
     def write(self, data, **kwargs):
         self.upsert(value=data, **kwargs)
 
-    def merge(self, data, **kwargs):
-        old = self.read(**kwargs)
-        self.upsert(value=merge(new=data, old=old), **kwargs)
+    #def merge(self, data, **kwargs):
+    #    old = self.read(**kwargs)
+    #    self.upsert(value=merge(new=data, old=old), **kwargs)
 
     def last(self, **kwargs):
         try:

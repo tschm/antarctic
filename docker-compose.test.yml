@@ -10,7 +10,7 @@ services:
       - ./antarctic:/antarctic/antarctic:ro
       - ./test:/antarctic/test:ro
       - ./artifacts:/antarctic/artifacts
-      - ./source:/source
+      - ./source:/source:ro
       #- /opt/.pycharm_helpers/pycharm:/opt/.pycharm_helpers/pycharm:ro
     links:
       - test-mongo

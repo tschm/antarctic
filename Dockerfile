@@ -6,13 +6,13 @@ MAINTAINER Thomas Schmelzer "thomas.schmelzer@gmail.com"
 
 COPY . /tmp/antarctic
 
-RUN conda install -y -c conda-forge nomkl pandas=0.24.2 requests=2.21.0 && \
+RUN conda install -y -c conda-forge pandas=0.25.1 requests=2.22.0 && \
     conda clean -y --all && \
     pip install --no-cache-dir -r /tmp/antarctic/requirements.txt && \
-    #pip install --no-cache-dir /tmp/pyutil && \
+    pip install --no-cache-dir /tmp/antarctic && \
     rm -r /tmp/antarctic
 
-COPY ./antarctic /antarctic/antarctic
+#COPY ./antarctic /antarctic/antarctic
 
 #### Here the test-configuration
 FROM builder as test
