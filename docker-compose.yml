@@ -7,5 +7,5 @@ services:
       target: builder
     extra_hosts:
       - quantsrv:192.168.100.15
-    env_file:
-      - .config
+    #env_file:
+    #  - .config

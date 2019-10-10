@@ -1,2 +1,2 @@
 pymongo
-pyarrow==0.14.1
+pyarrow==0.15.0

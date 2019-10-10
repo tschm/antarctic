@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  r:
+    image: lobnek/docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /media/j/notebooks:${WORK}
+    ports:
+      - ${PORT}:8787
+    environment:
+      - DISABLE_AUTH=true
+
+
