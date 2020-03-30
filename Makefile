@@ -3,10 +3,11 @@ PROJECT_VERSION := $(shell python setup.py --version)
 
 SHELL := /bin/bash
 PACKAGE := antarctic
+IMAGE := lobnek/rstudio
 
 # needed to get the ${PORT} environment variable
-#include .env
-#export
+include .env
+export
 
 
 .PHONY: help build test teamcity graph doc tag clean
@@ -34,6 +35,9 @@ build:
 	#docker-compose build jupyter
 	docker-compose build antarctic
 
+buildr:
+	docker-compose build r
+
 test:
 	mkdir -p artifacts
 	#docker-compose -f docker-compose.test.yml down -v --rmi all --remove-orphans
@@ -58,6 +62,18 @@ graph: test
 doc: test
 	docker-compose -f docker-compose.test.yml run sut sphinx-build /source artifacts/build
 
+r: buildr
+	echo "http://localhost:${PORT}"
+	docker-compose up r
+
 tag: test
 	git tag -a ${PROJECT_VERSION} -m "new tag"
 	git push --tags
+
+
+hubr: tag
+	docker build -f Dockerfile --tag ${IMAGE}:latest --no-cache .
+	docker push ${IMAGE}:latest
+	docker tag ${IMAGE}:latest ${IMAGE}:${VERSION}
+	docker push ${IMAGE}:${VERSION}
+	docker rmi -f ${IMAGE}:${VERSION}

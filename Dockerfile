@@ -18,7 +18,7 @@ RUN conda install -y -c conda-forge pandas=0.25.1 requests=2.22.0 && \
 FROM builder as test
 
 # We install flask here to test some
-RUN pip install --no-cache-dir httpretty pytest==4.3.1 pytest-cov pytest-html sphinx
+RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx
 
 WORKDIR /antarctic
 
