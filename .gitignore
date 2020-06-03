@@ -11,6 +11,3 @@ env
 *.svg
 artifacts
 
-antarctic.egg-info
-dist
-build

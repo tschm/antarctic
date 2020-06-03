@@ -5,11 +5,9 @@
 
 !requirements.txt
 
-!work
 !test
 !antarctic
 !setup.py
-!r/fix-permissions
 
 **/__pycache__
 **/*.pyc

@@ -1,2 +1,6 @@
-pymongo
-pyarrow==0.15.0
+pymongo==3.10.1
+mongoengine==0.19.1
+
+pandas==0.25.3
+requests==2.23.0
+

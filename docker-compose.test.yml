@@ -11,16 +11,5 @@ services:
       - ./test:/antarctic/test:ro
       - ./artifacts:/antarctic/artifacts
       - ./source:/source:ro
-      #- /opt/.pycharm_helpers/pycharm:/opt/.pycharm_helpers/pycharm:ro
-    links:
-      - test-mongo
-
-    env_file:
-      - ./test/.env-test
 
 
-  test-mongo:
-    image: bitnami/mongodb
-
-    env_file:
-      - ./test/.env-test
