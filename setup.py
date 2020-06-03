@@ -2,6 +2,10 @@
 from setuptools import setup, find_packages
 from antarctic import __version__ as version
 
+# read the contents of your README file
+with open('README.md') as f:
+    long_description = f.read()
+
 setup(
     name='antarctic',
     long_description=long_description,
