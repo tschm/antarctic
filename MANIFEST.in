@@ -1,0 +1,2 @@
+recursive-include pyutil *.py
+recursive-exclude pyutil *.pyc

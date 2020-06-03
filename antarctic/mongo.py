@@ -3,7 +3,6 @@ import random
 import string
 
 import pandas as pd
-import pyarrow as pa
 
 from pymongo import MongoClient
 
