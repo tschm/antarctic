@@ -1,13 +1,17 @@
 #!/usr/bin/env python
-
 from setuptools import setup, find_packages
+from antarctic import __version__ as version
 
 setup(
     name='antarctic',
-    version='0.0.1',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    version=version,
     packages=find_packages(include=["antarctic*"]),
     author='Thomas Schmelzer',
     author_email='thomas.schmelzer@gmail.com',
-    description='', install_requires=['requests>=2.23.0', 'pandas>=0.25.3', 'pymongo'],
-    license='LICENSE.txt'
+    url='https://github.com/tschm/antarctic',
+    description='Storing Pandas Data in a MongoDB database',
+    install_requires=['requests>=2.23.0', 'pandas>=0.25.3', 'pymongo', 'mongoengine>=0.19.1'],
+    license='MIT'
 )
