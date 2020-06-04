@@ -5,6 +5,7 @@ from mongoengine import connect
 
 from antarctic.pandasdocument import PandasDocument, NotUniqueError
 from antarctic.timeutil import merge
+from test.config import read_pd
 
 client = connect(db="test", host="mongomock://localhost")
 
@@ -152,3 +153,15 @@ class TestEngine(object):
         c2 = Singer(name="BBB").save()
 
         assert Singer.to_dict() == {"AAA": c1, "BBB": c2}
+
+    def test_frame(self):
+        frame = read_pd("reference.csv", index_col=[0,1])
+        s = Singer(name="Peter Maffay")
+        s.frame = frame
+        pdt.assert_frame_equal(frame, s.frame)
+
+    def test_frame_timeseries(self):
+        frame = read_pd("price.csv", index_col=0)
+        s = Singer(name="Peter Maffay")
+        s.frame = frame
+        pdt.assert_frame_equal(frame, s.frame)

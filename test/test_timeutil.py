@@ -5,9 +5,11 @@ import pandas.testing as pt
 import pandas as pd
 from test.config import read_pd
 
+
 @pytest.fixture()
 def ts():
     return read_pd("ts.csv", squeeze=True, header=None, parse_dates=True, index_col=0)
+
 
 def test_merge(ts):
     x = merge(new=ts)

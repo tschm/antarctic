@@ -56,7 +56,7 @@ class PandasDocument(DynamicDocument):
         if isinstance(value, pd.Series):
             DynamicDocument.__setattr__(self, key, value.to_json(orient="split"))
         elif isinstance(value, pd.DataFrame):
-            DynamicDocument.__setattr__(self, key, value.to_json(orient="split"))
+            DynamicDocument.__setattr__(self, key, value.to_json(orient="table"))
         else:
             DynamicDocument.__setattr__(self, key, value)
 
@@ -67,7 +67,7 @@ class PandasDocument(DynamicDocument):
         x = DynamicDocument.__getattribute__(self, item)
 
         try:
-            return pd.read_json(x, orient="split", typ="frame")
+            return pd.read_json(x, orient="table", typ="frame")
         except:
             pass
 
