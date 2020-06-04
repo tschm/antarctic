@@ -9,7 +9,6 @@ COPY requirements.txt /tmp/antarctic/requirements.txt
 RUN buildDeps='gcc g++' && \
     apt-get update && apt-get install -y $buildDeps --no-install-recommends && \
     pip install --no-cache-dir -r /tmp/antarctic/requirements.txt && \
-    #pip install --no-cache-dir /tmp/antarctic/ && \
     rm  /tmp/antarctic/requirements.txt && \
     apt-get purge -y --auto-remove $buildDeps
 

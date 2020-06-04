@@ -1,9 +1,12 @@
-import pandas.util.testing as pdt
+import pandas as pd
+import pandas.testing as pdt
 import pytest
+from mongoengine import connect
 
-from test.config import *
+from antarctic.pandasdocument import PandasDocument, NotUniqueError
+from antarctic.timeutil import merge
 
-from antarctic.pandasdocument import PandasDocument
+client = connect(db="test", host="mongomock://localhost")
 
 
 class Singer(PandasDocument):
