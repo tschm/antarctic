@@ -41,7 +41,7 @@ print(p.prices)
 ```
 
 Behind the scenes we convert the both Series and Frame objects into json documents and
-store them in the MongoDB database.
+store them in a MongoDB database.
 
 We don't apply any clever conversion into compressed bytestreams. Performance is not our main concern here.
 
@@ -53,4 +53,4 @@ Clever sharding can mitigate such effects but at the end of the day you shouldn'
 use a small database for recording (e.g. over the last 24h) and update the MongoDB database once a day. It's extremely fast to read the Pandas objects
 out of such a construction.
 
-Also note that one in theory could try to build this on top of pyarrow and support both R and Python. 
+Also note that in theory one could try to build this on top of pyarrow and support both R and Python. 
