@@ -2,40 +2,38 @@ import pandas as pd
 from mongoengine.base import BaseField
 
 
-class PandasField(BaseField):
-    def __init__(self, **kwargs):
-        super(PandasField, self).__init__(**kwargs)
-
+class SeriesField(BaseField):
     def __set__(self, instance, value):
         if value is not None:
-            value = self.to_python(value)
-        super(PandasField, self).__set__(instance, value)
+            assert isinstance(value, pd.Series)
+            value = value.to_json(orient="split")
+
+        super(SeriesField, self).__set__(instance, value)
 
     def __get__(self, instance, owner):
-        x = super(PandasField, self).__get__(instance, owner)
+        x = super(SeriesField, self).__get__(instance, owner)
+
         if x is not None:
-            x = self.to_mongo(x)
+            return pd.read_json(x, orient="split", typ="series")
 
-        return x
-
-
-class SeriesField(PandasField):
-    def to_python(self, value):
-        if isinstance(value, str):
-            return value
-        assert isinstance(value, pd.Series), "The type is {}".format(type(value))
-        return value.to_json(orient="split")
-
-    def to_mongo(self, value):
-        return pd.read_json(value, orient="split", typ="series")
+        return None
 
 
-class FrameField(PandasField):
-    def to_python(self, value):
-        if isinstance(value, str):
-            return value
-        assert isinstance(value, pd.DataFrame), "The type is {}".format(type(value))
-        return value.to_json(orient="table")
+class FrameField(BaseField):
+    def __set__(self, instance, value):
+        if value is not None:
+            assert isinstance(value, pd.DataFrame)
+            value = value.to_json(orient="table")
 
-    def to_mongo(self, value):
-        return pd.read_json(value, orient="table", typ="frame")
+        super(FrameField, self).__set__(instance, value)
+
+    def __get__(self, instance, owner):
+        x = super(FrameField, self).__get__(instance, owner)
+
+        if x is not None:
+            try:
+                return pd.read_json(x, orient="table", typ="frame")
+            except:
+                return pd.read_json(x, orient="split", typ="frame")
+
+        return None

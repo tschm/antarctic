@@ -17,9 +17,10 @@ def test_series():
     s = Singer()
     ts = read_pd("ts.csv", squeeze=True, index_col=0, parse_dates=True)
     s.close = ts
+    s.save()
     pt.assert_series_equal(s.close, ts)
 
-    s = Singer(close=ts)
+    s = Singer(close=ts).save()
     pt.assert_series_equal(s.close, ts)
 
     with pytest.raises(AssertionError):
@@ -31,8 +32,9 @@ def test_frame():
     frame = read_pd("price.csv", index_col=0, parse_dates=True)
     s.prices = frame
     pt.assert_frame_equal(s.prices, frame)
+    s.save()
 
-    s = Singer(prices=frame)
+    s = Singer(prices=frame).save()
     pt.assert_frame_equal(s.prices, frame)
 
     with pytest.raises(AssertionError):
