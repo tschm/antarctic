@@ -4,3 +4,4 @@ mongoengine==0.19.1
 pandas==0.25.3
 requests==2.23.0
 
+mongomock
