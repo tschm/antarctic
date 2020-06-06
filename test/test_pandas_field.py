@@ -2,8 +2,11 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.PandasFields import SeriesField, FrameField
+from antarctic.PandasFields import SeriesField, FrameField, FrameFileField
 from test.config import read_pd
+
+from mongomock.gridfs import enable_gridfs_integration
+enable_gridfs_integration()
 
 client = connect(db="test", host="mongomock://localhost")
 
@@ -21,6 +24,7 @@ def prices():
 class Symbol(Document):
     close = SeriesField()
     prices = FrameField()
+    weights = FrameFileField()
 
 
 def test_series(ts):
@@ -69,3 +73,21 @@ def test_save(ts, prices):
     s = Symbol(close=ts, prices=prices).save()
     pt.assert_frame_equal(s.prices, prices)
     pt.assert_series_equal(s.close, ts)
+
+
+def test_fileField(prices):
+    s = Symbol()
+    s.weights = prices
+    pt.assert_frame_equal(s.weights, prices)
+    s.save()
+
+
+def test_fileField_init(prices):
+    s = Symbol(weights=prices).save()
+    pt.assert_frame_equal(s.weights, prices)
+
+
+def test_not_a_FileFrame():
+    s = Symbol()
+    with pytest.raises(AssertionError):
+        s.weights = 2.0

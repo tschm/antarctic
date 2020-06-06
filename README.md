@@ -24,6 +24,7 @@ client = connect(db="test", host="mongomock://localhost")
 # Define the blueprint for a portfolio document
 class Portfolio(Document):
     nav = SeriesField()
+    weights = FrameField()
     prices = FrameField()
 ```
 

@@ -1,6 +1,8 @@
+from io import BytesIO
+
 import pandas as pd
 from mongoengine.base import BaseField
-
+from mongoengine.fields import FileField
 
 class SeriesField(BaseField):
     def __set__(self, instance, value):
@@ -50,3 +52,21 @@ class FrameField(BaseField):
                 return pd.read_json(x, orient="split", typ="frame")
 
         return None
+
+
+class FrameFileField(FileField):
+    def __set__(self, instance, value):
+        # convert the incoming series into a json document
+        if value is not None:
+            # check it's really a DataFrame
+            assert isinstance(value, pd.DataFrame)
+            # convert the frame into a json string
+            value = value.to_json(orient="table").encode()
+
+        # give the (new) value to mum
+        super(FrameFileField, self).__set__(instance, value)
+
+    def __get__(self, instance, owner):
+        # ask mum for the value stored
+        x = super(FrameFileField, self).__get__(instance, owner).read().decode()
+        return pd.read_json(x, typ="frame", orient="table")
