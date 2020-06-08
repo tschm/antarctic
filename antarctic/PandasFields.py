@@ -4,6 +4,7 @@ import pandas as pd
 from mongoengine.base import BaseField
 from mongoengine.fields import FileField
 
+
 class SeriesField(BaseField):
     def __set__(self, instance, value):
         # convert the incoming series into a json document

@@ -35,12 +35,12 @@ class XDocument(Document):
         return {x.name: x for x in cls.objects}
 
     @classmethod
-    def apply(cls, f, products=None, default=None) -> pd.DataFrame:
+    def apply(cls, f, default, products=None) -> pd.DataFrame:
         products = products or cls.objects
-        default = default or pd.Series({})
+
         for product in products:
             try:
-                yield product.name, f(product) #or default
+                yield product.name, f(product)
             except:
                 yield product.name, default
 
