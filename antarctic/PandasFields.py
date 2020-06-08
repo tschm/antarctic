@@ -9,9 +9,10 @@ class SeriesField(BaseField):
         # convert the incoming series into a json document
         if value is not None:
             # check it's really a series
-            assert isinstance(value, pd.Series)
-            # convert the series into a json string
-            value = value.to_json(orient="split")
+            if not isinstance(value, str):
+                assert isinstance(value, pd.Series)
+                # convert the series into a json string
+                value = value.to_json(orient="split")
 
         # give the (new) value to mum
         super(SeriesField, self).__set__(instance, value)
@@ -32,9 +33,10 @@ class FrameField(BaseField):
         # convert the incoming series into a json document
         if value is not None:
             # check it's really a DataFrame
-            assert isinstance(value, pd.DataFrame)
-            # convert the frame into a json string
-            value = value.to_json(orient="table")
+            if not isinstance(value, str):
+                assert isinstance(value, pd.DataFrame)
+                # convert the frame into a json string
+                value = value.to_json(orient="table")
 
         # give the (new) value to mum
         super(FrameField, self).__set__(instance, value)
