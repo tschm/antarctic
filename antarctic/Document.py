@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pandas as pd
 from mongoengine import *
 
@@ -10,6 +12,10 @@ class XDocument(Document):
 
     name = StringField(unique=True, required=True)
     reference = DictField()
+
+    # Date modified
+    date_modified = DateTimeField(default=datetime.utcnow)
+
 
     @classmethod
     def reference_frame(cls, products=None) -> pd.DataFrame:
