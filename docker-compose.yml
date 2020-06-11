@@ -6,3 +6,8 @@ services:
       dockerfile: Dockerfile
       target: builder
 
+  jupyter:
+    build:
+      context: .
+      dockerfile: binder/Dockerfile
+      target: builder

@@ -8,6 +8,7 @@
 !test
 !antarctic
 !setup.py
+!README.md
 
 **/__pycache__
 **/*.pyc

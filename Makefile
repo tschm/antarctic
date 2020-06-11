@@ -24,6 +24,9 @@ help:
 build:
 	docker-compose build antarctic
 
+jupyter:
+	docker-compose build jupyter
+
 test:
 	docker-compose -f docker-compose.test.yml run sut
 
