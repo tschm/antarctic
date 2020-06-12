@@ -1,5 +1,5 @@
 # No beakerx support here...
-FROM tschm/jupyter as builder
+FROM tschm/jupyter:1.1.0 as builder
 
 # File Author / Maintainer
 MAINTAINER Thomas Schmelzer "thomas.schmelzer@gmail.com"

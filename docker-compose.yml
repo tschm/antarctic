@@ -14,5 +14,4 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - volumes:
-          - ./binder/work:/home/jovyan/work
+      - ./binder/work:/home/jovyan/work

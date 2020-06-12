@@ -23,7 +23,7 @@ build:
 	docker-compose build antarctic
 
 jupyter:
-	echo "http://localhost:8888/lab"
+	echo "http://localhost:8888"
 	docker-compose up jupyter
 
 test:
