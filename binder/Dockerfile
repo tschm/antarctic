@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir /tmp/antarctic && \
     pip install --no-cache-dir mongomock && \
     rm  -rf /tmp/antarctic
 
-COPY --chown=jovyan:users ./binder/work /home/jovyan/work
+COPY --chown=jovyan:users ./binder/work $WORK
