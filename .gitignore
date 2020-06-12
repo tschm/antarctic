@@ -11,3 +11,4 @@ env
 *.svg
 artifacts
 
+*.ipynb_checkpoints

@@ -19,13 +19,12 @@ help:
 	@echo "make tag"
 	@echo "       Make a tag on Github."
 
-
-
 build:
 	docker-compose build antarctic
 
 jupyter:
-	docker-compose build jupyter
+	echo "http://localhost:8888/lab"
+	docker-compose up jupyter
 
 test:
 	docker-compose -f docker-compose.test.yml run sut

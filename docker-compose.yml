@@ -11,3 +11,8 @@ services:
       context: .
       dockerfile: binder/Dockerfile
       target: builder
+    ports:
+      - 8888:8888
+    volumes:
+      - volumes:
+          - ./binder/work:/home/jovyan/work
