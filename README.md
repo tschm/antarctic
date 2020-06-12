@@ -1,6 +1,7 @@
 # Antarctic
 [![CI](https://github.com/tschm/antarctic/workflows/CI/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/tschm/antarctic/master)
 
 Project to persist Pandas data structures in a MongoDB database. 
 
