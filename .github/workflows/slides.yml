@@ -26,7 +26,7 @@ jobs:
 
       - name: Convert Notebooks
         run: |
-          jupyter nbconvert --output-dir=./slides ./binder/files/*.ipynb --to html
+          jupyter nbconvert --output-dir=./slides ./binder/work/*.ipynb --to html
 
       - name: Artifacts
         uses: actions/upload-artifact@v2
