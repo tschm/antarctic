@@ -130,3 +130,10 @@ def test_apply():
 
     a = {name: value for name, value in Singer.apply(f=lambda x: x.price.mean(), default=np.nan)}
     assert a == {"Falco": 8.0, "Peter Maffay": 9.0}
+
+def test_repr():
+    Singer.objects.delete()
+    s1 = Singer(name="Falco").save()
+    assert str(s1) == '<Singer: Falco>'
+
+    assert s1.__repr__() == '<Singer: Falco>'

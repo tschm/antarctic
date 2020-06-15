@@ -36,9 +36,9 @@ class XDocument(Document):
             return cls.objects(name__in=names)
 
     @classmethod
-    def to_dict(cls):
+    def to_dict(cls, names=None):
         # represent all documents of a class as a dictionary
-        return {x.name: x for x in cls.objects}
+        return {x.name: x for x in cls.products(names=names)}
 
     @classmethod
     def apply(cls, f, default, products=None) -> pd.DataFrame:
@@ -63,4 +63,7 @@ class XDocument(Document):
         return hash(self.to_json())
 
     def __str__(self):
+        return "<{type}: {name}>".format(type=self.__class__.__name__, name=self.name)
+
+    def __repr__(self):
         return "<{type}: {name}>".format(type=self.__class__.__name__, name=self.name)

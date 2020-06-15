@@ -9,6 +9,7 @@
 !antarctic
 !setup.py
 !README.md
+!binder
 
 **/__pycache__
 **/*.pyc
