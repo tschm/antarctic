@@ -50,6 +50,13 @@ class XDocument(Document):
             except:
                 yield product.name, default
 
+    @classmethod
+    def frame(cls, series, products=None) -> pd.DataFrame:
+        products = products or cls.objects
+
+        return pd.DataFrame({name: x for name, x in cls.apply(f=lambda x: x.__getattribute__(series), default=pd.Series({}), products=products)})
+
+
     def __lt__(self, other):
         # sort documents by name
         return self.name < other.name

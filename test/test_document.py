@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pandas.testing as pt
 
 import pytest
 from mongoengine import connect, NotUniqueError
@@ -7,6 +8,7 @@ from mongomock.gridfs import enable_gridfs_integration
 
 from antarctic.Document import XDocument
 from antarctic.PandasFields import SeriesField
+from test.config import resource, read_pd
 
 enable_gridfs_integration()
 
@@ -131,9 +133,26 @@ def test_apply():
     a = {name: value for name, value in Singer.apply(f=lambda x: x.price.mean(), default=np.nan)}
     assert a == {"Falco": 8.0, "Peter Maffay": 9.0}
 
+
 def test_repr():
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     assert str(s1) == '<Singer: Falco>'
 
     assert s1.__repr__() == '<Singer: Falco>'
+
+
+def test_frame():
+    Singer.objects.delete()
+    s1 = Singer(name="Falco").save()
+    s2 = Singer(name="Peter Maffay").save()
+
+    s1.price = pd.Series(index=[1,2,3], data=[7.0,9.0,8.0])
+    s2.price = pd.Series(index=[1,3], data=[8.0, 10.0])
+    s1.save()
+    s2.save()
+
+    f = Singer.frame(series="price")
+    #print(f)
+    #f.to_csv(resource("frame.csv"))
+    pt.assert_frame_equal(f, read_pd("frame.csv", index_col=0))
