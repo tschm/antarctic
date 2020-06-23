@@ -27,6 +27,7 @@ class Symbol(Document):
     weights = FrameFileField()
     ohlc = OhlcField()
 
+
 def test_series(ts):
     s = Symbol()
     s.close = ts
@@ -92,9 +93,12 @@ def test_not_a_FileFrame():
     with pytest.raises(AssertionError):
         s.weights = 2.0
 
+
 def test_ohlc_field():
     s = Symbol()
     ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
-    print(ohlc)
     s.ohlc = ohlc
     pt.assert_frame_equal(s.ohlc, ohlc)
+
+    x = OhlcField.resample(frame=s.ohlc, rule="5min")
+    pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))

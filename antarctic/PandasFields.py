@@ -1,8 +1,7 @@
-from io import BytesIO
-
 import pandas as pd
 from mongoengine.base import BaseField
 from mongoengine.fields import FileField
+from pandas.core.groupby import GroupBy
 
 
 class SeriesField(BaseField):
@@ -47,12 +46,7 @@ class FrameField(BaseField):
         x = super(FrameField, self).__get__(instance, owner)
 
         if x is not None:
-            # convert the json string back into a DataFrame
-            #try:
-            # This is some historic baggage as I have still some DataFrames stored in the split format
             return pd.read_json(x, orient="table", typ="frame")
-            #except:
-            #    return pd.read_json(x, orient="split", typ="frame")
 
         return None
 
@@ -72,6 +66,11 @@ class OhlcField(FrameField):
             assert {"open", "high", "low", "close", "volume"}.issubset(set(x.keys()))
 
         return x
+
+    @classmethod
+    def resample(cls, frame, rule):
+        d = {"open": GroupBy.first, "high": GroupBy.max, "low": GroupBy.min, "close": GroupBy.last, "volume": GroupBy.sum}
+        return pd.DataFrame({name: f(frame[name].resample(rule, loffset=rule)) for name, f in d.items()})
 
 
 class FrameFileField(FileField):
