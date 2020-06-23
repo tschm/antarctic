@@ -138,7 +138,6 @@ def test_repr():
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     assert str(s1) == '<Singer: Falco>'
-
     assert s1.__repr__() == '<Singer: Falco>'
 
 
@@ -153,6 +152,4 @@ def test_frame():
     s2.save()
 
     f = Singer.frame(series="price")
-    #print(f)
-    #f.to_csv(resource("frame.csv"))
     pt.assert_frame_equal(f, read_pd("frame.csv", index_col=0))

@@ -48,13 +48,30 @@ class FrameField(BaseField):
 
         if x is not None:
             # convert the json string back into a DataFrame
-            try:
-                # This is some historic baggage as I have still some DataFrames stored in the split format
-                return pd.read_json(x, orient="table", typ="frame")
-            except:
-                return pd.read_json(x, orient="split", typ="frame")
+            #try:
+            # This is some historic baggage as I have still some DataFrames stored in the split format
+            return pd.read_json(x, orient="table", typ="frame")
+            #except:
+            #    return pd.read_json(x, orient="split", typ="frame")
 
         return None
+
+
+class OhlcField(FrameField):
+    def __set__(self, instance, value):
+        if isinstance(value, pd.DataFrame):
+            print(value.keys())
+            assert {"open", "high", "low", "close", "volume"}.issubset(set(value.keys()))
+
+        super(OhlcField, self).__set__(instance, value)
+
+    def __get__(self, instance, owner):
+        x = super(OhlcField, self).__get__(instance, owner)
+
+        if x is not None:
+            assert {"open", "high", "low", "close", "volume"}.issubset(set(x.keys()))
+
+        return x
 
 
 class FrameFileField(FileField):

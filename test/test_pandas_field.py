@@ -2,7 +2,7 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.PandasFields import SeriesField, FrameField, FrameFileField
+from antarctic.PandasFields import SeriesField, FrameField, FrameFileField, OhlcField
 from test.config import read_pd
 
 from mongomock.gridfs import enable_gridfs_integration
@@ -25,7 +25,7 @@ class Symbol(Document):
     close = SeriesField()
     prices = FrameField()
     weights = FrameFileField()
-
+    ohlc = OhlcField()
 
 def test_series(ts):
     s = Symbol()
@@ -91,3 +91,10 @@ def test_not_a_FileFrame():
     s = Symbol()
     with pytest.raises(AssertionError):
         s.weights = 2.0
+
+def test_ohlc_field():
+    s = Symbol()
+    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+    print(ohlc)
+    s.ohlc = ohlc
+    pt.assert_frame_equal(s.ohlc, ohlc)
