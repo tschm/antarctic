@@ -1,6 +1,7 @@
 import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
+from pandas.core.groupby import GroupBy
 
 from antarctic.PandasFields import SeriesField, FrameField, FrameFileField, OhlcField
 from test.config import read_pd
@@ -99,6 +100,12 @@ def test_ohlc_field():
     ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
     s.ohlc = ohlc
     pt.assert_frame_equal(s.ohlc, ohlc)
+
+    print(s.ohlc.resample(rule="5min").last())
+    print(s.ohlc.resample(rule="5min").apply(lambda x: x.tail(1)))
+    print(s.ohlc.resample(rule="5min").apply(lambda x: x.head(1)))
+    #assert False
+
 
     x = OhlcField.resample(frame=s.ohlc, rule="5min")
     pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))

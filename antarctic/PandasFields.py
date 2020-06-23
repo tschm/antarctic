@@ -69,8 +69,13 @@ class OhlcField(FrameField):
 
     @classmethod
     def resample(cls, frame, rule):
-        d = {"open": GroupBy.first, "high": GroupBy.max, "low": GroupBy.min, "close": GroupBy.last, "volume": GroupBy.sum}
-        return pd.DataFrame({name: f(frame[name].resample(rule, loffset=rule)) for name, f in d.items()})
+        d = {"open": lambda x: x.head(1),
+             "high": lambda x: x.max(),
+             "low": lambda x: x.min(),
+             "close": lambda x: x.tail(1),
+             "volume": lambda x: x.sum()}
+
+        return pd.DataFrame({name: frame[name].resample(rule, loffset=rule).apply(f) for name, f in d.items()})
 
 
 class FrameFileField(FileField):
