@@ -16,13 +16,12 @@ class XDocument(Document):
     # Date modified
     date_modified = DateTimeField(default=datetime.utcnow)
 
-
     @classmethod
     def reference_frame(cls, products=None) -> pd.DataFrame:
         products = products or cls.objects
 
         frame = pd.DataFrame(
-            {product.name: pd.Series({key: data for key, data in product.reference.items()}) for product in
+            {product.name: pd.Series({key: data for key, data in product.reference.items()}, dtype=object) for product in
              products}).transpose()
         frame.index.name = cls.__name__.lower()
         return frame.sort_index()
@@ -47,15 +46,14 @@ class XDocument(Document):
         for product in products:
             try:
                 yield product.name, f(product)
-            except:
+            except AttributeError:
                 yield product.name, default
 
     @classmethod
     def frame(cls, series, products=None) -> pd.DataFrame:
         products = products or cls.objects
 
-        return pd.DataFrame({name: x for name, x in cls.apply(f=lambda x: x.__getattribute__(series), default=pd.Series({}), products=products)})
-
+        return pd.DataFrame({name: x for name, x in cls.apply(f=lambda x: x.__getattribute__(series), default=pd.Series({}, dtype=float), products=products)})
 
     def __lt__(self, other):
         # sort documents by name

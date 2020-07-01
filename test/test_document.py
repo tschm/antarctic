@@ -153,3 +153,11 @@ def test_frame():
 
     f = Singer.frame(series="price")
     pt.assert_frame_equal(f, read_pd("frame.csv", index_col=0))
+
+def test_names():
+    Singer.objects.delete()
+    s1 = Singer(name="A").save()
+    s2 = Singer(name="B").save()
+    s3 = Singer(name="C").save()
+
+    assert {s1, s2} == set(Singer.objects(name__in=["A","B"]).all())
