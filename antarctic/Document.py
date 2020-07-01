@@ -46,14 +46,13 @@ class XDocument(Document):
         for product in products:
             try:
                 yield product.name, f(product)
-            except AttributeError:
+            except (AttributeError, KeyError):
                 yield product.name, default
 
     @classmethod
     def frame(cls, series, products=None) -> pd.DataFrame:
         products = products or cls.objects
-
-        return pd.DataFrame({name: x for name, x in cls.apply(f=lambda x: x.__getattribute__(series), default=pd.Series({}, dtype=float), products=products)})
+        return pd.DataFrame({p.name: p.__getattribute__(series) for p in products}).dropna(axis=1, how="all")
 
     def __lt__(self, other):
         # sort documents by name

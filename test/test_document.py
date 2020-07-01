@@ -125,13 +125,14 @@ def test_apply():
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
-    s1.price = pd.Series(index=[1,2,3], data=[7.0,9.0,8.0])
-    s2.price = pd.Series(index=[1,3], data=[8.0, 10.0])
+    s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
+    s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
+    s3 = Singer(name="Karel Gott").save()
     s1.save()
     s2.save()
 
-    a = {name: value for name, value in Singer.apply(f=lambda x: x.price.mean(), default=np.nan)}
-    assert a == {"Falco": 8.0, "Peter Maffay": 9.0}
+    a = pd.Series({name: value for name, value in Singer.apply(f=lambda x: x.price.mean(), default=np.nan)}).dropna()
+    pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": 9.0}))
 
 
 def test_repr():
@@ -145,14 +146,19 @@ def test_frame():
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
+    s3 = Singer(name="Karel Gott").save()
 
-    s1.price = pd.Series(index=[1,2,3], data=[7.0,9.0,8.0])
-    s2.price = pd.Series(index=[1,3], data=[8.0, 10.0])
+    s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
+    s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
     s1.save()
     s2.save()
 
     f = Singer.frame(series="price")
     pt.assert_frame_equal(f, read_pd("frame.csv", index_col=0))
+
+    with pytest.raises(AttributeError):
+        Singer.frame(series="wurst")
+
 
 def test_names():
     Singer.objects.delete()
@@ -160,4 +166,5 @@ def test_names():
     s2 = Singer(name="B").save()
     s3 = Singer(name="C").save()
 
-    assert {s1, s2} == set(Singer.objects(name__in=["A","B"]).all())
+    assert {s1, s2} == set(Singer.objects(name__in=["A", "B"]).all())
+    assert {s2, s1} == set(Singer.objects(name__in=["B", "A"]).all())
