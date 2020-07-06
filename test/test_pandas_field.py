@@ -1,7 +1,10 @@
+import tempfile
+from io import BytesIO
+
+import pandas as pd
 import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
-from pandas.core.groupby import GroupBy
 
 from antarctic.PandasFields import SeriesField, FrameField, FrameFileField, OhlcField
 from test.config import read_pd
@@ -109,3 +112,27 @@ def test_ohlc_field():
 
     x = OhlcField.resample(frame=s.ohlc, rule="5min")
     pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))
+
+
+def test_parquet_file():
+    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+
+    with tempfile.NamedTemporaryFile() as temp:
+
+        ohlc.to_parquet(temp.name, engine='auto', compression=None)
+        r = pd.read_parquet(temp.name, engine='auto')
+
+        pt.assert_frame_equal(ohlc, r)
+
+
+def test_parquet_bytes_io():
+    # https://github.com/pandas-dev/pandas/issues/34467
+    # This does not work with pandas 1.0.4!
+    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+
+    buffer = BytesIO()
+    ohlc.to_parquet(buffer, engine='auto', compression=None)
+
+    # don't write buffer to disc
+    r = pd.read_parquet(buffer, engine='auto')
+    pt.assert_frame_equal(ohlc, r)

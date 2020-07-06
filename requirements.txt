@@ -1,3 +1,4 @@
 pymongo==3.10.1
 mongoengine==0.20.0
-pandas==1.0.4
+pandas==1.0.5
+pyarrow==0.17.1
