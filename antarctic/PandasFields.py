@@ -1,7 +1,6 @@
 import pandas as pd
 from mongoengine.base import BaseField
 from mongoengine.fields import FileField
-from pandas.core.groupby import GroupBy
 
 
 class SeriesField(BaseField):
@@ -54,7 +53,6 @@ class FrameField(BaseField):
 class OhlcField(FrameField):
     def __set__(self, instance, value):
         if isinstance(value, pd.DataFrame):
-            print(value.keys())
             assert {"open", "high", "low", "close", "volume"}.issubset(set(value.keys()))
 
         super(OhlcField, self).__set__(instance, value)
