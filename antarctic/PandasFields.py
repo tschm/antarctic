@@ -31,12 +31,8 @@ class SeriesField(BaseField):
 class FrameField(BaseField):
     def __set__(self, instance, value):
         # convert the incoming series into a json document
-        if value is not None:
-            # check it's really a DataFrame
-            if not isinstance(value, str):
-                assert isinstance(value, pd.DataFrame), "Instance is {t}".format(t=type(value))
-                # convert the frame into a json string
-                value = value.to_json(orient="table")
+        if isinstance(value, pd.DataFrame):
+            value = value.to_json(orient="table")
 
         # give the (new) value to mum
         super(FrameField, self).__set__(instance, value)
@@ -59,14 +55,11 @@ class ParquetFrameField(BaseField):
 
     def __set__(self, instance, value):
         # convert the incoming series into a byte-stream document
-        if value is not None:
-            # check it's really a DataFrame
-            if not isinstance(value, str):
-                assert isinstance(value, pd.DataFrame), "Instance is {t}".format(t=type(value))
-                # convert the frame into a json string
-                with BytesIO() as buffer:
-                    value.to_parquet(buffer, engine=self.engine, compression=self.compression)
-                    value = buffer.getvalue()
+        if isinstance(value, pd.DataFrame):
+            # convert the frame into a json string
+            with BytesIO() as buffer:
+                value.to_parquet(buffer, engine=self.engine, compression=self.compression)
+                value = buffer.getvalue()
 
         # give the (new) value to mum
         super(ParquetFrameField, self).__set__(instance, value)
