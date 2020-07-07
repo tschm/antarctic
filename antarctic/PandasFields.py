@@ -34,7 +34,7 @@ class FrameField(BaseField):
         if value is not None:
             # check it's really a DataFrame
             if not isinstance(value, str):
-                assert isinstance(value, pd.DataFrame)
+                assert isinstance(value, pd.DataFrame), "Instance is {t}".format(t=type(value))
                 # convert the frame into a json string
                 value = value.to_json(orient="table")
 
@@ -62,7 +62,7 @@ class ParquetFrameField(BaseField):
         if value is not None:
             # check it's really a DataFrame
             if not isinstance(value, str):
-                assert isinstance(value, pd.DataFrame)
+                assert isinstance(value, pd.DataFrame), "Instance is {t}".format(t=type(value))
                 # convert the frame into a json string
                 with BytesIO() as buffer:
                     value.to_parquet(buffer, engine=self.engine, compression=self.compression)
