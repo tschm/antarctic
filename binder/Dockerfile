@@ -8,7 +8,7 @@ COPY --chown=jovyan:users  . /tmp/antarctic
 
 # and install from there (using setup.py). Also add MongoMock. Cleaning
 RUN pip install --no-cache-dir /tmp/antarctic && \
-    pip install --no-cache-dir mongomock && \
+    pip install --no-cache-dir mongomock matplotlib && \
     rm  -rf /tmp/antarctic
 
 # $WORK is inherited from the tschm/jupyter image

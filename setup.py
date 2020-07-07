@@ -16,6 +16,6 @@ setup(
     author_email='thomas.schmelzer@gmail.com',
     url='https://github.com/tschm/antarctic',
     description='Storing Pandas Data in a MongoDB database',
-    install_requires=['pandas>=1.0.5', 'pymongo>=3.10.1', 'mongoengine>=0.19.1'],
+    install_requires=['pandas>=1.0.5', 'pymongo>=3.10.1', 'mongoengine>=0.19.1', 'pyarrow>=0.17.1'],
     license='MIT'
 )
