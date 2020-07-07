@@ -17,12 +17,12 @@ class XDocument(Document):
     date_modified = DateTimeField(default=datetime.utcnow)
 
     @classmethod
-    def reference_frame(cls, products=None) -> pd.DataFrame:
-        products = products or cls.objects
+    def reference_frame(cls, objects=None) -> pd.DataFrame:
+        objects = objects or cls.objects
 
         frame = pd.DataFrame(
-            {product.name: pd.Series({key: data for key, data in product.reference.items()}, dtype=object) for product in
-             products}).transpose()
+            {obj.name: pd.Series({key: data for key, data in obj.reference.items()}, dtype=object) for obj in
+             objects}).transpose()
         frame.index.name = cls.__name__.lower()
         return frame.sort_index()
 
@@ -41,19 +41,19 @@ class XDocument(Document):
         return {x.name: x for x in objects}
 
     @classmethod
-    def apply(cls, f, default, products=None) -> pd.DataFrame:
-        products = products or cls.objects
+    def apply(cls, f, default, objects=None) -> pd.DataFrame:
+        objects = objects or cls.objects
 
-        for product in products:
+        for obj in objects:
             try:
-                yield product.name, f(product)
+                yield obj.name, f(obj)
             except (AttributeError, KeyError):
-                yield product.name, default
+                yield obj.name, default
 
     @classmethod
-    def frame(cls, series, products=None) -> pd.DataFrame:
-        products = products or cls.objects
-        return pd.DataFrame({p.name: p.__getattribute__(series) for p in products}).dropna(axis=1, how="all")
+    def frame(cls, series, objects=None) -> pd.DataFrame:
+        objects = objects or cls.objects
+        return pd.DataFrame({p.name: p.__getattribute__(series) for p in objects}).dropna(axis=1, how="all")
 
     def __lt__(self, other):
         # sort documents by name

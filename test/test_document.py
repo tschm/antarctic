@@ -32,7 +32,7 @@ def test_reference_frame():
     p2.reference["B"] = 10.0
     p2.save()
 
-    frame = Singer.reference_frame(products=[p1, p2])
+    frame = Singer.reference_frame(objects=[p1, p2])
     assert set(frame.index) == {"Peter", "Falco"}
     assert set(frame.keys()) == {"A", "B"}
 
@@ -80,7 +80,7 @@ def test_products():
     assert len(b) == 2
     assert set(b) == {p1, p2}
 
-    frame = Singer.reference_frame(products=[p1, p2])
+    frame = Singer.reference_frame(objects=[p1, p2])
     assert set(frame.index) == {"Peter", "Falco"}
     assert frame.empty
 
