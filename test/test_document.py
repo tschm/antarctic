@@ -4,13 +4,13 @@ import pandas.testing as pt
 
 import pytest
 from mongoengine import connect, NotUniqueError
-from mongomock.gridfs import enable_gridfs_integration
+#from mongomock.gridfs import enable_gridfs_integration
 
 from antarctic.Document import XDocument
 from antarctic.PandasFields import SeriesField
 from test.config import resource, read_pd
 
-enable_gridfs_integration()
+#enable_gridfs_integration()
 
 client = connect(db="test", host="mongomock://localhost")
 
@@ -72,11 +72,11 @@ def test_products():
     p2 = Singer(name="Falco").save()
 
     # here we query the database! Hence need the client in the background
-    a = Singer.products(names=["Peter"])
+    a = Singer.subset(names=["Peter"])
     assert len(a) == 1
     assert a[0] == p1
 
-    b = Singer.products()
+    b = Singer.subset()
     assert len(b) == 2
     assert set(b) == {p1, p2}
 

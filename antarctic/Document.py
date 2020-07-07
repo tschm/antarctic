@@ -27,7 +27,7 @@ class XDocument(Document):
         return frame.sort_index()
 
     @classmethod
-    def products(cls, names=None):
+    def subset(cls, names=None):
         # extract symbols from database
         if names is None:
             return cls.objects
@@ -35,9 +35,10 @@ class XDocument(Document):
             return cls.objects(name__in=names)
 
     @classmethod
-    def to_dict(cls, names=None):
+    def to_dict(cls, objects=None):
         # represent all documents of a class as a dictionary
-        return {x.name: x for x in cls.products(names=names)}
+        objects = objects or cls.objects
+        return {x.name: x for x in objects}
 
     @classmethod
     def apply(cls, f, default, products=None) -> pd.DataFrame:

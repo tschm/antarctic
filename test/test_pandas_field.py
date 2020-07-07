@@ -1,16 +1,19 @@
+import string
 import tempfile
 from io import BytesIO
 
 import pandas as pd
+import numpy as np
+
 import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.PandasFields import SeriesField, FrameField, FrameFileField, OhlcField
+from antarctic.PandasFields import SeriesField, FrameField, ParquetFrameField
 from test.config import read_pd
 
-from mongomock.gridfs import enable_gridfs_integration
-enable_gridfs_integration()
+#from mongomock.gridfs import enable_gridfs_integration
+#enable_gridfs_integration()
 
 client = connect(db="test", host="mongomock://localhost")
 
@@ -28,8 +31,8 @@ def prices():
 class Symbol(Document):
     close = SeriesField()
     prices = FrameField()
-    weights = FrameFileField()
-    ohlc = OhlcField()
+    #weights = FrameFileField()
+    #ohlc = OhlcField()
 
 
 def test_series(ts):
@@ -80,45 +83,43 @@ def test_save(ts, prices):
     pt.assert_series_equal(s.close, ts)
 
 
-def test_fileField(prices):
-    s = Symbol()
-    s.weights = prices
-    pt.assert_frame_equal(s.weights, prices)
-    s.save()
+# def test_fileField(prices):
+#     s = Symbol()
+#     s.weights = prices
+#     pt.assert_frame_equal(s.weights, prices)
+#     s.save()
 
 
-def test_fileField_init(prices):
-    s = Symbol(weights=prices).save()
-    pt.assert_frame_equal(s.weights, prices)
+# def test_fileField_init(prices):
+#     s = Symbol(weights=prices).save()
+#     pt.assert_frame_equal(s.weights, prices)
+#
+#
+# def test_not_a_FileFrame():
+#     s = Symbol()
+#     with pytest.raises(AssertionError):
+#         s.weights = 2.0
 
 
-def test_not_a_FileFrame():
-    s = Symbol()
-    with pytest.raises(AssertionError):
-        s.weights = 2.0
-
-
-def test_ohlc_field():
-    s = Symbol()
-    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
-    s.ohlc = ohlc
-    pt.assert_frame_equal(s.ohlc, ohlc)
-
-    print(s.ohlc.resample(rule="5min").last())
-    print(s.ohlc.resample(rule="5min").apply(lambda x: x.tail(1)))
-    print(s.ohlc.resample(rule="5min").apply(lambda x: x.head(1)))
-    #assert False
-
-
-    x = OhlcField.resample(frame=s.ohlc, rule="5min")
-    pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))
+# def test_ohlc_field():
+#     s = Symbol()
+#     ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+#     s.ohlc = ohlc
+#     pt.assert_frame_equal(s.ohlc, ohlc)
+#
+#     print(s.ohlc.resample(rule="5min").last())
+#     print(s.ohlc.resample(rule="5min").apply(lambda x: x.tail(1)))
+#     print(s.ohlc.resample(rule="5min").apply(lambda x: x.head(1)))
+#     # assert False
+#
+#     x = OhlcField.resample(frame=s.ohlc, rule="5min")
+#     pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))
 
 
 def test_parquet_file():
     ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
 
     with tempfile.NamedTemporaryFile() as temp:
-
         ohlc.to_parquet(temp.name, engine='auto', compression=None)
         r = pd.read_parquet(temp.name, engine='auto')
 
@@ -136,3 +137,48 @@ def test_parquet_bytes_io():
     # don't write buffer to disc
     r = pd.read_parquet(buffer, engine='auto')
     pt.assert_frame_equal(ohlc, r)
+
+
+def test_parquet_field():
+    class Maffay(Document):
+        frame = ParquetFrameField(engine="pyarrow", compression="gzip")
+
+    maffay = Maffay()
+    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+    maffay.frame = ohlc
+
+    pt.assert_frame_equal(maffay.frame, ohlc)
+
+
+def test_parquet_field_large():
+    class Maffay(Document):
+        frame = ParquetFrameField(engine="pyarrow", compression=None)
+
+    maffay = Maffay()
+
+    # create random data
+    def name():
+        return "".join(np.random.choice(list(string.ascii_lowercase), size=10))
+
+    ohlc = pd.DataFrame(data=np.random.randn(20000, 500), columns=[name() for i in range(0, 500)])
+
+    maffay.frame = ohlc
+
+    pt.assert_frame_equal(maffay.frame, ohlc)
+
+
+def test_frame_field_large():
+    class Maffay(Document):
+        frame = FrameField()
+
+    maffay = Maffay()
+
+    # create random data
+    def name():
+        return "".join(np.random.choice(list(string.ascii_lowercase), size=10))
+
+    ohlc = pd.DataFrame(data=np.random.randn(2000, 50), columns=[name() for i in range(0, 50)])
+
+    maffay.frame = ohlc
+
+    pt.assert_frame_equal(maffay.frame, ohlc)
