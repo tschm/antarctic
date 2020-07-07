@@ -58,7 +58,7 @@ class ParquetFrameField(BaseField):
         self.compression = compression
 
     def __set__(self, instance, value):
-        # convert the incoming series into a json document
+        # convert the incoming series into a byte-stream document
         if value is not None:
             # check it's really a DataFrame
             if not isinstance(value, str):
