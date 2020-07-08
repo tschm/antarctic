@@ -62,15 +62,8 @@ class Maffay(Document):
     
 maffay = Maffay()
 
-# create random data
-def name():
-    return "".join(np.random.choice(list(string.ascii_lowercase), size=10))
-    
-# construct a very large frame
-frame = pd.DataFrame(data=np.random.randn(20000, 500), columns=[name() for i in range(0, 500)])
-
 # the magic happens in the background. The frame is converted in parquet byte stream and stored in the MongoDB.    
-maffay.frame = frame
+maffay.frame = pd.DataFrame(...) # some very large DataFrame, note that column names have to strings.
 
 # reading the frame applies the same magic again.
 print(maffay.frame)
@@ -105,11 +98,15 @@ Symbol.to_dict(objects=[s1, s2])
 # Each XDocument also provides a field for reference data:
 s1.reference["MyProp1"] = "ABC"
 s2.reference["MyProp2"] = "BCD"
+
+# You can loop over (subsets) of Symbols and extract reference and/or series data
+print(Symbol.reference_frame(objects=[s1,s2]))
+print(Symbol.frame(series="price"))
+print(Symbol.apply(f=lambda x: x.price.mean(), default=np.nan))
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.
 There is an `apply` method for using a function on (subset) of documents. 
-
 
 
 
