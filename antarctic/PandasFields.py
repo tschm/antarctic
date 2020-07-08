@@ -1,3 +1,4 @@
+import pickle
 from io import BytesIO
 
 import pandas as pd
@@ -73,6 +74,31 @@ class ParquetFrameField(BaseField):
                 return pd.read_parquet(buffer, engine=self.engine)
 
         return None
+
+
+class PickleFrameField(BaseField):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __set__(self, instance, value):
+        # convert the incoming series into a byte-stream document
+        if isinstance(value, pd.DataFrame):
+            # convert the frame into a bytestream
+            value = pickle.dumps(value)
+
+        # give the (new) value to mum
+        super(PickleFrameField, self).__set__(instance, value)
+
+    def __get__(self, instance, owner):
+        # ask mum for the value stored
+        x = super(PickleFrameField, self).__get__(instance, owner)
+
+        if x is not None:
+            with BytesIO(x) as buffer:
+                return pd.read_pickle(buffer)
+
+        return None
+
 
 
 # class OhlcField(FrameField):

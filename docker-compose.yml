@@ -14,3 +14,8 @@ services:
       - 8888:8888
     volumes:
       - ./binder/work:/home/jovyan/work
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest

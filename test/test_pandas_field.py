@@ -1,6 +1,6 @@
-import string
 import tempfile
 from io import BytesIO
+from uuid import uuid4
 
 import pandas as pd
 import numpy as np
@@ -9,7 +9,7 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.PandasFields import SeriesField, FrameField, ParquetFrameField
+from antarctic.PandasFields import SeriesField, FrameField, ParquetFrameField, PickleFrameField
 from test.config import read_pd
 
 #from mongomock.gridfs import enable_gridfs_integration
@@ -154,31 +154,26 @@ def test_parquet_field_large():
     class Maffay(Document):
         frame = ParquetFrameField(engine="pyarrow", compression=None)
 
-    maffay = Maffay()
+    frame = pd.DataFrame(data=np.random.randn(20000, 500), columns=[str(uuid4()) for _ in range(0, 500)])
 
-    # create random data
-    def name():
-        return "".join(np.random.choice(list(string.ascii_lowercase), size=10))
-
-    ohlc = pd.DataFrame(data=np.random.randn(20000, 500), columns=[name() for i in range(0, 500)])
-
-    maffay.frame = ohlc
-
-    pt.assert_frame_equal(maffay.frame, ohlc)
+    pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
 
 
 def test_frame_field_large():
     class Maffay(Document):
         frame = FrameField()
 
-    maffay = Maffay()
+    # create random data
+    frame = pd.DataFrame(data=np.random.randn(2000, 50), columns=[str(uuid4()) for _ in range(0, 50)])
+
+    pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
+
+
+def test_pickle_field_large():
+    class Maffay(Document):
+        frame = PickleFrameField()
 
     # create random data
-    def name():
-        return "".join(np.random.choice(list(string.ascii_lowercase), size=10))
+    frame = pd.DataFrame(data=np.random.randn(2000, 50), columns=[str(uuid4()) for _ in range(0, 50)])
 
-    ohlc = pd.DataFrame(data=np.random.randn(2000, 50), columns=[name() for i in range(0, 50)])
-
-    maffay.frame = ohlc
-
-    pt.assert_frame_equal(maffay.frame, ohlc)
+    pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
