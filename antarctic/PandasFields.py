@@ -1,5 +1,6 @@
 import pickle
 from io import BytesIO
+from bson.binary import Binary
 
 import pandas as pd
 from mongoengine.base import BaseField
@@ -76,29 +77,28 @@ class ParquetFrameField(BaseField):
         return None
 
 
-class PickleFrameField(BaseField):
+class PicklePandasField(BaseField):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def __set__(self, instance, value):
         # convert the incoming series into a byte-stream document
-        if isinstance(value, pd.DataFrame):
+        if isinstance(value, pd.DataFrame) or isinstance(value, pd.Series):
             # convert the frame into a bytestream
-            value = pickle.dumps(value)
+            value = Binary(pickle.dumps(value))
 
         # give the (new) value to mum
-        super(PickleFrameField, self).__set__(instance, value)
+        super(PicklePandasField, self).__set__(instance, value)
 
     def __get__(self, instance, owner):
         # ask mum for the value stored
-        x = super(PickleFrameField, self).__get__(instance, owner)
+        x = super(PicklePandasField, self).__get__(instance, owner)
 
         if x is not None:
             with BytesIO(x) as buffer:
-                return pd.read_pickle(buffer)
+                return pd.read_pickle(buffer, compression=None)
 
         return None
-
 
 
 # class OhlcField(FrameField):
