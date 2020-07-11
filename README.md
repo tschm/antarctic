@@ -11,7 +11,7 @@ pip install antarctic
 ```
 
 ###  Usage
-This project (unless the popular arctic project which I admire) is based on top of MongoEngine, see https://pypi.org/project/mongoengine/
+This project (unless the popular arctic project which I admire) is based on top of MongoEngine, see [MongoEngine](https://pypi.org/project/mongoengine/).
 MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce new fields and extend the Document class 
 to make Antarctic a convenient choice for storing Pandas (time series) data. 
 
@@ -20,7 +20,7 @@ We highly recommend to start first with some experiments using the Binder server
 
 
 #### Fields
-We introduce here two new fields --- one for a Pandas Series and one for a Pandas DataFrame.
+We introduce first two new fields --- one for a Pandas Series and one for a Pandas DataFrame.
 
 ```python
 from mongoengine import Document, connect
@@ -52,9 +52,12 @@ print(p.prices)
 Behind the scenes we convert the both Series and Frame objects into json documents and
 store them in a MongoDB database.
 
-One could go wild with the `ParquetFrameField` which relies on a popular format which should also be readable by R. 
-The ParquetFrameField is a lot more potent than the FrameField and relies on the `pyarrow` package. Here the frame is converted
-in a bytestream rather than a json document. Users gain speed, save space and it's possible to work with larger frames.
+Unfortunately it is rather slow to write json documents to disk. We therefore introduce 
+the `ParquteFrameField` and the `PicklePandasField`. In our first experiments the PicklePandasField is the fastest option and
+outperforms arctic. However, further work and experiments are required. 
+
+The `ParquetFrameField` relies on a popular format which should also be readable by R. 
+Here the frame is converted in a bytestream rather than a json document. Users gain speed, save space and it's possible to work with larger frames.
 ```python
 class Maffay(Document):
     # we support the engine and compression argument as in .to_parquet in pandas
