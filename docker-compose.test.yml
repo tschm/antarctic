@@ -11,5 +11,5 @@ services:
       - ./test:/antarctic/test
       - ./artifacts:/antarctic/artifacts
       - ./source:/source:ro
-
+      - ./binder/work:/notebooks
 
