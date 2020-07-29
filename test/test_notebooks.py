@@ -1,5 +1,4 @@
 from pytest_notebook.nb_regression import NBRegressionFixture
-import glob
 
 
 def test_mongo():
@@ -9,6 +8,8 @@ def test_mongo():
                                     '/cells/*/outputs')
                                   )
 
-    for file in glob.glob("/notebooks/*.ipynb"):
-        print(file)
-        fixture.check(str(file))
+    file = "/notebooks/Antarctic Demo.ipynb"
+    fixture.check(str(file))
+
+    file = "/notebooks/Parquet.ipynb"
+    fixture.check(str(file))
