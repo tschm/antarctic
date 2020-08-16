@@ -13,6 +13,7 @@ services:
     ports:
       - 8888:8888
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./binder/work:/home/jovyan/work
     depends_on:
       - mongo

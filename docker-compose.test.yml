@@ -7,6 +7,7 @@ services:
       target: test
 
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./antarctic:/antarctic/antarctic:ro
       - ./test:/antarctic/test
       - ./artifacts:/antarctic/artifacts
