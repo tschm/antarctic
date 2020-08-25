@@ -6,8 +6,7 @@ COPY . /tmp/antarctic
 RUN buildDeps='g++=4:6.3.0-4' && \
     apt-get update && apt-get install -y $buildDeps --no-install-recommends && \
     pip install --no-cache-dir -r /tmp/antarctic/requirements.txt && \
-    #pip install --no-cache-dir mongomock && \
-    #pip install --no-cache-dir /tmp/antarctic && \
+    pip install --no-cache-dir /tmp/antarctic && \
     rm  /tmp/antarctic/requirements.txt && \
     apt-get purge -y --auto-remove "g++" && \
     apt-get clean && \
@@ -21,5 +20,3 @@ FROM builder as test
 COPY ./test /antarctic/test
 
 RUN pip install --no-cache-dir -r /antarctic/test/requirements.txt
-
-WORKDIR /antarctic
