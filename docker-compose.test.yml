@@ -6,11 +6,18 @@ services:
       dockerfile: Dockerfile
       target: test
 
+
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./antarctic:/antarctic/antarctic:ro
-      - ./test:/antarctic/test
-      - ./artifacts:/antarctic/artifacts
-      - ./source:/source:ro
+      - ./${PACKAGE}:/${PROJECT}/${PACKAGE}:ro
+      - ./test:/${PROJECT}/test
+      - ./artifacts:/${PROJECT}/artifacts
+      - ./source:/source
       - ./binder/work:/notebooks
 
+    command:
+      py.test --cov=/${PROJECT}/${PACKAGE} -vv
+              --cov-report html:/${PROJECT}/artifacts/html-coverage
+              --cov-report term
+              --html=/server/artifacts/html-report/report.html
+              /${PROJECT}/test

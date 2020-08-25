@@ -1,8 +1,5 @@
 FROM tschm/jupyter:1.2.0
 
-# File Author / Maintainer
-MAINTAINER Thomas Schmelzer "thomas.schmelzer@gmail.com"
-
 # copy everything (as specified by .dockerignore) to /tmp/antarctic
 COPY --chown=jovyan:users  . /tmp/antarctic
 
