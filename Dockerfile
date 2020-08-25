@@ -1,9 +1,6 @@
 # Set the base image to Ubuntu, use a public image
 FROM python:3.7.7-slim-stretch as builder
 
-# File Author / Maintainer
-MAINTAINER Thomas Schmelzer "thomas.schmelzer@gmail.com"
-
 COPY . /tmp/antarctic
 
 RUN buildDeps='gcc g++' && \
