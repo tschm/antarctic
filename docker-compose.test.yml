@@ -13,7 +13,9 @@ services:
       - ./test:/${PROJECT}/test
       - ./artifacts:/${PROJECT}/artifacts
       - ./source:/source
-      - ./binder/work:/notebooks
+      - ./binder/work:/${PROJECT}/notebooks
+      #- ./${PACKAGE}:/${PROJECT}/notebooks/${PACKAGE}:ro
+    working_dir: /${PROJECT}
 
     command:
       py.test --cov=/${PROJECT}/${PACKAGE} -vv

@@ -8,8 +8,8 @@ def test_mongo():
                                     '/cells/*/outputs')
                                   )
 
-    file = "/notebooks/Antarctic Demo.ipynb"
+    file = "/antarctic/notebooks/Antarctic Demo.ipynb"
     fixture.check(str(file))
 
-    file = "/notebooks/Parquet.ipynb"
+    file = "/antarctic/notebooks/Parquet.ipynb"
     fixture.check(str(file))
