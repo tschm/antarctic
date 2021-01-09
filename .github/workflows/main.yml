@@ -28,5 +28,6 @@ jobs:
           name: artifacts
           path: artifacts # or path/to/artifact
 
+      - run: make lint
 
 
