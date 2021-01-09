@@ -1,13 +1,17 @@
+# pylint: 	disable=no-member
 from datetime import datetime
 
 import pandas as pd
-from mongoengine import *
+from mongoengine import Document, StringField, DictField, DateTimeField
 
 
 class XDocument(Document):
-    # A XDocument is an abstract Mongo Document, e.g. instances of this document can not be instantiated.
-    # All concrete objects such as Symbols or Strategies are children of the XDocument.
-    # Having a common parent helps to share functionality
+    """
+    A XDocument is an abstract Mongo Document,
+    e.g. instances of this document can not be instantiated.
+    All concrete objects such as Symbols or Strategies are children of the XDocument.
+    Having a common parent helps to share functionality
+    """
     meta = {'abstract': True}
 
     name = StringField(unique=True, required=True)
@@ -21,7 +25,7 @@ class XDocument(Document):
         objects = objects or cls.objects
 
         frame = pd.DataFrame(
-            {obj.name: pd.Series({key: data for key, data in obj.reference.items()}, dtype=object) for obj in
+            {obj.name: pd.Series(dict(obj.reference.items()), dtype=object) for obj in
              objects}).transpose()
         frame.index.name = cls.__name__.lower()
         return frame.sort_index()
@@ -31,8 +35,8 @@ class XDocument(Document):
         # extract symbols from database
         if names is None:
             return cls.objects
-        else:
-            return cls.objects(name__in=names)
+
+        return cls.objects(name__in=names)
 
     @classmethod
     def to_dict(cls, objects=None):
@@ -41,19 +45,20 @@ class XDocument(Document):
         return {x.name: x for x in objects}
 
     @classmethod
-    def apply(cls, f, default, objects=None) -> pd.DataFrame:
+    def apply(cls, func, default, objects=None) -> pd.DataFrame:
         objects = objects or cls.objects
 
         for obj in objects:
             try:
-                yield obj.name, f(obj)
+                yield obj.name, func(obj)
             except (AttributeError, KeyError):
                 yield obj.name, default
 
     @classmethod
     def frame(cls, series, objects=None) -> pd.DataFrame:
         objects = objects or cls.objects
-        return pd.DataFrame({p.name: p.__getattribute__(series) for p in objects}).dropna(axis=1, how="all")
+        return pd.DataFrame({p.name: p.__getattribute__(series)
+                             for p in objects}).dropna(axis=1, how="all")
 
     def __lt__(self, other):
         # sort documents by name

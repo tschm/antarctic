@@ -24,16 +24,17 @@ We introduce first two new fields --- one for a Pandas Series and one for a Pand
 
 ```python
 from mongoengine import Document, connect
-from antarctic.PandasFields import SeriesField, FrameField
+from antarctic.pandas_fields import SeriesField, FrameField
 
 # connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)
 client = connect(db="test", host="mongomock://localhost")
 
+
 # Define the blueprint for a portfolio document
 class Portfolio(Document):
-    nav = SeriesField()
-    weights = FrameField()
-    prices = FrameField()
+	nav = SeriesField()
+	weights = FrameField()
+	prices = FrameField()
 ```
 
 The portfolio objects works exactly the way you think it works
@@ -78,22 +79,24 @@ For this purpose we have developed the abstract `XDocument` class relying on the
 It provides some convenient tools to simplify looping over all or a subset of Documents of the same type, e.g.
 
 ```python
-from antarctic.Document import XDocument
-from antarctic.PandasFields import SeriesField
+from antarctic.document import XDocument
+from antarctic.pandas_fields import SeriesField
 
 client = connect(db="test", host="mongomock://localhost")
 
+
 class Symbol(XDocument):
-    price = SeriesField()
+	price = SeriesField()
 ```
 We define a bunch of symbols and assign a price for each (or some of it):
+
 ```python
 s1 = Symbol(name="A", price=pd.Series(...)).save()
 s2 = Symbol(name="B", price=pd.Series(...)).save()
 
 # We can access subsets like
 for symbol in Symbol.subset(names=["B"]):
-    print(symbol)
+	print(symbol)
 
 # often we need a dictionary of Symbols:
 Symbol.to_dict(objects=[s1, s2])
@@ -103,9 +106,9 @@ s1.reference["MyProp1"] = "ABC"
 s2.reference["MyProp2"] = "BCD"
 
 # You can loop over (subsets) of Symbols and extract reference and/or series data
-print(Symbol.reference_frame(objects=[s1,s2]))
+print(Symbol.reference_frame(objects=[s1, s2]))
 print(Symbol.frame(series="price"))
-print(Symbol.apply(f=lambda x: x.price.mean(), default=np.nan))
+print(Symbol.apply(func=lambda x: x.price.mean(), default=np.nan))
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.

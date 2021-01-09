@@ -17,13 +17,22 @@ RUN buildDeps='gcc g++' && \
 
 COPY ./antarctic /antarctic/antarctic
 
-#### Here the test-configuration
+# ----------------------------------------------------------------------------------------------------------------------
 FROM builder as test
 
 # We install flask here to test some
 RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx mongomock requests-mock pytest-notebook && \
-    pip install mongomock matplotlib arctic==1.79.3 plotly
+    pip install mongomock matplotlib arctic==1.79.4 plotly
 
 WORKDIR /antarctic
 
 CMD py.test --cov=/antarctic/antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test
+
+# ----------------------------------------------------------------------------------------------------------------------
+FROM builder as lint
+
+RUN pip install --no-cache-dir pylint
+
+WORKDIR /antarctic
+
+CMD pylint antarctic

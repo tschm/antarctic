@@ -9,7 +9,7 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.PandasFields import SeriesField, FrameField, ParquetFrameField, PicklePandasField
+from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, PicklePandasField
 from test.config import read_pd
 
 #from mongomock.gridfs import enable_gridfs_integration

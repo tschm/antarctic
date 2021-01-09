@@ -7,10 +7,18 @@ services:
       target: test
 
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./antarctic:/antarctic/antarctic:ro
       - ./test:/antarctic/test
       - ./artifacts:/antarctic/artifacts
       - ./source:/source:ro
       - ./binder/work:/notebooks
 
+  lint:
+    build:
+       context: .
+       dockerfile: Dockerfile
+       target: lint
+
+    volumes:
+      - ./antarctic:/antarctic/antarctic:ro
+      - ./.pylintrc:/antarctic/.pylintrc:ro

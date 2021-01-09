@@ -6,8 +6,8 @@ import pytest
 from mongoengine import connect, NotUniqueError
 #from mongomock.gridfs import enable_gridfs_integration
 
-from antarctic.Document import XDocument
-from antarctic.PandasFields import SeriesField
+from antarctic.document import XDocument
+from antarctic.pandas_fields import SeriesField
 from test.config import resource, read_pd
 
 #enable_gridfs_integration()
@@ -131,7 +131,7 @@ def test_apply():
     s1.save()
     s2.save()
 
-    a = pd.Series({name: value for name, value in Singer.apply(f=lambda x: x.price.mean(), default=np.nan)}).dropna()
+    a = pd.Series({name: value for name, value in Singer.apply(func=lambda x: x.price.mean(), default=np.nan)}).dropna()
     pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": 9.0}))
 
 
