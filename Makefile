@@ -20,7 +20,7 @@ help:
 	@echo "       Make a tag on Github."
 
 build:
-	docker-compose build antarctic
+	docker-compose build --no-cache antarctic
 
 jupyter:
 	echo "http://localhost:8888"
