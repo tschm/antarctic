@@ -11,7 +11,6 @@ services:
       - ./test:/antarctic/test
       - ./artifacts:/antarctic/artifacts
       - ./source:/source:ro
-      #- ./binder/work:/antarctic/notebooks:ro
 
   lint:
     build:
@@ -22,3 +21,6 @@ services:
     volumes:
       - ./antarctic:/antarctic/antarctic:ro
       - ./.pylintrc:/antarctic/.pylintrc:ro
+
+    command:
+      pylint antarctic

@@ -90,9 +90,6 @@ class PicklePandasField(BaseField):
     """
     Field for a Pandas DataFrame pickled
     """
-    #def __init__(self, **kwargs):
-    #    super().__init__(**kwargs)
-
     def __set__(self, instance, value):
         # convert the incoming series into a byte-stream document
         if isinstance(value, (pd.DataFrame, pd.Series)):
