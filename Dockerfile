@@ -20,7 +20,8 @@ RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx mo
 
 WORKDIR /antarctic
 
-CMD py.test --cov=/antarctic/antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test
+#CMD py.test --cov=/antarctic/antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test
+CMD ["py.test", "--cov=/antarctic/antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test"]
 
 # ----------------------------------------------------------------------------------------------------------------------
 FROM builder as lint
