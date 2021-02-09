@@ -11,7 +11,7 @@ services:
       - ./test:/antarctic/test
       - ./artifacts:/antarctic/artifacts
       - ./source:/source:ro
-      - ./binder/work:/notebooks
+      - ./binder/work:/antarctic/notebooks:ro
 
   lint:
     build:
