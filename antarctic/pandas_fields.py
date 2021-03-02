@@ -119,6 +119,7 @@ class ParquetSeriesField(BaseField):
 
         return None
 
+
 class PicklePandasField(BaseField):
     """
     Field for a Pandas DataFrame pickled
