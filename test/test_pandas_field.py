@@ -9,7 +9,7 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, PicklePandasField
+from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, PicklePandasField, ParquetSeriesField
 from test.config import read_pd
 
 #from mongomock.gridfs import enable_gridfs_integration
@@ -157,6 +157,15 @@ def test_parquet_field_large():
     frame = pd.DataFrame(data=np.random.randn(20000, 500), columns=[str(uuid4()) for _ in range(0, 500)])
 
     pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
+
+
+def test_parquet_series_large():
+    class Maffay(Document):
+        series = ParquetSeriesField(engine="pyarrow", compression=None)
+
+    series = pd.Series(data=np.random.randn(20000,))
+
+    pt.assert_series_equal(Maffay(series=series).series, series)
 
 
 def test_frame_field_large():

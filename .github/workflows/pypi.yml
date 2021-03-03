@@ -17,7 +17,7 @@ jobs:
       run: make test
 
     - name: Publish Python Package
-      uses: mariamrf/py-package-publish-action@v1.0.0
+      uses: mariamrf/py-package-publish-action@v1.1.0
       with:
         python_version: '3.7.0'
       env:
