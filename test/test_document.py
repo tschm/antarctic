@@ -4,13 +4,10 @@ import pandas.testing as pt
 
 import pytest
 from mongoengine import connect, NotUniqueError
-#from mongomock.gridfs import enable_gridfs_integration
 
 from antarctic.document import XDocument
 from antarctic.pandas_fields import SeriesField, ParquetSeriesField
 from test.config import resource, read_pd
-
-#enable_gridfs_integration()
 
 client = connect(db="test", host="mongomock://localhost")
 

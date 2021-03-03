@@ -3,8 +3,7 @@ FROM python:3.8.7-buster as builder
 
 COPY . /tmp/antarctic
 
-RUN pip install --no-cache-dir -r /tmp/antarctic/requirements.txt && \
-    pip install --no-cache-dir /tmp/antarctic && \
+RUN pip install --user --no-cache-dir -r /tmp/antarctic/requirements.txt && \
     rm  /tmp/antarctic/requirements.txt
 
 COPY ./antarctic /antarctic/antarctic
@@ -20,8 +19,7 @@ RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx mo
 
 WORKDIR /antarctic
 
-#CMD py.test --cov=/antarctic/antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test
-CMD ["py.test", "--cov=/antarctic/antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test"]
+CMD ["py.test", "--cov=antarctic  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test"]
 
 # ----------------------------------------------------------------------------------------------------------------------
 FROM builder as lint

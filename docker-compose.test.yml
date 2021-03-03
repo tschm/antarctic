@@ -8,7 +8,7 @@ services:
 
     volumes:
       - ./antarctic:/antarctic/antarctic:ro
-      - ./test:/antarctic/test
+      - ./test:/antarctic/test:ro
       - ./artifacts:/antarctic/artifacts
       - ./source:/source:ro
 
