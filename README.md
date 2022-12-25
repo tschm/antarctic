@@ -54,7 +54,7 @@ Behind the scenes we convert the both Series and Frame objects into json documen
 store them in a MongoDB database.
 
 Unfortunately it is rather slow to write json documents to disk. We therefore introduce 
-the `ParquteFrameField`, the `ParquetSeriesField` and the `PicklePandasField`. In our first experiments the PicklePandasField is the fastest option and
+the `ParquetFrameField`, the `ParquetSeriesField` and the `PicklePandasField`. In our first experiments the PicklePandasField is the fastest option and
 outperforms arctic. However, further work and experiments are required. 
 
 The `ParquetFrameField` relies on a popular format which should also be readable by R. 
