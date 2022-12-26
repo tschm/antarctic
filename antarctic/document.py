@@ -57,7 +57,7 @@ class XDocument(Document):
     @classmethod
     def frame(cls, series, objects=None) -> pd.DataFrame:
         objects = objects or cls.objects
-        return pd.DataFrame({p.name: p.series
+        return pd.DataFrame({p.name: getattr(p, series)
                              for p in objects}).dropna(axis=1, how="all")
 
     def __lt__(self, other):
