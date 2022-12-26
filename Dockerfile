@@ -15,7 +15,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/antarctic"
 
 # We install flask here to test some
 RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx mongomock requests-mock pytest-notebook && \
-    pip install mongomock matplotlib arctic==1.79.4 plotly
+    pip install --no-cache-dir mongomock matplotlib arctic==1.79.4 plotly
 
 WORKDIR /antarctic
 
