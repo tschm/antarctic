@@ -57,7 +57,7 @@ class XDocument(Document):
     @classmethod
     def frame(cls, series, objects=None) -> pd.DataFrame:
         objects = objects or cls.objects
-        return pd.DataFrame({p.name: p.__getattribute__(series)
+        return pd.DataFrame({p.name: p.series
                              for p in objects}).dropna(axis=1, how="all")
 
     def __lt__(self, other):
@@ -73,7 +73,7 @@ class XDocument(Document):
         return hash(self.to_json())
 
     def __str__(self):
-        return "<{type}: {name}>".format(type=self.__class__.__name__, name=self.name)
+        return f"<{self.__class__.__name__}: {self.name}>"
 
     def __repr__(self):
-        return "<{type}: {name}>".format(type=self.__class__.__name__, name=self.name)
+        return f"<{self.__class__.__name__}: {self.name}>"
