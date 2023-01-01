@@ -6,11 +6,11 @@ import pytest
 from mongoengine import NotUniqueError
 
 from antarctic.document import XDocument
-from antarctic.pandas_fields import ParquetSeriesField
+from antarctic.pandas_fields import PandasField
 
 
 class Singer(XDocument):
-    price = ParquetSeriesField()
+    price = PandasField()
 
 
 def test_reference_frame(client):
