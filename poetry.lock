@@ -141,6 +141,7 @@ python-versions = ">=3.8"
 numpy = [
     {version = ">=1.20.3", markers = "python_version < \"3.10\""},
     {version = ">=1.21.0", markers = "python_version >= \"3.10\""},
+    {version = ">=1.23.2", markers = "python_version >= \"3.11\""},
 ]
 python-dateutil = ">=2.8.1"
 pytz = ">=2020.1"
@@ -255,8 +256,8 @@ python-versions = ">=3.7"
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.9.0,<3.11"
-content-hash = "8bb0e770c111ba85048d650c053422626cd7dee668a7a0d10ffd1724f1c6c8ea"
+python-versions = ">=3.9.0,<=3.11"
+content-hash = "dc7a869399f7121857c1909968dabfce88d3ed4f2c6a9100a5283d83678cba57"
 
 [metadata.files]
 attrs = [
