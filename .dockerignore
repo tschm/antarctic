@@ -3,12 +3,11 @@
 # Ignore Everything
 **
 
-!requirements.txt
-
-!test
 !antarctic
-!setup.py
-!README.md
+!pyproject.toml
+!poetry.lock
+
+!readme.md
 !binder
 
 **/__pycache__

@@ -15,4 +15,3 @@ artifacts
 *.parquet
 *.pickle
 
-xxx.ipynb

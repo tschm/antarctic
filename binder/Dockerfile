@@ -12,8 +12,3 @@ RUN pip3 install --user --no-cache-dir /tmp/antarctic && \
 
 # $WORK is inherited from the tschm/jupyter image
 COPY --chown=jovyan:users ./binder/work $WORK
-
-# ----------------------------------------------------------------------------------------------------------------------
-FROM builder as test
-
-RUN pip install --no-cache-dir pytest==6.0.1 nbval==0.9.6
