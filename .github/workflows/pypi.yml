@@ -32,10 +32,15 @@ jobs:
             poetry build
             cat pyproject.toml      
       
+      
       - name: Publish the package to pypi
-        uses: JRubics/poetry-publish@v1.9
-        with:
-           python_version: '3.10'
-           repository_username: ${{ secrets.TWINE_USERNAME }}
-           repository_password: ${{ secrets.TWINE_PASSWORD }}
+        run : |
+            poetry config http-basic.pypi ${{ secrets.TWINE_USERNAME }} ${{ secrets.TWINE_PASSWORD }}
+            poetry publish
+            
+        #uses: JRubics/poetry-publish@v1.9
+        #with:
+        #   python_version: '3.10'
+        #   repository_username: ${{ secrets.TWINE_USERNAME }}
+        #   repository_password: ${{ secrets.TWINE_PASSWORD }}
            
