@@ -6,7 +6,7 @@ import pytest
 from mongoengine import NotUniqueError
 
 from antarctic.document import XDocument
-from antarctic.pandas_fields import PandasField
+from antarctic.pandas_field import PandasField
 
 
 class Singer(XDocument):
