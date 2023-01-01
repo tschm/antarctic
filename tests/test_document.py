@@ -9,7 +9,7 @@ from antarctic.document import XDocument
 from antarctic.pandas_fields import SeriesField, ParquetSeriesField
 #from test.config import resource, read_pd
 
-client = connect(db="test", host="mongomock://localhost")
+client = connect(db="test", host="mongodb://localhost")
 
 
 class Singer(XDocument):

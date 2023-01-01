@@ -19,19 +19,6 @@ services:
     depends_on:
       - mongo
 
-  jupyter-test:
-    build:
-      context: .
-      dockerfile: binder/Dockerfile
-      target: test
-    volumes:
-      - ./binder/work:/home/jovyan/work
-      - ./antarctic:/home/jovyan/python/antarctic:ro
-    depends_on:
-      - mongo
-    command:
-      py.test --nbval /home/jovyan/work
-
 
   mongo:
     image: mongo:latest
