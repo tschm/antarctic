@@ -15,7 +15,7 @@ from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, 
 #from mongomock.gridfs import enable_gridfs_integration
 #enable_gridfs_integration()
 
-client = connect(db="test", host="mongomock://localhost")
+#client = connect(db="test_pandas", host="mongodb://localhost")
 
 
 @pytest.fixture
@@ -35,14 +35,14 @@ class Symbol(Document):
     #ohlc = OhlcField()
 
 
-def test_series(ts):
+def test_series(ts, client):
     s = Symbol()
     s.close = ts
     s.save()
     pt.assert_series_equal(s.close, ts)
 
 
-def test_series_init(ts):
+def test_series_init(ts, client):
     s = Symbol(close=ts).save()
     pt.assert_series_equal(s.close, ts)
 
@@ -59,7 +59,7 @@ def test_frame(prices):
     pt.assert_frame_equal(s.prices, prices)
 
 
-def test_frame_init(prices):
+def test_frame_init(prices, client):
     s = Symbol(prices=prices).save()
     pt.assert_frame_equal(s.prices, prices)
 
@@ -77,7 +77,7 @@ def test_frame_series(ts, prices):
     pt.assert_series_equal(s.close, ts)
 
 
-def test_save(ts, prices):
+def test_save(ts, prices, client):
     s = Symbol(close=ts, prices=prices).save()
     pt.assert_frame_equal(s.prices, prices)
     pt.assert_series_equal(s.close, ts)
