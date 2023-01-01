@@ -6,14 +6,11 @@ import pytest
 from mongoengine import NotUniqueError
 
 from antarctic.document import XDocument
-from antarctic.pandas_fields import SeriesField, ParquetSeriesField
-#from test.config import resource, read_pd
-
-#client = connect(db="test", host="mongodb://localhost")
+from antarctic.pandas_fields import PandasField
 
 
 class Singer(XDocument):
-    price = SeriesField()
+    price = PandasField()
 
 
 def test_reference_frame(client):
@@ -144,8 +141,8 @@ def test_frame(resource_dir, client):
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
-    s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
-    s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
+    s1.price = pd.Series(index=[1, 2, 3], data=[7.1, 9.0, 8.0])
+    s2.price = pd.Series(index=[1, 3], data=[8.1, 10.0])
     s1.save()
     s2.save()
 
