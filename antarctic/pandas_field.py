@@ -32,7 +32,6 @@ def _read(
                 series = frame[key]
                 series.name = key
                 return series
-        # make sure you can read standard parquet files without the antarctic in the metadata
         except KeyError:
             return frame
 
