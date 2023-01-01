@@ -9,7 +9,7 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document, connect
 
-from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, PicklePandasField, ParquetSeriesField
+from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, ParquetSeriesField
 from test.config import read_pd
 
 #from mongomock.gridfs import enable_gridfs_integration
@@ -176,23 +176,3 @@ def test_frame_field_large():
     frame = pd.DataFrame(data=np.random.randn(2000, 50), columns=[str(uuid4()) for _ in range(0, 50)])
 
     pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
-
-
-def test_pickle_field_large():
-    class Maffay(Document):
-        frame = PicklePandasField()
-
-    # create random data
-    frame = pd.DataFrame(data=np.random.randn(2000, 50), columns=[str(uuid4()) for _ in range(0, 50)])
-
-    pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
-
-
-def test_series():
-    class Maffay(Document):
-        series = PicklePandasField()
-
-    # create random data
-    series = pd.Series(data=np.random.randn(2000))
-
-    pt.assert_series_equal(Maffay(series=series).series, series)
