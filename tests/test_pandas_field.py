@@ -1,4 +1,4 @@
-import tempfile
+#import tempfile
 from io import BytesIO
 from uuid import uuid4
 
@@ -116,20 +116,20 @@ def test_save(ts, prices):
 #     pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))
 
 
-def test_parquet_file():
-    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+def test_parquet_file(resource_dir, tmp_path):
+    ohlc = pd.read_csv(resource_dir / "ohlc.csv", index_col="time", parse_dates=True)
 
-    with tempfile.NamedTemporaryFile() as temp:
+    with tmp_path / "xxx" as temp:
         ohlc.to_parquet(temp.name, engine='auto', compression=None)
         r = pd.read_parquet(temp.name, engine='auto')
 
         pt.assert_frame_equal(ohlc, r)
 
 
-def test_parquet_bytes_io():
+def test_parquet_bytes_io(resource_dir):
     # https://github.com/pandas-dev/pandas/issues/34467
     # This does not work with pandas 1.0.4!
-    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+    ohlc = pd.read_csv(resource_dir / "ohlc.csv", index_col="time", parse_dates=True)
 
     buffer = BytesIO()
     ohlc.to_parquet(buffer, engine='auto', compression=None)
@@ -139,12 +139,12 @@ def test_parquet_bytes_io():
     pt.assert_frame_equal(ohlc, r)
 
 
-def test_parquet_field():
+def test_parquet_field(resource_dir):
     class Maffay(Document):
         frame = ParquetFrameField(engine="pyarrow", compression="gzip")
 
     maffay = Maffay()
-    ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
+    ohlc = pd.read_csv(resource_dir / "ohlc.csv", index_col="time", parse_dates=True)
     maffay.frame = ohlc
 
     pt.assert_frame_equal(maffay.frame, ohlc)
