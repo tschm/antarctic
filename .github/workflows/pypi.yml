@@ -9,17 +9,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
 
-    - name: Test
-      run: make test
-
-    - name: Publish Python Package
-      uses: mariamrf/py-package-publish-action@v1.1.0
-      with:
-        python_version: '3.10.0'
-      env:
-        TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-        TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+            python-version: 3.10
+                  
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.3.3
+        with:
+            virtualenvs-create: true
+            virtualenvs-in-project: true
+      
+      - name: Change version in pyproject.toml
+        run: |
+            REF=${{ github.ref }}
+            echo $REF
+            poetry version $CI_COMMIT_TAG
+            poetry build
+            cat pyproject.toml      
+      
+      - name: Publish the package to pypi
+        uses: JRubics/poetry-publish@v1.15
+        with:
+           repository_username: ${{ secrets.TWINE_USERNAME }}
+           repository_password: ${{ secrets.TWINE_PASSWORD }}
+           
