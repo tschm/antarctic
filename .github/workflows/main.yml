@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: | 
               poetry --version
-              poetry install -E optionals
+              poetry install -vv
         #if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
 
       - run: make test
