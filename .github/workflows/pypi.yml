@@ -3,10 +3,10 @@ name: Release
 on:
   push:
     tags:
-    - '*'
+    - '[0-9]+.[0-9]+.[0-9]'
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
