@@ -33,7 +33,7 @@ jobs:
             cat pyproject.toml      
       
       - name: Publish the package to pypi
-        uses: JRubics/poetry-publish@v1.15
+        uses: JRubics/poetry-publish@v1.9
         with:
            python_version: '3.10'
            repository_username: ${{ secrets.TWINE_USERNAME }}
