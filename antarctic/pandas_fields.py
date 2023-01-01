@@ -27,7 +27,7 @@ def _read(
         frame = table.to_pandas()
 
         try:
-            if metadata[b"hydra"] == b"Series":
+            if metadata[b"antarctic"] == b"Series":
                 key = list(frame.keys())[0]
                 series = frame[key]
                 series.name = key
@@ -48,13 +48,13 @@ def _write(value: Union[pd.DataFrame, pd.Series], compression="zstd") -> bytes:
         value = value.to_frame(name=value.name)
         table = pa.Table.from_pandas(value)
         metadata = table.schema.with_metadata(
-            {**{b"hydra": b"Series"}, **table.schema.metadata}
+            {**{b"antarctic": b"Series"}, **table.schema.metadata}
         )
     else:
         assert isinstance(value, pd.DataFrame)
         table = pa.Table.from_pandas(value)
         metadata = table.schema.with_metadata(
-            {**{b"hydra": b"Frame"}, **table.schema.metadata}
+            {**{b"antarctic": b"Frame"}, **table.schema.metadata}
         )
 
     table = table.cast(metadata)
