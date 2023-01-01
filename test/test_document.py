@@ -7,7 +7,7 @@ from mongoengine import connect, NotUniqueError
 
 from antarctic.document import XDocument
 from antarctic.pandas_fields import SeriesField, ParquetSeriesField
-from test.config import resource, read_pd
+#from test.config import resource, read_pd
 
 client = connect(db="test", host="mongomock://localhost")
 
@@ -139,7 +139,7 @@ def test_repr():
     assert s1.__repr__() == '<Singer: Falco>'
 
 
-def test_frame():
+def test_frame(resource_dir):
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
@@ -151,7 +151,7 @@ def test_frame():
     s2.save()
 
     f = Singer.frame(series="price")
-    pt.assert_frame_equal(f, read_pd("frame.csv", index_col=0))
+    pt.assert_frame_equal(f, pd.read_csv(resource_dir / "frame.csv", index_col=0))
 
     with pytest.raises(AttributeError):
         Singer.frame(series="wurst")
@@ -161,7 +161,6 @@ def test_names():
     Singer.objects.delete()
     s1 = Singer(name="A").save()
     s2 = Singer(name="B").save()
-    s3 = Singer(name="C").save()
 
     assert {s1, s2} == set(Singer.objects(name__in=["A", "B"]).all())
     assert {s2, s1} == set(Singer.objects(name__in=["B", "A"]).all())

@@ -10,7 +10,7 @@ import pytest
 from mongoengine import Document, connect
 
 from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, ParquetSeriesField
-from test.config import read_pd
+#from test.config import read_pd
 
 #from mongomock.gridfs import enable_gridfs_integration
 #enable_gridfs_integration()
@@ -19,13 +19,13 @@ client = connect(db="test", host="mongomock://localhost")
 
 
 @pytest.fixture
-def ts():
-    return read_pd("ts.csv", squeeze=True, index_col=0, parse_dates=True)
+def ts(resource_dir):
+    return pd.read_csv(resource_dir / "ts.csv", squeeze=True, index_col=0, parse_dates=True)
 
 
 @pytest.fixture
-def prices():
-    return read_pd("price.csv", index_col=0, parse_dates=True)
+def prices(resource_dir):
+    return pd.read_csv(resource_dir / "price.csv", index_col=0, parse_dates=True)
 
 
 class Symbol(Document):
