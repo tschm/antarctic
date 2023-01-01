@@ -1,5 +1,5 @@
 # Antarctic
-[![CI](https://github.com/tschm/antarctic/workflows/CI/badge.svg)](https://github.com/tschm/antarctic/actions/)
+
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/tschm/antarctic/master)
 
@@ -10,12 +10,12 @@ Project to persist Pandas data structures in a MongoDB database.
 pip install antarctic
 ```
 
-###  Usage
+##  Usage
 This project (unless the popular arctic project which I admire) is based on top of MongoEngine, see [MongoEngine](https://pypi.org/project/mongoengine/).
 MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce new fields and extend the Document class 
 to make Antarctic a convenient choice for storing Pandas (time series) data. 
 
-#### Experiments
+### Experiments
 We highly recommend to start first with some experiments using the Binder server given above. 
 
 
@@ -54,10 +54,10 @@ Behind the scenes we convert the both Series and Frame objects into json documen
 store them in a MongoDB database.
 
 Unfortunately it is rather slow to write json documents to disk. We therefore introduce 
-the `ParquetFrameField`, the `ParquetSeriesField` and the `PicklePandasField`. In our first experiments the PicklePandasField is the fastest option and
-outperforms arctic. However, further work and experiments are required. 
+the `ParquetFrameField` and `ParquetSeriesField`.
 
 The `ParquetFrameField` relies on a popular format which should also be readable by R. 
+
 Here the frame is converted in a bytestream rather than a json document. Users gain speed, save space and it's possible to work with larger frames.
 ```python
 class Maffay(Document):
@@ -74,6 +74,7 @@ print(maffay.frame)
 ```
 
 #### Documents
+
 In most cases we have copies of very similar documents, e.g. we store Portfolios and Symbols rather than just a Portfolio or a Symbol.
 For this purpose we have developed the abstract `XDocument` class relying on the Document class of MongoEngine.
 It provides some convenient tools to simplify looping over all or a subset of Documents of the same type, e.g.
