@@ -8,6 +8,7 @@ from mongoengine import NotUniqueError
 from antarctic.document import XDocument
 from antarctic.pandas_fields import ParquetSeriesField
 
+
 class Singer(XDocument):
     price = ParquetSeriesField()
 
