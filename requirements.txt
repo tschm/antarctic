@@ -1,5 +1,0 @@
-pymongo==3.11.3
-mongoengine==0.22.1
-pandas==1.2.2
-pyarrow==3.0.0
-fastparquet==0.5.0
