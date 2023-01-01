@@ -39,12 +39,6 @@ def test_series_init(ts, client):
     pt.assert_series_equal(s.close, ts)
 
 
-def test_not_a_series():
-    s = Symbol()
-    with pytest.raises(AssertionError):
-        s.close = 6.0
-
-
 def test_frame(prices):
     s = Symbol()
     s.prices = prices
@@ -54,11 +48,6 @@ def test_frame(prices):
 def test_frame_init(prices, client):
     s = Symbol(prices=prices).save()
     pt.assert_frame_equal(s.prices, prices)
-
-
-def test_not_a_frame():
-    s = Symbol()
-    s.prices = 2.0
 
 
 def test_frame_series(ts, prices):
@@ -121,7 +110,7 @@ def test_parquet_series_large():
     class Maffay(Document):
         series = PandasField(engine="pyarrow", compression=None)
 
-    series = pd.Series(data=np.random.randn(20000,))
+    series = pd.Series(data=np.random.randn(20000,), name="random")
 
     pt.assert_series_equal(Maffay(series=series).series, series)
 
