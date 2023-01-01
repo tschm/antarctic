@@ -3,20 +3,20 @@ import pandas as pd
 import pandas.testing as pt
 
 import pytest
-from mongoengine import connect, NotUniqueError
+from mongoengine import NotUniqueError
 
 from antarctic.document import XDocument
 from antarctic.pandas_fields import SeriesField, ParquetSeriesField
 #from test.config import resource, read_pd
 
-client = connect(db="test", host="mongodb://localhost")
+#client = connect(db="test", host="mongodb://localhost")
 
 
 class Singer(XDocument):
     price = SeriesField()
 
 
-def test_reference_frame():
+def test_reference_frame(client):
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -51,7 +51,7 @@ def test_reference():
     assert {k: v for k, v in p.reference.items()} == {"XXX": 10}
 
 
-def test_equals():
+def test_equals(client):
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -61,7 +61,7 @@ def test_equals():
     assert p1 == p2
 
 
-def test_products():
+def test_products(client):
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -91,7 +91,7 @@ def test_repr():
     assert str(p1) == "<Singer: Peter Maffay>"
 
 
-def test_not_unique_name():
+def test_not_unique_name(client):
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -107,7 +107,7 @@ def test_not_unique_name():
         Singer(name="AA").save()
 
 
-def test_to_dict():
+def test_to_dict(client):
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -117,7 +117,7 @@ def test_to_dict():
     assert Singer.to_dict() == {"AAA": c1, "BBB": c2}
 
 
-def test_apply():
+def test_apply(client):
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
@@ -132,18 +132,17 @@ def test_apply():
     pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": 9.0}))
 
 
-def test_repr():
+def test_repr(client):
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     assert str(s1) == '<Singer: Falco>'
     assert s1.__repr__() == '<Singer: Falco>'
 
 
-def test_frame(resource_dir):
+def test_frame(resource_dir, client):
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
-    s3 = Singer(name="Karel Gott").save()
 
     s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
     s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
@@ -157,8 +156,7 @@ def test_frame(resource_dir):
         Singer.frame(series="wurst")
 
 
-def test_names():
-    Singer.objects.delete()
+def test_names(client):
     s1 = Singer(name="A").save()
     s2 = Singer(name="B").save()
 
