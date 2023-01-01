@@ -1,6 +1,4 @@
-import pickle
 from io import BytesIO
-from bson.binary import Binary
 
 import pandas as pd
 from mongoengine.base import BaseField
@@ -116,29 +114,5 @@ class ParquetSeriesField(BaseField):
                 series = pd.read_parquet(buffer, engine=self.engine)["series"]
                 series.name = None
                 return series
-
-        return None
-
-
-class PicklePandasField(BaseField):
-    """
-    Field for a Pandas DataFrame pickled
-    """
-    def __set__(self, instance, value):
-        # convert the incoming series into a byte-stream document
-        if isinstance(value, (pd.DataFrame, pd.Series)):
-            # convert the frame into a bytestream
-            value = Binary(pickle.dumps(value))
-
-        # give the (new) value to mum
-        super().__set__(instance, value)
-
-    def __get__(self, instance, owner):
-        # ask mum for the value stored
-        data = super().__get__(instance, owner)
-
-        if data is not None:
-            with BytesIO(data) as buffer:
-                return pd.read_pickle(buffer, compression=None)
 
         return None

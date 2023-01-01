@@ -27,9 +27,6 @@ jupyter:
 	echo "http://localhost:8888"
 	docker-compose up jupyter
 
-jupyter-test:
-	docker-compose up jupyter-test
-
 test:
 	docker-compose -f docker-compose.test.yml run sut
 
