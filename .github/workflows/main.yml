@@ -39,12 +39,12 @@ jobs:
               poetry --version
               poetry install -vv
 
-      - run: make test
+      - run: poetry run pytest #make test
 
       #- name: artifacts
-      - uses: actions/upload-artifact@v3
-        with:
+      #- uses: actions/upload-artifact@v3
+      #  with:
       # declare the artifacts...
-          name: artifacts
-          path: artifacts # or path/to/artifact
+      #    name: artifacts
+      #    path: artifacts # or path/to/artifact
 
