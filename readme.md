@@ -1,7 +1,6 @@
 # Antarctic
 
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/tschm/antarctic/master)
 
 Project to persist Pandas data structures in a MongoDB database. 
 
@@ -15,11 +14,7 @@ This project (unless the popular arctic project which I admire) is based on top 
 MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce new fields and extend the Document class 
 to make Antarctic a convenient choice for storing Pandas (time series) data. 
 
-### Experiments
-We highly recommend to start first with some experiments using the Binder server given above. 
-
-
-#### Fields
+### Fields
 We introduce first two new fields --- one for a Pandas Series and one for a Pandas DataFrame.
 
 ```python
@@ -83,7 +78,7 @@ It provides some convenient tools to simplify looping over all or a subset of Do
 from antarctic.document import XDocument
 from antarctic.pandas_fields import SeriesField
 
-client = connect(db="test", host="mongomock://localhost")
+client = connect(db="test", host="mongodb://localhost")
 
 
 class Symbol(XDocument):
