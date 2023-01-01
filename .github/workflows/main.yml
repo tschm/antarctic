@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        os: 'ubuntu-latest' #[ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.9', '3.11']
         mongodb-version: ['4.4', '5.0', '6.0']
 
