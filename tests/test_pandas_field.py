@@ -1,4 +1,3 @@
-#import tempfile
 from io import BytesIO
 from uuid import uuid4
 
@@ -7,15 +6,10 @@ import numpy as np
 
 import pandas.testing as pt
 import pytest
-from mongoengine import Document, connect
+from mongoengine import Document
 
-from antarctic.pandas_fields import SeriesField, FrameField, ParquetFrameField, ParquetSeriesField
-#from test.config import read_pd
+from antarctic.pandas_fields import ParquetFrameField, ParquetSeriesField
 
-#from mongomock.gridfs import enable_gridfs_integration
-#enable_gridfs_integration()
-
-#client = connect(db="test_pandas", host="mongodb://localhost")
 
 
 @pytest.fixture
@@ -29,10 +23,8 @@ def prices(resource_dir):
 
 
 class Symbol(Document):
-    close = SeriesField()
-    prices = FrameField()
-    #weights = FrameFileField()
-    #ohlc = OhlcField()
+    close = ParquetSeriesField()
+    prices = ParquetFrameField()
 
 
 def test_series(ts, client):
@@ -66,7 +58,6 @@ def test_frame_init(prices, client):
 
 def test_not_a_frame():
     s = Symbol()
-    #with pytest.raises(AssertionError):
     s.prices = 2.0
 
 
@@ -81,39 +72,6 @@ def test_save(ts, prices, client):
     s = Symbol(close=ts, prices=prices).save()
     pt.assert_frame_equal(s.prices, prices)
     pt.assert_series_equal(s.close, ts)
-
-
-# def test_fileField(prices):
-#     s = Symbol()
-#     s.weights = prices
-#     pt.assert_frame_equal(s.weights, prices)
-#     s.save()
-
-
-# def test_fileField_init(prices):
-#     s = Symbol(weights=prices).save()
-#     pt.assert_frame_equal(s.weights, prices)
-#
-#
-# def test_not_a_FileFrame():
-#     s = Symbol()
-#     with pytest.raises(AssertionError):
-#         s.weights = 2.0
-
-
-# def test_ohlc_field():
-#     s = Symbol()
-#     ohlc = read_pd("ohlc.csv", index_col="time", parse_dates=True)
-#     s.ohlc = ohlc
-#     pt.assert_frame_equal(s.ohlc, ohlc)
-#
-#     print(s.ohlc.resample(rule="5min").last())
-#     print(s.ohlc.resample(rule="5min").apply(lambda x: x.tail(1)))
-#     print(s.ohlc.resample(rule="5min").apply(lambda x: x.head(1)))
-#     # assert False
-#
-#     x = OhlcField.resample(frame=s.ohlc, rule="5min")
-#     pt.assert_frame_equal(x, read_pd("ohlc_resample.csv", index_col="time", parse_dates=True))
 
 
 def test_parquet_file(resource_dir, tmp_path):
@@ -167,12 +125,3 @@ def test_parquet_series_large():
 
     pt.assert_series_equal(Maffay(series=series).series, series)
 
-
-def test_frame_field_large():
-    class Maffay(Document):
-        frame = FrameField()
-
-    # create random data
-    frame = pd.DataFrame(data=np.random.randn(2000, 50), columns=[str(uuid4()) for _ in range(0, 50)])
-
-    pt.assert_frame_equal(Maffay(frame=frame).frame, frame)
