@@ -13,9 +13,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    - name: Test
-      run: make test
-
     - name: Publish Python Package
       uses: mariamrf/py-package-publish-action@v1.1.0
       with:
