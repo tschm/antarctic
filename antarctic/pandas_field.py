@@ -32,7 +32,6 @@ def _read(
                 series = frame[key]
                 series.name = key
                 return series
-        # make sure you can read standard parquet files without the hydra in the metadata
         except KeyError:
             return frame
 
@@ -75,7 +74,7 @@ class PandasField(BaseField):
 
     def __set__(self, instance, value: Union[pd.DataFrame, pd.Series, None]):
         # convert the incoming series into a byte-stream document
-        if PandasField.verify(value):
+        if isinstance(value, (pd.Series, pd.DataFrame)):
             # give the (new) value to mum
             value = _write(value, compression=self.compression)
 
@@ -88,10 +87,3 @@ class PandasField(BaseField):
             return _read(data)
 
         return None
-
-    @staticmethod
-    def verify(value):
-        """
-        verify the type of the input
-        """
-        return isinstance(value, (pd.Series, pd.DataFrame))

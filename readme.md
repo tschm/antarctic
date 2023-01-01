@@ -11,15 +11,15 @@ pip install antarctic
 
 ##  Usage
 This project (unless the popular arctic project which I admire) is based on top of MongoEngine, see [MongoEngine](https://pypi.org/project/mongoengine/).
-MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce new fields and extend the Document class 
+MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce a new field and extend the Document class 
 to make Antarctic a convenient choice for storing Pandas (time series) data. 
 
 ### Fields
-We introduce first two new fields --- one for a Pandas Series and one for a Pandas DataFrame.
+We introduce first a new fields --- the PandasField.
 
 ```python
 from mongoengine import Document, connect
-from antarctic.pandas_fields import SeriesField, FrameField
+from antarctic.pandas_fields import PandasField
 
 # connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)
 client = connect(db="test", host="mongomock://localhost")
@@ -27,9 +27,9 @@ client = connect(db="test", host="mongomock://localhost")
 
 # Define the blueprint for a portfolio document
 class Portfolio(Document):
-	nav = SeriesField()
-	weights = FrameField()
-	prices = FrameField()
+	nav = PandasField()
+	weights = PandasField()
+	prices = PandasField()
 ```
 
 The portfolio objects works exactly the way you think it works
@@ -45,28 +45,10 @@ print(p.nav)
 print(p.prices)
 ```
 
-Behind the scenes we convert the both Series and Frame objects into json documents and
+Behind the scenes we convert the both Series and Frame objects into parquet bytestreams and
 store them in a MongoDB database.
 
-Unfortunately it is rather slow to write json documents to disk. We therefore introduce 
-the `ParquetFrameField` and `ParquetSeriesField`.
-
-The `ParquetFrameField` relies on a popular format which should also be readable by R. 
-
-Here the frame is converted in a bytestream rather than a json document. Users gain speed, save space and it's possible to work with larger frames.
-```python
-class Maffay(Document):
-    # we support the engine and compression argument as in .to_parquet in pandas
-    frame = ParquetFrameField(engine="pyarrow", compression=None)
-    
-maffay = Maffay()
-
-# the magic happens in the background. The frame is converted in parquet byte stream and stored in the MongoDB.    
-maffay.frame = pd.DataFrame(...) # some very large DataFrame, note that column names have to strings.
-
-# reading the frame applies the same magic again.
-print(maffay.frame)
-```
+The format should also be readable by R. 
 
 #### Documents
 
@@ -76,13 +58,13 @@ It provides some convenient tools to simplify looping over all or a subset of Do
 
 ```python
 from antarctic.document import XDocument
-from antarctic.pandas_fields import SeriesField
+from antarctic.pandas_fields import PandasField
 
 client = connect(db="test", host="mongodb://localhost")
 
 
 class Symbol(XDocument):
-	price = SeriesField()
+	price = PandasField()
 ```
 We define a bunch of symbols and assign a price for each (or some of it):
 
