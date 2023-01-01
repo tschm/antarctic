@@ -15,7 +15,7 @@ MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce a new 
 to make Antarctic a convenient choice for storing Pandas (time series) data. 
 
 ### Fields
-We introduce first a new fields --- the PandasField.
+We introduce first a new field --- the PandasField.
 
 ```python
 from mongoengine import Document, connect
