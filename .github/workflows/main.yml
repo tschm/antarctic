@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Test
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -22,7 +20,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      # Runs a single command using the runners shell
+
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
@@ -39,12 +37,4 @@ jobs:
               poetry --version
               poetry install -vv
 
-      - run: poetry run pytest #make test
-
-      #- name: artifacts
-      #- uses: actions/upload-artifact@v3
-      #  with:
-      # declare the artifacts...
-      #    name: artifacts
-      #    path: artifacts # or path/to/artifact
-
+      - run: poetry run pytest
