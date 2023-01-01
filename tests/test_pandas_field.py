@@ -8,7 +8,7 @@ import pandas.testing as pt
 import pytest
 from mongoengine import Document
 
-from antarctic.pandas_fields import ParquetFrameField, ParquetSeriesField
+from antarctic.pandas_fields import PandasField #arquetFrameField, ParquetSeriesField
 
 
 
@@ -23,8 +23,8 @@ def prices(resource_dir):
 
 
 class Symbol(Document):
-    close = ParquetSeriesField()
-    prices = ParquetFrameField()
+    close = PandasField()
+    prices = PandasField()
 
 
 def test_series(ts, client):
@@ -99,7 +99,7 @@ def test_parquet_bytes_io(resource_dir):
 
 def test_parquet_field(resource_dir):
     class Maffay(Document):
-        frame = ParquetFrameField(engine="pyarrow", compression="gzip")
+        frame = PandasField(engine="pyarrow", compression="gzip")
 
     maffay = Maffay()
     ohlc = pd.read_csv(resource_dir / "ohlc.csv", index_col="time", parse_dates=True)
@@ -110,7 +110,7 @@ def test_parquet_field(resource_dir):
 
 def test_parquet_field_large():
     class Maffay(Document):
-        frame = ParquetFrameField(engine="pyarrow", compression=None)
+        frame = PandasField(engine="pyarrow", compression=None)
 
     frame = pd.DataFrame(data=np.random.randn(20000, 500), columns=[str(uuid4()) for _ in range(0, 500)])
 
@@ -119,7 +119,7 @@ def test_parquet_field_large():
 
 def test_parquet_series_large():
     class Maffay(Document):
-        series = ParquetSeriesField(engine="pyarrow", compression=None)
+        series = PandasField(engine="pyarrow", compression=None)
 
     series = pd.Series(data=np.random.randn(20000,))
 
