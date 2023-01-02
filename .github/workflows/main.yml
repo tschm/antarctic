@@ -43,4 +43,4 @@ jobs:
               poetry --version
               poetry install -vv
 
-      - run: poetry run pytest
+      - run: poetry run pytest --cov=antarctic tests
