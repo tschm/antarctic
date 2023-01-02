@@ -11,7 +11,7 @@ def resource_fixture():
 
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
-    x = connect(db="test_pandas", host="mongodb://localhost")
+    x = connect(db="test_pandas", host="mongodb://localhost", uuidRepresentation='standard')
     yield x
     disconnect()
 
