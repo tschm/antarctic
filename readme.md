@@ -1,14 +1,12 @@
 # Antarctic
 
-.. image:: https://github.com/tschm/antarctic/workflows/Release/badge.svg
-  :target: https://github.com/tschm/antarctic/actions
+[![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 
-.. image:: https://coveralls.io/repos/github/MongoEngine/mongoengine/badge.svg?branch=master
-  :target: https://coveralls.io/github/MongoEngine/mongoengine?branch=master
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-  :target: https://github.com/ambv/black
-  
+[![Coverage](https://coveralls.io/repos/github/MongoEngine/mongoengine/badge.svg?branch=master)](https://coveralls.io/github/MongoEngine/mongoengine)
+
+
 
 Project to persist Pandas data structures in a MongoDB database. 
 
