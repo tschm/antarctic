@@ -10,7 +10,7 @@ pip install antarctic
 ```
 
 ##  Usage
-This project (unless the popular arctic project which I admire) is based on top of MongoEngine, see [MongoEngine](https://pypi.org/project/mongoengine/).
+This project (unless the popular arctic project which I admire) is based on top of [MongoEngine](https://pypi.org/project/mongoengine/).
 MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce a new field and extend the Document class 
 to make Antarctic a convenient choice for storing Pandas (time series) data. 
 
