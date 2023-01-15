@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from pymongo.errors import ServerSelectionTimeoutError
 
 import pytest
 from mongoengine import connect, disconnect
