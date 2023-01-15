@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from pymongo.errors import ServerSelectionTimeoutError
 
 import pytest
 from mongoengine import connect, disconnect
@@ -16,13 +15,13 @@ def resource_fixture():
 def client_fixture():
 
     git = os.environ.get("github.ref_name", None)
-    #print(git)
-    #assert False
+    # print(git)
+    # assert False
 
     if git:
         x = connect(db="test_pandas", host="mongodb://localhost")
     else:
-        x = connect(db="test_pandas", host='mongomock://localhost')
+        x = connect(db="test_pandas", host="mongomock://localhost")
 
     yield x
     disconnect()
