@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import pandas as pd
-from mongoengine import Document, StringField, DictField, DateTimeField
+from mongoengine import DateTimeField, DictField, Document, StringField
 
 
 class XDocument(Document):
@@ -11,7 +11,8 @@ class XDocument(Document):
     All concrete objects such as Symbols or Strategies are children of the XDocument.
     Having a common parent helps to share functionality
     """
-    meta = {'abstract': True}
+
+    meta = {"abstract": True}
 
     name = StringField(unique=True, required=True)
     reference = DictField()
@@ -24,8 +25,11 @@ class XDocument(Document):
         objects = objects or cls.objects
 
         frame = pd.DataFrame(
-            {obj.name: pd.Series(dict(obj.reference.items()), dtype=object) for obj in
-             objects}).transpose()
+            {
+                obj.name: pd.Series(dict(obj.reference.items()), dtype=object)
+                for obj in objects
+            }
+        ).transpose()
         frame.index.name = cls.__name__.lower()
         return frame.sort_index()
 
@@ -56,8 +60,9 @@ class XDocument(Document):
     @classmethod
     def frame(cls, series, objects=None) -> pd.DataFrame:
         objects = objects or cls.objects
-        return pd.DataFrame({p.name: getattr(p, series)
-                             for p in objects}).dropna(axis=1, how="all")
+        return pd.DataFrame({p.name: getattr(p, series) for p in objects}).dropna(
+            axis=1, how="all"
+        )
 
     def __lt__(self, other):
         # sort documents by name
