@@ -15,9 +15,7 @@ def resource_fixture():
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
 
-    git = os.environ.get("github.ref_name", None)
-    #print(git)
-    #assert False
+    git = os.environ.get("github.ref_name")
 
     if git:
         x = connect(db="test_pandas", host="mongodb://localhost")
