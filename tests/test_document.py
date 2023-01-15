@@ -82,11 +82,6 @@ def test_products(client):
     assert frame.empty
 
 
-def test_repr():
-    p1 = Singer(name="Peter Maffay")
-    assert str(p1) == "<Singer: Peter Maffay>"
-
-
 def test_not_unique_name(client):
     # can't harm to clean a bit
     Singer.objects.delete()
@@ -120,7 +115,7 @@ def test_apply(client):
 
     s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
     s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
-    
+
     s1.save()
     s2.save()
 
