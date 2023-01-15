@@ -1,12 +1,13 @@
 """
 This module provides a Pandas type for MongoEngine
 """
-from mongoengine.base import BaseField
-from typing import List, Optional, Union
 from io import BytesIO
+from typing import List, Optional, Union
+
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
+from mongoengine.base import BaseField
 
 
 def _read(

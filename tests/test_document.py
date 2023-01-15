@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import pandas.testing as pt
-
 import pytest
 from mongoengine import NotUniqueError
 
@@ -125,15 +124,17 @@ def test_apply(client):
     s1.save()
     s2.save()
 
-    a = pd.Series(dict(Singer.apply(func=lambda x: x.price.mean(), default=np.nan))).dropna()
+    a = pd.Series(
+        dict(Singer.apply(func=lambda x: x.price.mean(), default=np.nan))
+    ).dropna()
     pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": 9.0}))
 
 
 def test_repr(client):
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
-    assert str(s1) == '<Singer: Falco>'
-    assert s1.__repr__() == '<Singer: Falco>'
+    assert str(s1) == "<Singer: Falco>"
+    assert s1.__repr__() == "<Singer: Falco>"
 
 
 def test_frame(resource_dir, client):
