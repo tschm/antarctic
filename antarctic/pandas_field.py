@@ -50,7 +50,8 @@ def _write(value: Union[pd.DataFrame, pd.Series], compression="zstd") -> bytes:
             {**{b"antarctic": b"Series"}, **table.schema.metadata}
         )
     else:
-        assert isinstance(value, pd.DataFrame)
+        if not isinstance(value, pd.DataFrame):
+            raise AssertionError
         table = pa.Table.from_pandas(value)
         metadata = table.schema.with_metadata(
             {**{b"antarctic": b"Frame"}, **table.schema.metadata}
