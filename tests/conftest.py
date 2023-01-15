@@ -1,4 +1,5 @@
 from pathlib import Path
+from pymongo.errors import ServerSelectionTimeoutError
 
 import pytest
 from mongoengine import connect, disconnect
@@ -12,6 +13,10 @@ def resource_fixture():
 
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
-    x = connect(db="test_pandas", host="mongodb://localhost")
-    yield x
+    try:
+        x = connect(db="test_pandas", host="mongodb://localhost")
+        yield x
+    except ServerSelectionTimeoutError:
+        x = connect(db="test_pandas", host='mongomock://localhost')
+        yield x
     disconnect()
