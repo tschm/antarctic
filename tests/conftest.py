@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from pymongo.errors import ServerSelectionTimeoutError
 
@@ -13,10 +14,15 @@ def resource_fixture():
 
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
-    try:
+
+    git = os.environ.get("github.ref_name", None)
+    #print(git)
+    #assert False
+
+    if git:
         x = connect(db="test_pandas", host="mongodb://localhost")
-        yield x
-    except ServerSelectionTimeoutError:
+    else:
         x = connect(db="test_pandas", host='mongomock://localhost')
-        yield x
+
+    yield x
     disconnect()
