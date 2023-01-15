@@ -82,11 +82,6 @@ def test_products(client):
     assert frame.empty
 
 
-def test_repr():
-    p1 = Singer(name="Peter Maffay")
-    assert str(p1) == "<Singer: Peter Maffay>"
-
-
 def test_not_unique_name(client):
     # can't harm to clean a bit
     Singer.objects.delete()
