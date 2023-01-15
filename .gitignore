@@ -15,3 +15,4 @@ artifacts
 *.parquet
 *.pickle
 
+.coverage
