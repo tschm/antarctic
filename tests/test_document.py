@@ -120,7 +120,7 @@ def test_apply(client):
 
     s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
     s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
-    s3 = Singer(name="Karel Gott").save()
+    
     s1.save()
     s2.save()
 
