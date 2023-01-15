@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 from mongoengine import connect, disconnect
-from pymongo.errors import ServerSelectionTimeoutError
 
 
 @pytest.fixture(scope="session", name="resource_dir")
