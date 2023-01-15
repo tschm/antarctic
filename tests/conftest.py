@@ -23,5 +23,5 @@ def client_fixture():
         x = connect(db="test_pandas", host="mongomock://localhost")
 
     yield x
-    
+
     disconnect()
