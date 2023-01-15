@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 from mongoengine import connect, disconnect
-from pymongo.errors import ServerSelectionTimeoutError
 
 
 @pytest.fixture(scope="session", name="resource_dir")
@@ -15,7 +14,7 @@ def resource_fixture():
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
 
-    if os.environ.get("github.ref_name", None):
+    if os.environ.get("github.ref_name"):
         x = connect(db="test_pandas", host="mongodb://localhost")
     else:
         x = connect(db="test_pandas", host="mongomock://localhost")
