@@ -45,7 +45,7 @@ def test_reference():
 
     p.reference["XXX"] = 10
     assert p.reference.keys() == {"XXX"}
-    assert {k: v for k, v in p.reference.items()} == {"XXX": 10}
+    assert dict(p.reference.items()) == {"XXX": 10}
 
 
 def test_equals(client):
@@ -93,7 +93,7 @@ def test_not_unique_name(client):
     Singer.objects.delete()
 
     # check that no singer has survived
-    s = [singer for singer in Singer.objects]
+    s = list(Singer.objects)
     assert len(s) == 0
 
     c1 = Singer(name="AA").save()
@@ -125,7 +125,7 @@ def test_apply(client):
     s1.save()
     s2.save()
 
-    a = pd.Series({name: value for name, value in Singer.apply(func=lambda x: x.price.mean(), default=np.nan)}).dropna()
+    a = pd.Series(dict(Singer.apply(func=lambda x: x.price.mean(), default=np.nan))).dropna()
     pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": 9.0}))
 
 
