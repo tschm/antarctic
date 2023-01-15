@@ -14,7 +14,3 @@ def client_fixture():
     x = connect(db="test_pandas", host="mongodb://localhost")
     yield x
     disconnect()
-
-
-
-
