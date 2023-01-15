@@ -9,6 +9,7 @@ def resource_fixture():
     """resource fixture"""
     return Path(__file__).parent / "resources"
 
+
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
     x = connect(db="test_pandas", host="mongodb://localhost")
