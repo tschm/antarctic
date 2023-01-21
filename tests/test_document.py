@@ -44,15 +44,6 @@ def test_lt():
     assert Singer(name="A") < Singer(name="B")
 
 
-# def test_reference():
-#    p = Singer(name="Peter Maffay")
-#    assert p.reference.get("NoNoNo", default=5) == 5
-#
-#    p.reference["XXX"] = 10
-#    assert p.reference.keys() == {"XXX"}
-#    assert dict(p.reference.items()) == {"XXX": 10}
-
-
 def test_equals(client):
     """test equality"""
     # can't harm to clean a bit
