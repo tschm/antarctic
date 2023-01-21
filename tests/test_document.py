@@ -12,6 +12,7 @@ from antarctic.pandas_field import PandasField
 
 class Singer(XDocument):
     """simple document"""
+
     price = PandasField()
 
 
@@ -43,7 +44,7 @@ def test_lt():
     assert Singer(name="A") < Singer(name="B")
 
 
-#def test_reference():
+# def test_reference():
 #    p = Singer(name="Peter Maffay")
 #    assert p.reference.get("NoNoNo", default=5) == 5
 #
@@ -53,7 +54,7 @@ def test_lt():
 
 
 def test_equals(client):
-    """test equality""" 
+    """test equality"""
     # can't harm to clean a bit
     Singer.objects.delete()
 
