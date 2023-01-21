@@ -24,6 +24,7 @@ class XDocument(Document):
 
     @classmethod
     def reference_frame(cls, objects=None) -> pd.DataFrame:
+        """get a frame of reference data for each object"""
         objects = objects or cls.objects
 
         frame = pd.DataFrame(
@@ -37,7 +38,7 @@ class XDocument(Document):
 
     @classmethod
     def subset(cls, names=None):
-        # extract symbols from database
+        """extract a subset of documents from the database"""
         if names is None:
             return cls.objects
 
@@ -55,6 +56,8 @@ class XDocument(Document):
 
     @classmethod
     def apply(cls, func, default, objects=None) -> pd.DataFrame:
+        """apply a function func to documents. 
+        Yield the default document if something went wrong"""
         objects = objects or cls.objects
 
         for obj in objects:
@@ -65,6 +68,7 @@ class XDocument(Document):
 
     @classmethod
     def frame(cls, series, objects=None) -> pd.DataFrame:
+        """get a series from each document and return a frame of them"""
         objects = objects or cls.objects
         return pd.DataFrame({p.name: getattr(p, series) for p in objects}).dropna(
             axis=1, how="all"
