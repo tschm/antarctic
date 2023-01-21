@@ -10,9 +10,7 @@ import pyarrow.parquet as pq
 from mongoengine.base import BaseField
 
 
-def _read(
-    value: bytes, columns: Optional[List[str]] = None
-) -> Union[pd.DataFrame, pd.Series]:
+def _read(value: bytes, columns: Optional[List[str]] = None) -> pd.DataFrame:
     """
     Read a binary representation by the write method given below.
 
@@ -24,41 +22,16 @@ def _read(
     """
     with BytesIO(value) as buffer:
         table = pq.read_table(buffer, columns=columns)
-        metadata = table.schema.metadata
-        frame = table.to_pandas()
-
-        try:
-            if metadata[b"antarctic"] == b"Series":
-                key = list(frame.keys())[0]
-                series = frame[key]
-                series.name = key
-                return series
-        except KeyError:
-            return frame
-
-        return frame
+        return table.to_pandas()
 
 
-def _write(value: Union[pd.DataFrame, pd.Series], compression="zstd") -> bytes:
+def _write(value: pd.DataFrame, compression="zstd") -> bytes:
     """
-    Convert a Pandas object into a byte-stream.
+    Convert a Pandas DataFrame into a byte-stream.
     The byte-stream shall encodes in its metadata the nature of the Pandas object.
     """
-    if isinstance(value, pd.Series):
-        value = value.to_frame(name=value.name)
+    if isinstance(value, pd.DataFrame):
         table = pa.Table.from_pandas(value)
-        metadata = table.schema.with_metadata(
-            {**{b"antarctic": b"Series"}, **table.schema.metadata}
-        )
-    else:
-        if not isinstance(value, pd.DataFrame):
-            raise AssertionError
-        table = pa.Table.from_pandas(value)
-        metadata = table.schema.with_metadata(
-            {**{b"antarctic": b"Frame"}, **table.schema.metadata}
-        )
-
-    table = table.cast(metadata)
 
     with BytesIO() as buffer:
         pq.write_table(table, buffer, compression=compression)
@@ -75,13 +48,16 @@ class PandasField(BaseField):
         super().__init__(**kwargs)
         self.compression = compression
 
-    def __set__(self, instance, value: Union[pd.DataFrame, pd.Series, None]):
+    def __set__(self, instance, value: Union[pd.DataFrame, bytes]):
         """convert the incoming series into a byte-stream document"""
-
-        if isinstance(value, (pd.Series, pd.DataFrame)):
-            # give the (new) value to mum
-            value = _write(value, compression=self.compression)
-
+        if value is not None:
+            if isinstance(value, pd.DataFrame):
+                # give the (new) value to mum
+                value = _write(value, compression=self.compression)
+            elif isinstance(value, bytes):
+                pass
+            else:
+                raise AssertionError(f"Type of value {type(value)}")
         super().__set__(instance, value)
 
     def __get__(self, instance, owner):
