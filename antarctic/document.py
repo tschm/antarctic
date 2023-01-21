@@ -46,7 +46,7 @@ class XDocument(Document):
     @classmethod
     def to_dict(cls, objects=None):
         """create a dictionary of objects of class cls
-        The objects are either given explicitly or if not 
+        The objects are either given explicitly or if not
         all objects of this particular class are extracted.
         """
         # represent all documents of a class as a dictionary
@@ -75,9 +75,9 @@ class XDocument(Document):
         return self.name < other.name
 
     def __eq__(self, other):
-        """two documents are equal if they are of the same class 
-           and have the same name"""
-        
+        """two documents are equal if they are of the same class
+        and have the same name"""
+
         # two documents are the sname if they have the same name and class
         return self.__class__ == other.__class__ and self.name == other.name
 
