@@ -133,7 +133,7 @@ def test_apply_missing(client):
     s2 = Singer(name="Peter Maffay").save()
 
     s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0]).to_frame(name="price")
-    #s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0]).to_frame(name="price")
+    # s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0]).to_frame(name="price")
 
     s1.save()
     s2.save()
@@ -143,9 +143,6 @@ def test_apply_missing(client):
     )
 
     pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": np.nan}))
-
-
-
 
 
 def test_repr(client):
@@ -167,16 +164,14 @@ def test_frame(resource_dir, client):
     s1.save()
     s2.save()
 
-    #for singer in [s1, s2]:
+    # for singer in [s1, s2]:
     #    print(singer.price)
 
-    #assert False
-
+    # assert False
 
     f = Singer.frame(series="price", key="a")
-    #print(f)
-    #assert False
-
+    # print(f)
+    # assert False
 
     pt.assert_frame_equal(f, pd.read_csv(resource_dir / "frame.csv", index_col=0))
 

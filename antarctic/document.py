@@ -70,7 +70,7 @@ class XDocument(Document):
     def frame(cls, series, key, objects=None) -> pd.DataFrame:
         """get a series from each document and return a frame of them"""
         objects = objects or cls.objects
-        #for object in objects:
+        # for object in objects:
         #    print(getattr(object, series))
         return pd.DataFrame({p.name: getattr(p, series)[key] for p in objects}).dropna(
             axis=1, how="all"

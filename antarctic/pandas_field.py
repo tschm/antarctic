@@ -10,9 +10,7 @@ import pyarrow.parquet as pq
 from mongoengine.base import BaseField
 
 
-def _read(
-    value: bytes, columns: Optional[List[str]] = None
-) -> pd.DataFrame:
+def _read(value: bytes, columns: Optional[List[str]] = None) -> pd.DataFrame:
     """
     Read a binary representation by the write method given below.
 
