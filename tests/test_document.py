@@ -118,7 +118,7 @@ def test_to_dict(client):
 
 
 def test_apply(client):
-    """apply a function to documents
+    """apply a function to documents"""
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
@@ -162,7 +162,7 @@ def test_frame(resource_dir, client):
 
 
 def test_names(client):
-    """test names"""
+    """test the names"""
     s1 = Singer(name="A").save()
     s2 = Singer(name="B").save()
 
