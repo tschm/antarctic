@@ -77,7 +77,7 @@ class PandasField(BaseField):
 
     def __set__(self, instance, value: Union[pd.DataFrame, pd.Series, None]):
         """convert the incoming series into a byte-stream document"""
-     
+
         if isinstance(value, (pd.Series, pd.DataFrame)):
             # give the (new) value to mum
             value = _write(value, compression=self.compression)
