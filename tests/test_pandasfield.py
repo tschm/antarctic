@@ -15,6 +15,7 @@ class Singer(Document):
 
 
 def test_write_frame(client):
+    """test write a frame"""
     s = Singer(name="Maffay")
     s.price = pd.DataFrame(index=[0, 1], columns=["A", "B"], data=2.0)
     s.save()
@@ -25,6 +26,7 @@ def test_write_frame(client):
 
 
 def test_write_series(client):
+    """write a series"""
     s = Singer(name="Maffay")
     s.price = pd.Series(index=[0, 1], data=2.0).to_frame(name="price")
     s.save()
@@ -35,6 +37,7 @@ def test_write_series(client):
 
 
 def test_write_series_no_name(client):
+    """write a series but don't assign a name"""
     s = Singer(name="Maffay")
     with pytest.raises(AssertionError):
         s.price = pd.Series(index=[0, 1], data=2.0)
@@ -42,6 +45,7 @@ def test_write_series_no_name(client):
 
 
 def test_write_non_pandas(client):
+    """write a simple list"""
     with pytest.raises(AssertionError):
         s = Singer(name="Maffay")
         s.price = [2.0, 2.0]
