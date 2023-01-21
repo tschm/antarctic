@@ -63,14 +63,16 @@ class XDocument(Document):
         for obj in objects:
             try:
                 yield obj.name, func(obj)
-            except (AttributeError, KeyError):
+            except (TypeError, AttributeError, KeyError):
                 yield obj.name, default
 
     @classmethod
-    def frame(cls, series, objects=None) -> pd.DataFrame:
+    def frame(cls, series, key, objects=None) -> pd.DataFrame:
         """get a series from each document and return a frame of them"""
         objects = objects or cls.objects
-        return pd.DataFrame({p.name: getattr(p, series) for p in objects}).dropna(
+        #for object in objects:
+        #    print(getattr(object, series))
+        return pd.DataFrame({p.name: getattr(p, series)[key] for p in objects}).dropna(
             axis=1, how="all"
         )
 

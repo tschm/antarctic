@@ -115,16 +115,37 @@ def test_apply(client):
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
-    s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0])
-    s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0])
+    s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0]).to_frame(name="price")
+    s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0]).to_frame(name="price")
 
     s1.save()
     s2.save()
 
     a = pd.Series(
-        dict(Singer.apply(func=lambda x: x.price.mean(), default=np.nan))
+        dict(Singer.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
     ).dropna()
     pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": 9.0}))
+
+
+def test_apply_missing(client):
+    Singer.objects.delete()
+    s1 = Singer(name="Falco").save()
+    s2 = Singer(name="Peter Maffay").save()
+
+    s1.price = pd.Series(index=[1, 2, 3], data=[7.0, 9.0, 8.0]).to_frame(name="price")
+    #s2.price = pd.Series(index=[1, 3], data=[8.0, 10.0]).to_frame(name="price")
+
+    s1.save()
+    s2.save()
+
+    a = pd.Series(
+        dict(Singer.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
+    )
+
+    pt.assert_series_equal(a, pd.Series({"Falco": 8.0, "Peter Maffay": np.nan}))
+
+
+
 
 
 def test_repr(client):
@@ -141,16 +162,26 @@ def test_frame(resource_dir, client):
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
-    s1.price = pd.Series(index=[1, 2, 3], data=[7.1, 9.0, 8.0])
-    s2.price = pd.Series(index=[1, 3], data=[8.1, 10.0])
+    s1.price = pd.Series(index=[1, 2, 3], data=[7.1, 9.0, 8.0]).to_frame(name="a")
+    s2.price = pd.Series(index=[1, 3], data=[8.1, 10.0]).to_frame(name="a")
     s1.save()
     s2.save()
 
-    f = Singer.frame(series="price")
+    #for singer in [s1, s2]:
+    #    print(singer.price)
+
+    #assert False
+
+
+    f = Singer.frame(series="price", key="a")
+    #print(f)
+    #assert False
+
+
     pt.assert_frame_equal(f, pd.read_csv(resource_dir / "frame.csv", index_col=0))
 
     with pytest.raises(AttributeError):
-        Singer.frame(series="wurst")
+        Singer.frame(series="wurst", key="b")
 
 
 def test_names(client):
