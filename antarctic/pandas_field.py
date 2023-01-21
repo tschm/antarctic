@@ -71,11 +71,13 @@ class PandasField(BaseField):
     """
 
     def __init__(self, compression="zstd", **kwargs):
+        """initialize a PandasField"""
         super().__init__(**kwargs)
         self.compression = compression
 
     def __set__(self, instance, value: Union[pd.DataFrame, pd.Series, None]):
-        # convert the incoming series into a byte-stream document
+        """convert the incoming series into a byte-stream document"""
+     
         if isinstance(value, (pd.Series, pd.DataFrame)):
             # give the (new) value to mum
             value = _write(value, compression=self.compression)
@@ -83,6 +85,7 @@ class PandasField(BaseField):
         super().__set__(instance, value)
 
     def __get__(self, instance, owner):
+        """get the pandas object back"""
         data = super().__get__(instance, owner)
 
         if data is not None:
