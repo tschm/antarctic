@@ -56,7 +56,7 @@ class XDocument(Document):
 
     @classmethod
     def apply(cls, func, default, objects=None) -> pd.DataFrame:
-        """apply a function func to documents. 
+        """apply a function func to documents.
         Yield the default document if something went wrong"""
         objects = objects or cls.objects
 
