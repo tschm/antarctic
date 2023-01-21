@@ -1,3 +1,5 @@
+"""global fixtures"""
+
 import os
 from pathlib import Path
 
@@ -13,7 +15,8 @@ def resource_fixture():
 
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
-
+    """database fixture"""
+    # if you run on a git server
     if os.environ.get("github.ref_name"):
         x = connect(db="test_pandas", host="mongodb://localhost")
     else:

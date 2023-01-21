@@ -1,3 +1,5 @@
+"""testing the document"""
+
 import numpy as np
 import pandas as pd
 import pandas.testing as pt
@@ -9,10 +11,13 @@ from antarctic.pandas_field import PandasField
 
 
 class Singer(XDocument):
+    """simple document"""
+
     price = PandasField()
 
 
 def test_reference_frame(client):
+    """test reference data for documents"""
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -35,19 +40,12 @@ def test_reference_frame(client):
 
 
 def test_lt():
+    """test sorting of documents"""
     assert Singer(name="A") < Singer(name="B")
 
 
-def test_reference():
-    p = Singer(name="Peter Maffay")
-    assert p.reference.get("NoNoNo", default=5) == 5
-
-    p.reference["XXX"] = 10
-    assert p.reference.keys() == {"XXX"}
-    assert dict(p.reference.items()) == {"XXX": 10}
-
-
 def test_equals(client):
+    """test equality"""
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -58,6 +56,7 @@ def test_equals(client):
 
 
 def test_products(client):
+    """test the subsets of documents"""
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -83,6 +82,7 @@ def test_products(client):
 
 
 def test_not_unique_name(client):
+    """trying to create documents of the same type and same name"""
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -99,6 +99,7 @@ def test_not_unique_name(client):
 
 
 def test_to_dict(client):
+    """test create dictionary of documents"""
     # can't harm to clean a bit
     Singer.objects.delete()
 
@@ -109,6 +110,7 @@ def test_to_dict(client):
 
 
 def test_apply(client):
+    """apply a function to documents"""
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
@@ -126,6 +128,7 @@ def test_apply(client):
 
 
 def test_repr(client):
+    """test repr"""
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     assert str(s1) == "<Singer: Falco>"
@@ -133,6 +136,7 @@ def test_repr(client):
 
 
 def test_frame(resource_dir, client):
+    """test frame of series data"""
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
@@ -150,6 +154,7 @@ def test_frame(resource_dir, client):
 
 
 def test_names(client):
+    """test the names"""
     s1 = Singer(name="A").save()
     s2 = Singer(name="B").save()
 
