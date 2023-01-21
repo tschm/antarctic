@@ -128,6 +128,7 @@ def test_apply(client):
 
 
 def test_apply_missing(client):
+    """data missing"""
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
