@@ -86,7 +86,7 @@ s2.reference["MyProp2"] = "BCD"
 
 # You can loop over (subsets) of Symbols and extract reference and/or series data
 print(Symbol.reference_frame(objects=[s1, s2]))
-print(Symbol.series(series="price"))
+print(Symbol.frame(series="price", key="price"))
 print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
 ```
 
