@@ -38,15 +38,15 @@ The portfolio objects works exactly the way you think it works
 ```python
 
 p = Portfolio()
-p.nav = pd.Series(...)
+p.nav = pd.Series(...).to_frame(name="nav")
 p.prices = pd.DataFrame(...)
 p.save()
 
-print(p.nav)
+print(p.nav["nav"])
 print(p.prices)
 ```
 
-Behind the scenes we convert the both Series and Frame objects into parquet bytestreams and
+Behind the scenes we convert the Frame objects into parquet bytestreams and
 store them in a MongoDB database.
 
 The format should also be readable by R. 
@@ -70,8 +70,8 @@ class Symbol(XDocument):
 We define a bunch of symbols and assign a price for each (or some of it):
 
 ```python
-s1 = Symbol(name="A", price=pd.Series(...)).save()
-s2 = Symbol(name="B", price=pd.Series(...)).save()
+s1 = Symbol(name="A", price=pd.Series(...).to_frame(name="price")).save()
+s2 = Symbol(name="B", price=pd.Series(...).to_frame(name="price")).save()
 
 # We can access subsets like
 for symbol in Symbol.subset(names=["B"]):
@@ -87,7 +87,7 @@ s2.reference["MyProp2"] = "BCD"
 # You can loop over (subsets) of Symbols and extract reference and/or series data
 print(Symbol.reference_frame(objects=[s1, s2]))
 print(Symbol.series(series="price"))
-print(Symbol.apply(func=lambda x: x.price.mean(), default=np.nan))
+print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.
