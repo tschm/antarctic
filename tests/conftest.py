@@ -17,12 +17,6 @@ def resource_fixture():
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
     """database fixture"""
-    # if you run on a git server
-    if os.environ.get("github.ref_name"):
-        x = connect(db="test_pandas", mongo_client_class=mongomock.MongoClient)
-    else:
-        x = connect(db="test_pandas", mongo_client_class=mongomock.MongoClient)
-
-    yield x
+    yield connect(db="test_pandas", mongo_client_class=mongomock.MongoClient)
 
     disconnect()
