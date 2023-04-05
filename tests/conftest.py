@@ -1,8 +1,8 @@
 """global fixtures"""
 
-import os
 from pathlib import Path
 
+import mongomock
 import pytest
 from mongoengine import connect, disconnect
 
@@ -16,12 +16,6 @@ def resource_fixture():
 @pytest.fixture(scope="function", name="client")
 def client_fixture():
     """database fixture"""
-    # if you run on a git server
-    if os.environ.get("github.ref_name"):
-        x = connect(db="test_pandas", host="mongodb://localhost")
-    else:
-        x = connect(db="test_pandas", host="mongomock://localhost")
-
-    yield x
+    yield connect(db="test_pandas", mongo_client_class=mongomock.MongoClient)
 
     disconnect()
