@@ -3,6 +3,7 @@
 import os
 from pathlib import Path
 
+import mongomock
 import pytest
 from mongoengine import connect, disconnect
 
@@ -18,9 +19,9 @@ def client_fixture():
     """database fixture"""
     # if you run on a git server
     if os.environ.get("github.ref_name"):
-        x = connect(db="test_pandas", host="mongodb://localhost")
+        x = connect(db="test_pandas", mongo_client_class=mongomock.MongoClient)
     else:
-        x = connect(db="test_pandas", host="mongomock://localhost")
+        x = connect(db="test_pandas", mongo_client_class=mongomock.MongoClient)
 
     yield x
 
