@@ -1,6 +1,5 @@
 """global fixtures"""
 
-import os
 from pathlib import Path
 
 import mongomock
