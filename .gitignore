@@ -16,3 +16,6 @@ artifacts
 *.pickle
 
 .coverage
+
+.pytest_cache
+.venv
