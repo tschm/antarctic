@@ -23,6 +23,7 @@ jobs:
     - name: Install jupyterbook
       run: |
         poetry install -vv
+        poetry export --without-hashes --format=requirements.txt > requirements.txt
         poetry run pip install jupyter-book
         
     # Build the book
