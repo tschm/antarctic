@@ -20,7 +20,7 @@ We introduce first a new field --- the PandasField.
 
 ```python
 from mongoengine import Document, connect
-from antarctic.pandas_fields import PandasField
+from antarctic.pandas_field import PandasField
 
 # connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)
 client = connect(db="test", host="mongomock://localhost")
@@ -59,7 +59,7 @@ It provides some convenient tools to simplify looping over all or a subset of Do
 
 ```python
 from antarctic.document import XDocument
-from antarctic.pandas_fields import PandasField
+from antarctic.pandas_field import PandasField
 
 client = connect(db="test", host="mongodb://localhost")
 
