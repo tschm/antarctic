@@ -19,6 +19,7 @@ pytest = "7.1.3"
 pytest-cov = "*"
 mongomock = "*"
 setuptools = "*"
+jupyter = "*"
 
 [build-system]
 requires = ["poetry>=1.0.2"]
