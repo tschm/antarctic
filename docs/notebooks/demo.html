@@ -355,10 +355,16 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mongomock</span> <span class="kn">import</span> <span class="n">MongoClient</span>
 <span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">connect</span>
-<span class="c1">#from antarctic.pandas_fields import PandasField</span>
 
 <span class="c1"># connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">mongo_client_class</span><span class="o">=</span><span class="n">MongoClient</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">antarctic.pandas_field</span> <span class="kn">import</span> <span class="n">PandasField</span>
 </pre></div>
 </div>
 </div>
