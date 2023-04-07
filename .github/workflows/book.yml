@@ -26,9 +26,9 @@ jobs:
         poetry install -vv
         poetry run pip install jupyter-book
 
-    - name: Install the kernel
-      run: |
-        poetry run ipython kernel install --name "antarctic" --user
+    #- name: Install the kernel
+    #  run: |
+    #    poetry run ipython kernel install --name "antarctic" --user
         
     # Build the book
     - name: Build the book
