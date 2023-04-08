@@ -25,6 +25,7 @@ jobs:
         poetry install -vv
         poetry export --without-hashes --format=requirements.txt > requirements.txt
         poetry run pip install jupyter-book
+        poetry run python -m ipykernel install --user --name="antarctic"
         
     # Build the book
     - name: Build the book
