@@ -6,6 +6,7 @@
 !readme.md
 
 !antarctic
+!book
 
 **/__pycache__
 **/*.pyc
