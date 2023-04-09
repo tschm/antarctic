@@ -23,7 +23,6 @@ jobs:
     - name: Install jupyterbook
       run: |
         poetry install -vv
-        poetry export --without-hashes --format=requirements.txt > requirements.txt
         poetry run pip install jupyter-book
         poetry run python -m ipykernel install --user --name="antarctic"
         
@@ -41,9 +40,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: book/_build/html
 
-    # cache for binder
-    - name: cache binder build on mybinder.org
-      uses: jupyterhub/repo2docker-action@master
-      with:
-        NO_PUSH: true
-        MYBINDERORG_TAG: ${{ github.event.ref }}
