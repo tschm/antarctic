@@ -15,10 +15,17 @@ jobs:
       with:
         python-version: '3.10'
 
+    # Install poetry
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.3.3
+      with:
+          virtualenvs-create: false
+
     - name: Construct requirements.txt (with dev-dependencies)
       run: |
-        pip install pip-tools
-        pip-compile --extra dev -o requirements.txt pyproject.toml
+        poetry export --without-hashes --with=dev
+        #pip install pip-tools
+        #pip-compile --extra dev -o requirements.txt pyproject.toml
         #mv dev-requirements.txt requirements.txt
         cat requirements.txt
         
