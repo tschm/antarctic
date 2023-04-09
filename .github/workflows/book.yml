@@ -7,8 +7,6 @@ jobs:
   deploy-book:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/comp@v1
-
     - uses: actions/checkout@v3
 
     # Install dependencies
