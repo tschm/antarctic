@@ -23,7 +23,7 @@ jobs:
 
     - name: Construct requirements.txt (with dev-dependencies)
       run: |
-        poetry export --without-hashes --with=dev
+        poetry export --without-hashes --with=dev > requirements.txt
         #pip install pip-tools
         #pip-compile --extra dev -o requirements.txt pyproject.toml
         #mv dev-requirements.txt requirements.txt
