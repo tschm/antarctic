@@ -23,5 +23,6 @@ USER ${NB_USER}
 
 WORKDIR ${HOME}
 
-RUN poetry install -vv
+RUN poetry config virtualenvs.create false && \
+    poetry install -vv
 
