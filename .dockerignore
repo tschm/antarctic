@@ -1,0 +1,11 @@
+# Ignore Everything
+**
+
+!pyproject.toml
+!poetry.lock
+!readme.md
+
+!antarctic
+
+**/__pycache__
+**/*.pyc

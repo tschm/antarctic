@@ -9,12 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    # Install dependencies
-    #- name: Set up Python 3.10
-    #  uses: actions/setup-python@v4
-    #  with:
-    #    python-version: '3.10'
-
     # cache for binder
     - name: cache binder build on mybinder.org
       uses: jupyterhub/repo2docker-action@master
