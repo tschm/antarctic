@@ -19,4 +19,3 @@ artifacts
 
 .pytest_cache
 .venv
-requirements.txt
