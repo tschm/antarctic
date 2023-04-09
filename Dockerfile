@@ -15,6 +15,8 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 
+RUN poetry config virtualenvs.create false
+
 # Make sure the contents of our repo are in ${HOME}
 COPY . ${HOME}
 USER root
@@ -23,6 +25,8 @@ USER ${NB_USER}
 
 WORKDIR ${HOME}
 
-RUN poetry config virtualenvs.create false && \
-    poetry install -vv
+USER root
+#RUN poetry config virtualenvs.create false
+RUN poetry install -vv
 
+USER ${NB_USER}
