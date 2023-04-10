@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 # see https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
 ARG NB_USER=jovyan
@@ -17,10 +17,10 @@ COPY . ${HOME}
 
 WORKDIR ${HOME}
 
-RUN pip install --no-cache poetry jupyterlab notebook && \
-    chown -R ${NB_UID} ${HOME} && \
+RUN pip install --no-cache poetry jupyterlab notebook "jupyter-server<2.0.0" && \
     poetry config virtualenvs.create false && \
-    poetry install --no-cache --no-interaction -vv
+    poetry install --no-cache --no-interaction -vv && \
+    chown -R ${NB_UID} ${HOME} 
 
 USER ${NB_USER}
 
