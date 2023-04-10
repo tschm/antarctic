@@ -384,7 +384,8 @@ document.write(`
 <h1>Demo<a class="headerlink" href="#demo" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mongomock</span> <span class="kn">import</span> <span class="n">MongoClient</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">mongomock</span> <span class="kn">import</span> <span class="n">MongoClient</span>
 <span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">connect</span>
 
 <span class="c1"># connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)</span>
@@ -406,6 +407,98 @@ document.write(`
     <span class="n">nav</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
     <span class="n">weights</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
     <span class="n">prices</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/ts.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2014-01-01    1.306352
+2014-01-02    1.301997
+2014-01-03    1.298933
+2014-01-06    1.298281
+2014-01-07    1.299433
+                ...   
+2015-04-16    1.321942
+2015-04-17    1.319721
+2015-04-20    1.318233
+2015-04-21    1.321189
+2015-04-22    1.321565
+Name: value, Length: 341, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/price.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  A         B         C        D        E        F        G
+2013-01-01  1673.78  23311.98  62550.10  3735.12  1462.42  2711.25  2518.99
+2013-01-02  1686.90  23311.98  62550.10  3735.12  1462.42  2711.25  2518.99
+2013-01-03  1663.95  23398.60  63312.46  3714.99  1459.37  2701.22  2509.51
+2013-01-04  1655.65  23331.09  62523.06  3689.34  1466.47  2709.35  2516.81
+2013-01-07  1646.95  23329.75  61932.54  3699.14  1461.89  2695.56  2523.77
+...             ...       ...       ...      ...      ...      ...      ...
+2015-04-16  1198.56  27739.71  54674.21  2694.50  2104.99  3751.72  3077.21
+2015-04-17  1204.27  27653.12  53954.79  2676.61  2081.18  3674.05  3061.38
+2015-04-20  1195.88  27094.93  53761.27  2667.63  2100.40  3718.04  3059.73
+2015-04-21  1202.34  27850.49       NaN  2651.41  2097.29  3719.38  3065.53
+2015-04-22  1200.59  27964.84       NaN  2638.95      NaN  3742.77      NaN
+
+[602 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">portfolio</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="n">nav</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span> <span class="n">prices</span><span class="o">=</span><span class="n">prices</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">prices</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">prices</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">portfolio</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">portfolio</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="n">nav</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span> <span class="n">prices</span><span class="o">=</span><span class="n">prices</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">prices</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">prices</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">7</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/mongoengine/base/document.py:128,</span> in <span class="ni">BaseDocument.__init__</span><span class="nt">(self, *args, **values)</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>         <span class="k">if</span> <span class="n">field</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">FileField</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span>             <span class="n">value</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">128</span>     <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/mongoengine/base/document.py:207,</span> in <span class="ni">BaseDocument.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">199</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_is_document</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="ow">and</span> <span class="n">self__initialised</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span>     <span class="ow">and</span> <span class="n">self__created</span>
+<span class="g g-Whitespace">    </span><span class="mi">203</span>     <span class="ow">and</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id_field&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s2">&quot;_created&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">207</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="nn">File ~/work/antarctic/antarctic/antarctic/pandas_field.py:60,</span> in <span class="ni">PandasField.__set__</span><span class="nt">(self, instance, value)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span>         <span class="k">pass</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">60</span>         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type of value </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__set__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="ne">AssertionError</span>: Type of value &lt;class &#39;pandas.core.series.Series&#39;&gt;
 </pre></div>
 </div>
 </div>
