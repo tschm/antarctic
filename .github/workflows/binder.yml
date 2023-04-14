@@ -12,7 +12,8 @@ jobs:
 
     - name: Update curl
       run: |
-        apt-get install curl-dev
+        sudo apt-get update
+        sudo apt-get install curl-dev
         
     # cache for binder
     - name: cache binder build on mybinder.org
