@@ -6,7 +6,7 @@ COPY . ${HOME}
 
 WORKDIR ${HOME}
 
-RUN pip install poetry && \
+RUN pip install --no-cache-dir poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-cache --no-interaction -vv && \
     chown -R jovyan ${HOME}
