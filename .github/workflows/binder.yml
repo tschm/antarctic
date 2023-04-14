@@ -1,4 +1,4 @@
-name: binder
+name: Binder cache
 
 on: [push]
 
