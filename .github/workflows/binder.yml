@@ -9,6 +9,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+
+    - name: Update curl
+      run: |
+        apt-get install curl-dev
+        
     # cache for binder
     - name: cache binder build on mybinder.org
       uses: jupyterhub/repo2docker-action@master
