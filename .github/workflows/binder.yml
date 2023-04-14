@@ -5,7 +5,8 @@ on: [push]
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
   Serve-binder-cache:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04:20230409.1
+    steps:
     - uses: actions/checkout@v3
 
     # cache for binder
