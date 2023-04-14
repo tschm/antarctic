@@ -13,7 +13,9 @@ jobs:
     - name: Update curl
       run: |
         sudo apt-get update
-        sudo apt-get -y install curl
+        sudo apt-get install libcurl4-openssl-dev
+        
+        # sudo apt-get -y install curl
         
     # cache for binder
     - name: cache binder build on mybinder.org
