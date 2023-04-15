@@ -1,14 +1,16 @@
-FROM jupyter/minimal-notebook:python-3.10.10
+FROM tschm/antarctic:latest
 
-USER root
+#jupyter/minimal-notebook:python-3.10.10
 
-COPY . ${HOME}
+#USER root
 
-WORKDIR ${HOME}
+#COPY . ${HOME}
 
-RUN pip install --no-cache-dir poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-cache --no-interaction -vv && \
-    chown -R jovyan ${HOME}
+#WORKDIR ${HOME}
 
-USER jovyan
+#RUN pip install --no-cache-dir poetry && \
+#    poetry config virtualenvs.create false && \
+#    poetry install --no-cache --no-interaction -vv && \
+#    chown -R jovyan ${HOME}
+
+#USER jovyan
