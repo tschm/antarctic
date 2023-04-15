@@ -4,7 +4,7 @@
 [![Book](https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/book.yml)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![DeepSource](https://deepsource.io/gh/tschm/antarctic.svg/?label=active+issues&show_trend=true&token=Ap44D1XBPLUb19JqC763UIWf)](https://deepsource.io/gh/tschm/antarctic/?ref=repository-badge)
-[![Binder cache](https://github.com/tschm/antarctic/actions/workflows/binder.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/binder.yml)
+[![Publish Docker image](https://github.com/tschm/antarctic/actions/workflows/binder.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/binder.yml)
 [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/tschm/antarctic/HEAD)
 
 Project to persist Pandas data structures in a MongoDB database. 
