@@ -1,31 +1,17 @@
-name: Publish Docker image
+name: binder
 
-on:
-  push:
-    branches:
-      - 'main'
-      
+on: [push]
+
+# This job builds and caches the Docker container for Binder
 jobs:
-  build:
+  Serve-binder-cache:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout 
-        uses: actions/checkout@v3
-      
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./.docker/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/antarctic:latest
+    - uses: actions/checkout@v3
+
+    # cache for binder
+    - name: cache binder build on mybinder.org
+      uses: tschm/repo2docker-action@master
+      with:
+        NO_PUSH: true
+        MYBINDERORG_TAG: ${{ github.event.ref }}
