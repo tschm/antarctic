@@ -9,6 +9,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
+    permissions:
+      # This permission is required for trusted publishing.
+      id-token: write
+      contents: read
+      
     # Steps represent matrix sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -28,7 +33,6 @@ jobs:
         run: |
             poetry version ${{  github.ref_name }}
             poetry build
-      
       
       - name: Mint token
         id: mint
