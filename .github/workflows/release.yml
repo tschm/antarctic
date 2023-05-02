@@ -26,12 +26,14 @@ jobs:
       
       - name: Change version in pyproject.toml
         run: |
-            echo ${{  github.ref_name }}
             poetry version ${{  github.ref_name }}
             poetry build
-            cat pyproject.toml      
       
       
+      - name: Mint token
+        id: mint
+        uses: tschm/token-mint-action@v1.0.1
+        
       - name: Publish the package to pypi
         run : |
             poetry config pypi-token.pypi ${{ secrets.TWINE_TOKEN }} 
