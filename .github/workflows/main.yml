@@ -7,6 +7,13 @@ on: push
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  hello_world:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: tschm/.github/workflow-templates/tschm-ci@main
+      
+  
   doc-str:
     runs-on: ubuntu-latest
     
