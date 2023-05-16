@@ -10,29 +10,23 @@ jobs:
     - uses: actions/checkout@v3
 
     # Install dependencies
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
+    - name: Set up Python and Poetry
+      uses: tschm/.github/actions/setup-environment@main
       with:
         python-version: '3.10'
-
-    # Install poetry
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.3.3
-      with:
-          virtualenvs-create: false
+        os: ${{ runner.os }}
 
     - name: Install jupyterbook
       run: |
-        poetry install -vv
         poetry run pip install jupyter-book
         poetry run python -m ipykernel install --user --name="antarctic"
-        
+
     # Build the book
     - name: Build the book
       run: |
         poetry run jupyter-book clean book
         poetry run jupyter-book build book
-    
+
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3.6.1
