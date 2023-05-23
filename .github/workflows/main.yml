@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+      - uses: tschm/.github/actions/setup-environment@main
         with:
-            python-version: '3.10'
-      
+          os: ${{ runner.os }}
+          python-version: '3.10'
+          
       - name: install docstr
         run: |
           pip install docstr-coverage
@@ -37,21 +37,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      
+      - uses: tschm/.github/actions/setup-environment@main
         with:
-            python-version: ${{ matrix.python-version }}
-                  
+          os: ${{ runner.os }}
+          python-version: ${{ matrix.python-version }}
+      
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3.3
-        with:
-            virtualenvs-create: false
 
       - name: Install DeepSource
         run: | 
@@ -59,7 +54,6 @@ jobs:
               
       - name: Install dependencies
         run: | 
-              poetry --version
               poetry install -vv
       
       - name: Run tests
@@ -86,24 +80,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: tschm/.github/actions/setup-environment@main
         with:
-            python-version: ${{ matrix.python-version }}
+          os: ${{ runner.os }}
+          python-version: ${{ matrix.python-version }}
                   
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3.3
-        with:
-            virtualenvs-create: false
-
       - name: Install dependencies
         run: | 
-              poetry --version
               poetry install -vv
 
       - name: Run tests
