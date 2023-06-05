@@ -6,8 +6,7 @@ from pathlib import Path
 
 import mongomock
 import pytest
-from mongoengine import connect
-from mongoengine import disconnect
+from mongoengine import connect, disconnect
 
 
 @pytest.fixture(scope="session", name="resource_dir")
