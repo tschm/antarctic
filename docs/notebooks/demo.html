@@ -461,11 +461,11 @@ Name: value, Length: 341, dtype: float64
 <span class="g g-Whitespace">    </span><span class="mi">205</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s2">&quot;_created&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">207</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File ~/work/antarctic/antarctic/antarctic/pandas_field.py:63,</span> in <span class="ni">PandasField.__set__</span><span class="nt">(self, instance, value)</span>
-<span class="g g-Whitespace">     </span><span class="mi">61</span>         <span class="k">pass</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">63</span>         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type of value </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__set__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="nn">File ~/work/antarctic/antarctic/antarctic/pandas_field.py:65,</span> in <span class="ni">PandasField.__set__</span><span class="nt">(self, instance, value)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>         <span class="k">pass</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">65</span>         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type of value </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__set__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 <span class="ne">AssertionError</span>: Type of value &lt;class &#39;pandas.core.series.Series&#39;&gt;
 </pre></div>
