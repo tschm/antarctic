@@ -44,11 +44,11 @@ File [0;32m~/work/antarctic/antarctic/.venv/lib/python3.10/site-packages/mongoe
 [1;32m    205[0m     [38;5;28msuper[39m()[38;5;241m.[39m[38;5;21m__setattr__[39m([38;5;124m"[39m[38;5;124m_created[39m[38;5;124m"[39m, [38;5;28;01mFalse[39;00m)
 [0;32m--> 207[0m [38;5;28;43msuper[39;49m[43m([49m[43m)[49m[38;5;241;43m.[39;49m[38;5;21;43m__setattr__[39;49m[43m([49m[43mname[49m[43m,[49m[43m [49m[43mvalue[49m[43m)[49m
 
-File [0;32m~/work/antarctic/antarctic/antarctic/pandas_field.py:60[0m, in [0;36mPandasField.__set__[0;34m(self, instance, value)[0m
-[1;32m     58[0m         [38;5;28;01mpass[39;00m
-[1;32m     59[0m     [38;5;28;01melse[39;00m:
-[0;32m---> 60[0m         [38;5;28;01mraise[39;00m [38;5;167;01mAssertionError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mType of value [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m(value)[38;5;132;01m}[39;00m[38;5;124m"[39m)
-[1;32m     61[0m [38;5;28msuper[39m()[38;5;241m.[39m[38;5;21m__set__[39m(instance, value)
+File [0;32m~/work/antarctic/antarctic/antarctic/pandas_field.py:65[0m, in [0;36mPandasField.__set__[0;34m(self, instance, value)[0m
+[1;32m     63[0m         [38;5;28;01mpass[39;00m
+[1;32m     64[0m     [38;5;28;01melse[39;00m:
+[0;32m---> 65[0m         [38;5;28;01mraise[39;00m [38;5;167;01mAssertionError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mType of value [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m(value)[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[1;32m     66[0m [38;5;28msuper[39m()[38;5;241m.[39m[38;5;21m__set__[39m(instance, value)
 
 [0;31mAssertionError[0m: Type of value <class 'pandas.core.series.Series'>
 
