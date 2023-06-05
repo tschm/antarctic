@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 """testing the document"""
+from __future__ import annotations
 
 import pandas as pd
 import pytest
-from mongoengine import Document, StringField
+from mongoengine import Document
+from mongoengine import StringField
 
 from antarctic.pandas_field import PandasField
 

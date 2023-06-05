@@ -24,4 +24,3 @@ jupyterlab = "*"
 [build-system]
 requires = ["poetry>=1.0.2"]
 build-backend = "poetry.masonry.api"
-

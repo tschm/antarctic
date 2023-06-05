@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 """testing the document"""
+from __future__ import annotations
 
 import numpy as np
 import pandas as pd

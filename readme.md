@@ -5,7 +5,7 @@
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![DeepSource](https://deepsource.io/gh/tschm/antarctic.svg/?label=active+issues&show_trend=true&token=Ap44D1XBPLUb19JqC763UIWf)](https://deepsource.io/gh/tschm/antarctic/?ref=repository-badge)
 
-Project to persist Pandas data structures in a MongoDB database. 
+Project to persist Pandas data structures in a MongoDB database.
 
 ## Installation
 ```python
@@ -14,8 +14,8 @@ pip install antarctic
 
 ##  Usage
 This project (unless the popular arctic project which I admire) is based on top of [MongoEngine](https://pypi.org/project/mongoengine/).
-MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce a new field and extend the Document class 
-to make Antarctic a convenient choice for storing Pandas (time series) data. 
+MongoEngine is an ORM for MongoDB. MongoDB stores documents. We introduce a new field and extend the Document class
+to make Antarctic a convenient choice for storing Pandas (time series) data.
 
 ### Fields
 We introduce first a new field --- the PandasField.
@@ -51,7 +51,7 @@ print(p.prices)
 Behind the scenes we convert the Frame objects into parquet bytestreams and
 store them in a MongoDB database.
 
-The format should also be readable by R. 
+The format should also be readable by R.
 
 #### Documents
 
@@ -93,7 +93,7 @@ print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.
-There is an `apply` method for using a function on (subset) of documents. 
+There is an `apply` method for using a function on (subset) of documents.
 
 
 

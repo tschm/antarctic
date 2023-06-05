@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
 """overload the document class of MongoEngine"""
+from __future__ import annotations
 
 from datetime import datetime
 
 import pandas as pd
-from mongoengine import DateTimeField, DictField, Document, StringField
+from mongoengine import DateTimeField
+from mongoengine import DictField
+from mongoengine import Document
+from mongoengine import StringField
 
 
 class XDocument(Document):

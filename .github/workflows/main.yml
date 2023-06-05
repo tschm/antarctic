@@ -9,20 +9,20 @@ jobs:
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   doc-str:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: tschm/.github/actions/setup-environment@main
         with:
           os: ${{ runner.os }}
           python-version: '3.10'
-          
+
       - name: install docstr
         run: |
           pip install docstr-coverage
           docstr-coverage antarctic
-          
+
   coverage:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -37,34 +37,34 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+
       - uses: tschm/.github/actions/setup-environment@main
         with:
           os: ${{ runner.os }}
           python-version: ${{ matrix.python-version }}
-      
+
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Install DeepSource
-        run: | 
+        run: |
               curl https://deepsource.io/cli | sh
-              
+
       - name: Install dependencies
-        run: | 
+        run: |
               poetry install -vv
-      
+
       - name: Run tests
         run: |
               export DEEPSOURCE_DSN=${{ secrets.DEEPSOURCE_DSN }}
               poetry run pytest --cache-clear --cov=antarctic tests --cov-report xml
               ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
-     
-     
-     
-     
+
+
+
+
   test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -84,14 +84,14 @@ jobs:
         with:
           os: ${{ runner.os }}
           python-version: ${{ matrix.python-version }}
-                  
+
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Install dependencies
-        run: | 
+        run: |
               poetry install -vv
 
       - name: Run tests
