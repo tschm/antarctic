@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 master_doc = "index"
-project = "pyaddepar"
+project = "antarctic"
 
 source_suffix = {
     ".rst": "restructuredtext",
@@ -18,7 +18,7 @@ extensions = [
 ]
 
 
-source_dirs = "pyaddepar"
+source_dirs = "antarctic"
 autoapi_type = "python"
 autoapi_dirs = ["../../%s" % d for d in source_dirs.split()]
 autoapi_options = [
@@ -36,7 +36,7 @@ napoleon_numpy_docstring = True
 # HTML -----------------------------------------------------------------
 html_favicon = "_static/logo.png"
 html_logo = "_static/logo.png"
-html_title = "pyaddepar Documentation"
+html_title = "antarctic Documentation"
 html_show_sourcelink = True
 html_css_files = [
     "custom.css",
