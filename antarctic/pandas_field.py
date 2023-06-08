@@ -5,7 +5,9 @@ This module provides a Pandas type for MongoEngine
 from __future__ import annotations
 
 from io import BytesIO
-from typing import List, Optional, Union
+from typing import List
+from typing import Optional
+from typing import Union
 
 import pandas as pd
 import pyarrow as pa
