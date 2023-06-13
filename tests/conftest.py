@@ -18,5 +18,5 @@ def resource_fixture():
 @pytest.fixture(scope="session", name="client")
 def client_fixture():
     """database fixture"""
-    yield connect() 
+    yield connect()
     disconnect()
