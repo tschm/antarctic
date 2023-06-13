@@ -27,6 +27,6 @@ def client_fixture():
             print(type(collection))
             col = db[collection]
             col.delete_many({})
-    
     yield connect()
+    print("Hello again")
     disconnect()
