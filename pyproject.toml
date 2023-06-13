@@ -20,6 +20,7 @@ mongomock = "*"
 # setuptools = "*"
 pytest-cov = "*"
 jupyterlab = "*"
+jupyter-book = "0.15.1"
 
 [build-system]
 requires = ["poetry>=1.0.2"]
