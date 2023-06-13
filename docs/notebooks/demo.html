@@ -382,24 +382,26 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/ts.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/ts.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2014-01-01    1.306352
-2014-01-02    1.301997
-2014-01-03    1.298933
-2014-01-06    1.298281
-2014-01-07    1.299433
-                ...   
-2015-04-16    1.321942
-2015-04-17    1.319721
-2015-04-20    1.318233
-2015-04-21    1.321189
-2015-04-22    1.321565
-Name: value, Length: 341, dtype: float64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               value
+2014-01-01  1.306352
+2014-01-02  1.301997
+2014-01-03  1.298933
+2014-01-06  1.298281
+2014-01-07  1.299433
+...              ...
+2015-04-16  1.321942
+2015-04-17  1.319721
+2015-04-20  1.318233
+2015-04-21  1.321189
+2015-04-22  1.321565
+
+[341 rows x 1 columns]
 </pre></div>
 </div>
 </div>
@@ -438,36 +440,7 @@ Name: value, Length: 341, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">portfolio</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="n">nav</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span> <span class="n">prices</span><span class="o">=</span><span class="n">prices</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">prices</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">prices</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">7</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-<span class="nn">File ~/work/antarctic/antarctic/.venv/lib/python3.10/site-packages/mongoengine/base/document.py:128,</span> in <span class="ni">BaseDocument.__init__</span><span class="nt">(self, *args, **values)</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>         <span class="k">if</span> <span class="n">field</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">FileField</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span>             <span class="n">value</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">128</span>     <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic</span><span class="p">:</span>
-
-<span class="nn">File ~/work/antarctic/antarctic/.venv/lib/python3.10/site-packages/mongoengine/base/document.py:207,</span> in <span class="ni">BaseDocument.__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">199</span> <span class="k">if</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">200</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_is_document</span>
-<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="ow">and</span> <span class="n">self__initialised</span>
-<span class="g g-Whitespace">    </span><span class="mi">202</span>     <span class="ow">and</span> <span class="n">self__created</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span>     <span class="ow">and</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id_field&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">205</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s2">&quot;_created&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">207</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-<span class="nn">File ~/work/antarctic/antarctic/antarctic/pandas_field.py:65,</span> in <span class="ni">PandasField.__set__</span><span class="nt">(self, instance, value)</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span>         <span class="k">pass</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">65</span>         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type of value </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__set__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-<span class="ne">AssertionError</span>: Type of value &lt;class &#39;pandas.core.series.Series&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Portfolio: Portfolio object&gt;
 </pre></div>
 </div>
 </div>
