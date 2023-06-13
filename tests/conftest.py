@@ -20,10 +20,14 @@ def client_fixture():
     """database fixture"""
     db_name = "test"
     connection = connect(db_name)
-
-    for collection in connection.get_database(db_name).list_collection_names():
+    
+    db = connection.get_database(db_name)
+    
+    for collection in db.list_collection_names():
         print(collection)
         print(type(collection))
-
+        col = db[collection]
+        col.delete_many({})
+    
     yield connection
     disconnect()
