@@ -27,7 +27,7 @@ jobs:
       - uses: cvxgrp/.github/actions/test@main
         with:
           source-folder: 'antarctic'
-          
+
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
