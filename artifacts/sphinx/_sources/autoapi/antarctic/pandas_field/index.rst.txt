@@ -1,0 +1,41 @@
+:py:mod:`antarctic.pandas_field`
+================================
+
+.. py:module:: antarctic.pandas_field
+
+.. autoapi-nested-parse::
+
+   This module provides a Pandas type for MongoEngine
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   antarctic.pandas_field.PandasField
+
+
+
+
+.. py:class:: PandasField(compression='zstd', **kwargs)
+
+   Bases: :py:obj:`mongoengine.base.BaseField`
+
+   Series/Frame type
+
+   .. py:method:: __set__(self, instance, value: Union[pandas.DataFrame, bytes])
+
+      convert the incoming series into a byte-stream document
+
+
+   .. py:method:: __get__(self, instance, owner)
+
+      get the pandas object back
+
+
+
