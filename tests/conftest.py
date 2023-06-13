@@ -23,6 +23,7 @@ def client_fixture():
 
     for collection in connection.get_database(db_name).list_collection_names():
         print(collection)
+        print(type(collection))
 
     yield connection
     disconnect()
