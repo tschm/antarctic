@@ -18,11 +18,11 @@ def resource_fixture():
 @pytest.fixture(scope="session", name="client")
 def client_fixture():
     """database fixture"""
-    db_name = 'test'
+    db_name = "test"
     connection = connect(db_name)
-    
+
     for collection in connection.get_database(db_name).list_collection_names():
         print(collection)
-        
+
     yield connection
     disconnect()
