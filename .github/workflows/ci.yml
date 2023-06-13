@@ -30,3 +30,4 @@ jobs:
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
+          source-folder: 'antarctic'
