@@ -1,6 +1,5 @@
 # [Antarctic](https://tschm.github.io/antarctic/)
 
-[![Test](https://github.com/tschm/antarctic/actions/workflows/main.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/main.yml)
 [![Book](https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/book.yml)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![DeepSource](https://deepsource.io/gh/tschm/antarctic.svg/?label=active+issues&show_trend=true&token=Ap44D1XBPLUb19JqC763UIWf)](https://deepsource.io/gh/tschm/antarctic/?ref=repository-badge)
