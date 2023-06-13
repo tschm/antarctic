@@ -29,7 +29,6 @@ from antarctic.pandas_field import PandasField
 # connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)
 client = connect(db="test", host="mongomock://localhost")
 
-
 # Define the blueprint for a portfolio document
 class Portfolio(Document):
 	nav = PandasField()
