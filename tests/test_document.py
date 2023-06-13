@@ -20,9 +20,6 @@ class Singer(XDocument):
 
 def test_reference_frame(client):
     """test reference data for documents"""
-    # can't harm to clean a bit
-    Singer.objects.delete()
-
     p1 = Singer(name="Peter")
     p1.reference["A"] = 20.0
     p1.save()
@@ -48,9 +45,6 @@ def test_lt():
 
 def test_equals(client):
     """test equality"""
-    # can't harm to clean a bit
-    Singer.objects.delete()
-
     p1 = Singer(name="Peter Maffay")
     p2 = Singer(name="Peter Maffay")
 
@@ -59,9 +53,6 @@ def test_equals(client):
 
 def test_products(client):
     """test the subsets of documents"""
-    # can't harm to clean a bit
-    Singer.objects.delete()
-
     p1 = Singer(name="Peter").save()
     p2 = Singer(name="Falco").save()
 
@@ -85,8 +76,6 @@ def test_products(client):
 
 def test_not_unique_name(client):
     """trying to create documents of the same type and same name"""
-    # can't harm to clean a bit
-    Singer.objects.delete()
 
     # check that no singer has survived
     s = list(Singer.objects)
@@ -102,9 +91,6 @@ def test_not_unique_name(client):
 
 def test_to_dict(client):
     """test create dictionary of documents"""
-    # can't harm to clean a bit
-    Singer.objects.delete()
-
     c1 = Singer(name="AAA").save()
     c2 = Singer(name="BBB").save()
 
@@ -113,7 +99,6 @@ def test_to_dict(client):
 
 def test_apply(client):
     """apply a function to documents"""
-    Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
@@ -131,7 +116,6 @@ def test_apply(client):
 
 def test_apply_missing(client):
     """data missing"""
-    Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
@@ -149,7 +133,6 @@ def test_apply_missing(client):
 
 def test_repr(client):
     """test repr"""
-    Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     assert str(s1) == "<Singer: Falco>"
     assert s1.__repr__() == "<Singer: Falco>"
@@ -157,7 +140,6 @@ def test_repr(client):
 
 def test_frame(resource_dir, client):
     """test frame of series data"""
-    Singer.objects.delete()
     s1 = Singer(name="Falco").save()
     s2 = Singer(name="Peter Maffay").save()
 
