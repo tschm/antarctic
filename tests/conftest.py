@@ -15,7 +15,7 @@ def resource_fixture():
     return Path(__file__).parent / "resources"
 
 
-@pytest.fixture(scope="session", name="client")
+@pytest.fixture(scope="function", name="client")
 def client_fixture():
     """database fixture"""
     db_name = "test"
