@@ -8,8 +8,6 @@ import pytest
 from mongoengine import connect
 from mongoengine import disconnect
 
-# import mongomock
-
 
 @pytest.fixture(scope="session", name="resource_dir")
 def resource_fixture():
