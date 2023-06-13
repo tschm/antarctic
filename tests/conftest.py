@@ -18,6 +18,6 @@ def resource_fixture():
 @pytest.fixture(scope="session", name="client")
 def client_fixture():
     """database fixture"""
-    yield connect(db="test_pandas")  # , mongo_client_class=mongomock.MongoClient)
+    yield connect()  # , mongo_client_class=mongomock.MongoClient)
 
     disconnect()
