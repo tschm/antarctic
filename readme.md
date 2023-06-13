@@ -67,7 +67,6 @@ from antarctic.pandas_field import PandasField
 
 client = connect(db="test", host="mongodb://localhost")
 
-
 class Symbol(XDocument):
 	price = PandasField()
 ```
