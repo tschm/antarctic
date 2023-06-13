@@ -23,7 +23,7 @@ jobs:
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
-          
+
       - uses: cvxgrp/.github/actions/test@main
         with:
           os: ${{ matrix.os }}

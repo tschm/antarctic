@@ -15,24 +15,24 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: '5.0'
-          
+
       - uses: cvxgrp/.github/actions/test@main
 
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: '5.0'
-          
+
       - uses: cvxgrp/.github/actions/jupyter@main
         with:
           kernel: "antarctic"
