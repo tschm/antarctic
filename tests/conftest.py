@@ -19,6 +19,7 @@ def resource_fixture():
 def client_fixture():
     """database fixture"""
     print("Hello")
+    db_name = "test"
     with connect() as connection:
         db = connection.get_database(db_name)
         for collection in db.list_collection_names():
