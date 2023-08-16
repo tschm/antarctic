@@ -43,7 +43,7 @@ jobs:
 
     permissions:
       contents: write
-      
+
     steps:
 
       - name: Check out repository
