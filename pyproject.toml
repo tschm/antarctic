@@ -19,11 +19,6 @@ pytest = "7.4.0"
 pytest-cov = "*"
 mongomock = "*"
 
-[tool.poetry.group.jupyter.dependencies]
-jupyterlab = "*"
-jupyter-book = "*"
-pyyaml = "*"
-
 [build-system]
 requires = ["poetry>=1.0.2"]
 build-backend = "poetry.masonry.api"

@@ -26,11 +26,7 @@ test: install ## Run tests
 
 .PHONY: clean
 clean:  ## Clean up caches and build artifacts
-	@rm -rf .pytest_cache/
-	@rm -rf .ruff_cache/
-	@rm -f .coverage
-	@rm -rf htmlcov
-	@find . -type f -name '*.py[co]' -delete -or -type d -name __pycache__ -delete
+	@git clean -X -d -f
 
 
 .PHONY: coverage
@@ -50,3 +46,9 @@ coverage: ## test and coverage
 help:  ## Display this help screen
 	@echo -e "\033[1mAvailable commands:\033[0m"
 	@grep -E '^[a-z.A-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}' | sort
+
+
+.PHONY: jupyter
+jupyter: ## Start jupyter lab
+	@poetry run pip install jupyterlab
+	@poetry run jupyter lab
