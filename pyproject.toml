@@ -22,7 +22,7 @@ mongomock = "*"
 [tool.poetry.group.jupyter.dependencies]
 jupyterlab = "*"
 jupyter-book = "*"
-pyyaml = "6.0"
+pyyaml = "*"
 
 [build-system]
 requires = ["poetry>=1.0.2"]
