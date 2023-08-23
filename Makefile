@@ -3,18 +3,10 @@
 SHELL=/bin/bash
 
 UNAME=$(shell uname -s)
-KERNEL=$(shell poetry version | cut -d' ' -f1)
 
 .PHONY: install
 install:  ## Install a virtual environment
 	@poetry install -vv
-
-.PHONY: kernel
-kernel: install ## Create a kernel for jupyter lab
-	@echo ${KERNEL}
-	@poetry run pip install ipykernel
-	@poetry run python -m ipykernel install --user --name=${KERNEL}
-
 
 .PHONY: fmt
 fmt:  ## Run autoformatting and linting
@@ -30,7 +22,7 @@ clean:  ## Clean up caches and build artifacts
 
 
 .PHONY: coverage
-coverage: ## test and coverage
+coverage: install ## test and coverage
 	@poetry run coverage run --source=cvx/. -m pytest
 	@poetry run coverage report -m
 	@poetry run coverage html
@@ -49,6 +41,6 @@ help:  ## Display this help screen
 
 
 .PHONY: jupyter
-jupyter: ## Start jupyter lab
+jupyter: install ## Start jupyter lab
 	@poetry run pip install jupyterlab
 	@poetry run jupyter lab
