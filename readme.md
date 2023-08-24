@@ -1,4 +1,4 @@
-# [Antarctic](https://tschm.github.io/antarctic/)
+# [Antarctic](https://tschm.github.io/antarctic/book)
 
 [![Book](https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/book.yml)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
