@@ -1,4 +1,4 @@
-fastparquet 2023.8.0 Python support for Parquet file format
+fastparquet 2023.7.0 Python support for Parquet file format
 ├── cramjam >=2.3
 ├── fsspec *
 ├── numpy >=1.20.3
