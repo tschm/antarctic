@@ -27,7 +27,7 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-db: test
         mongodb-port: 27017
-          
+
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v2
       with:
