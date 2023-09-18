@@ -6,6 +6,7 @@ authors = ["Thomas Schmelzer"]
 readme = "readme.md"
 repository = "https://github.com/tschm/antarctic"
 packages = [{include = "antarctic"}]
+homepage = "https://tschm.github.io/antarctic"
 
 [tool.poetry.dependencies]
 python = ">=3.9.0,<3.12"
