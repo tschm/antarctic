@@ -24,6 +24,7 @@ Classes
 
 .. py:class:: XDocument(*args, **values)
 
+
    Bases: :py:obj:`mongoengine.Document`
 
    A XDocument is an abstract Mongo Document,
@@ -32,38 +33,34 @@ Classes
    Having a common parent helps to share functionality
 
    .. py:attribute:: meta
-      
 
       
 
    .. py:attribute:: name
-      
 
       
 
    .. py:attribute:: reference
-      
 
       
 
    .. py:attribute:: date_modified
-      
 
       
 
-   .. py:method:: reference_frame(cls, objects=None) -> pandas.DataFrame
+   .. py:method:: reference_frame(objects=None) -> pandas.DataFrame
       :classmethod:
 
       get a frame of reference data for each object
 
 
-   .. py:method:: subset(cls, names=None)
+   .. py:method:: subset(names=None)
       :classmethod:
 
       extract a subset of documents from the database
 
 
-   .. py:method:: to_dict(cls, objects=None)
+   .. py:method:: to_dict(objects=None)
       :classmethod:
 
       create a dictionary of objects of class cls
@@ -71,41 +68,41 @@ Classes
       all objects of this particular class are extracted.
 
 
-   .. py:method:: apply(cls, func, default, objects=None) -> pandas.DataFrame
+   .. py:method:: apply(func, default, objects=None) -> pandas.DataFrame
       :classmethod:
 
       apply a function func to documents.
       Yield the default document if something went wrong
 
 
-   .. py:method:: frame(cls, series, key, objects=None) -> pandas.DataFrame
+   .. py:method:: frame(series, key, objects=None) -> pandas.DataFrame
       :classmethod:
 
       get a series from each document and return a frame of them
 
 
-   .. py:method:: __lt__(self, other)
+   .. py:method:: __lt__(other)
 
       sort documents by name
 
 
-   .. py:method:: __eq__(self, other)
+   .. py:method:: __eq__(other)
 
       two documents are equal if they are of the same class
       and have the same name
 
 
-   .. py:method:: __hash__(self)
+   .. py:method:: __hash__()
 
       hashcode
 
 
-   .. py:method:: __str__(self)
+   .. py:method:: __str__()
 
       string representation of a document
 
 
-   .. py:method:: __repr__(self)
+   .. py:method:: __repr__()
 
       representation of a document
 

@@ -24,16 +24,17 @@ Classes
 
 .. py:class:: PandasField(compression='zstd', **kwargs)
 
+
    Bases: :py:obj:`mongoengine.base.BaseField`
 
    Series/Frame type
 
-   .. py:method:: __set__(self, instance, value: Union[pandas.DataFrame, bytes])
+   .. py:method:: __set__(instance, value: Union[pandas.DataFrame, bytes])
 
       convert the incoming series into a byte-stream document
 
 
-   .. py:method:: __get__(self, instance, owner)
+   .. py:method:: __get__(instance, owner)
 
       get the pandas object back
 
