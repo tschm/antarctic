@@ -14,7 +14,6 @@ extensions = [
     "sphinx.ext.mathjax",
     "autoapi.extension",
     "sphinx.ext.napoleon",
-    "recommonmark",
 ]
 
 
