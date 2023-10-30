@@ -4,8 +4,8 @@ fastparquet 2023.8.0 Python support for Parquet file format
 ├── numpy >=1.20.3
 ├── packaging *
 └── pandas >=1.5.0
-    ├── numpy >=1.22.4,<2 
-    ├── numpy >=1.23.2,<2 (circular dependency aborted here)
+    ├── numpy >=1.22.4 
+    ├── numpy >=1.23.2 (circular dependency aborted here)
     ├── python-dateutil >=2.8.2 
     │   └── six >=1.5 
     ├── pytz >=2020.1 
@@ -13,9 +13,9 @@ fastparquet 2023.8.0 Python support for Parquet file format
 mongoengine 0.27.0 MongoEngine is a Python Object-Document Mapper for working with MongoDB.
 └── pymongo >=3.4,<5.0
     └── dnspython >=1.16.0,<3.0.0 
-pandas 2.1.2 Powerful data structures for data analysis, time series, and statistics
-├── numpy >=1.22.4,<2
-├── numpy >=1.23.2,<2
+pandas 2.1.1 Powerful data structures for data analysis, time series, and statistics
+├── numpy >=1.22.4
+├── numpy >=1.23.2
 ├── python-dateutil >=2.8.2
 │   └── six >=1.5 
 ├── pytz >=2020.1
