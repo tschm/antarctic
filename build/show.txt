@@ -20,5 +20,5 @@ pandas 2.1.2 Powerful data structures for data analysis, time series, and statis
 │   └── six >=1.5 
 ├── pytz >=2020.1
 └── tzdata >=2022.1
-pyarrow 14.0.0 Python library for Apache Arrow
+pyarrow 14.0.1 Python library for Apache Arrow
 └── numpy >=1.16.6
