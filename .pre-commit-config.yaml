@@ -31,7 +31,7 @@ repos:
 #        args: [ --strict, --ignore-missing-imports, --explicit-package-bases ]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.27.1
+    rev: 0.27.2
     hooks:
       - id: check-dependabot
         args: [ "--verbose" ]
