@@ -9,9 +9,9 @@ packages = [{include = "antarctic"}]
 homepage = "https://tschm.github.io/antarctic"
 
 [tool.poetry.dependencies]
-python = ">=3.9.0,<3.12"
+python = ">=3.9.0"
 mongoengine= "*"
-pandas = "<3.0.0"
+pandas = "*"
 pyarrow = "*"
 fastparquet= "*"
 
@@ -19,6 +19,7 @@ fastparquet= "*"
 pytest = "7.4.4"
 pytest-cov = "*"
 mongomock = "*"
+pre-commit = "*"
 
 [build-system]
 requires = ["poetry>=1.6.0"]
