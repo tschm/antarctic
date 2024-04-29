@@ -16,7 +16,7 @@ pyarrow = "*"
 fastparquet= "*"
 
 [tool.poetry.group.test.dependencies]
-pytest = "8.1.1"
+pytest = "8.2.0"
 pytest-cov = "*"
 mongomock = "*"
 pre-commit = "*"
