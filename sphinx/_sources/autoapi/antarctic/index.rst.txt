@@ -1,16 +1,16 @@
-:py:mod:`antarctic`
-===================
+antarctic
+=========
 
 .. py:module:: antarctic
 
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   document/index.rst
-   pandas_field/index.rst
+   /autoapi/antarctic/document/index
+   /autoapi/antarctic/pandas_field/index
 
 

@@ -1,5 +1,5 @@
-:py:mod:`antarctic.pandas_field`
-================================
+antarctic.pandas_field
+======================
 
 .. py:module:: antarctic.pandas_field
 
@@ -9,29 +9,29 @@
 
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    antarctic.pandas_field.PandasField
 
 
-
+Module Contents
+---------------
 
 .. py:class:: PandasField(compression='zstd', **kwargs)
 
-
    Bases: :py:obj:`mongoengine.base.BaseField`
 
+
    Series/Frame type
+
 
    .. py:method:: __set__(instance, value: Union[pandas.DataFrame, bytes])
 
       convert the incoming series into a byte-stream document
+
 
 
    .. py:method:: __get__(instance, owner)
