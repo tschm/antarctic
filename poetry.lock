@@ -217,56 +217,49 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "fastparquet"
-version = "2024.2.0"
+version = "2024.5.0"
 description = "Python support for Parquet file format"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "fastparquet-2024.2.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:94aaa752d79660f2d88983bd7336109f4b61da6940d759786c02144195d6c635"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:abb08c61ab0f8a29a118dabe0a9105686fa5580648cfca252a74153c8c32444f"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0d04901828f54ec118e7e5dfb438518ffe9b75ef3b7ebcdbaf33af130fcee9b7"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:42def5e682eb426e6f7062d0bee370dec9424181f3c61eb24d6bdc67482a0ace"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:d87f24ae76e65f94af9e62a648b5479f0bd2e8935e0011c9390ebc1299f3785d"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:76fadf2399a778daf49772c644a3a7b27e41492a43e2bea4107a715981c1dc2f"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:83f1abb155d8a8b6f1f31318174507d8a8ddf4bff00a2ef7065b609577deb6ae"},
-    {file = "fastparquet-2024.2.0-cp310-cp310-win_amd64.whl", hash = "sha256:dedeb4ad28f68313c2504ef005f4b2d52c3d108bd5323204300dbaeec6fb1b04"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:3b7c39661c918686fdbf21695547d2e7b0cd0226a2f2dd6fa5c2ad7b37da2540"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:bd1b310e7d9934f61236b793d1e11336d457e7664829bf76d53bff5614dcc338"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e27b5d21fecdc07f071f5343a350b88c859b324834fd19b78d636480fe341999"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3e3c5cdf2af0fc1b76f07daabd37b132c0f0086106b2fc801ea046739ddabee0"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:ea1503bac0b1457c016a748064823d312806e506f3a8b9226935def4be3fffdc"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:b76febb17f2261e1aa8bdf11b3459ee9cca19ced25744b940c3922b7d93862f9"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:6a14579bbe2fab4f5f43685503b4142d8b0eb7965ee176704ae1697590143cd1"},
-    {file = "fastparquet-2024.2.0-cp311-cp311-win_amd64.whl", hash = "sha256:0c1edc578f7a9919d1062bc3184c0c64d5c4e986ab3fa9c75f53561bb7364d7f"},
-    {file = "fastparquet-2024.2.0-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:cebc1adc7c3a1aed70c752f3fde5e4df094dafba24e60d6501d7963e77047e7e"},
-    {file = "fastparquet-2024.2.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:c26266910e42190f3ba043647b4c1e37e8626981a0366432a498bdf1e10c0bd1"},
-    {file = "fastparquet-2024.2.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ee37d9273e383811f10bd379990851b53df606cfaa046cae53826b6b14f0a33d"},
-    {file = "fastparquet-2024.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:42babeafac01ab24ea1edc7f626c0744c312d60ba6a7189b08c8e7d1c374bfd3"},
-    {file = "fastparquet-2024.2.0-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:b7a620b87e83c098a46611b901c456403c9a04ba526e4a615750d6704092e1eb"},
-    {file = "fastparquet-2024.2.0-cp312-cp312-win_amd64.whl", hash = "sha256:e6f544d65b9f826a149010e3fd5121510e0a1a44c62f1b274aea4a41a8f3dbcd"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:bf6df4a9c781e32dc10432e78ee82c3c8750e9975a4e2d29aecffc1f2323a418"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:ee36f1ea8f08cb9b8710161eee4e752e74f34ef3e7aebc58db4e5468d29ff34c"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:cd4b8133f5fa43c497d151d4d00337f9b0614993116a61c61e563a003eb0811e"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6509837887e35bdcb08ba252eeb930b1056e129b6d31c14901443339567ee95a"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f369dcc860b176739826ed67ea230f243334df5c5b3047ac10b0a365ec469082"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-musllinux_1_1_i686.whl", hash = "sha256:fe1b88f51687566eac9fa94f7ce4f17b8df9e4b7ba8f7d37f383e7140414fe98"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:d2711f30720c4f80654c191ecb21d2b1b7351be1f6763c70936bdbab095f0b54"},
-    {file = "fastparquet-2024.2.0-cp38-cp38-win_amd64.whl", hash = "sha256:52603d24d19522753e21b1794d99bb295688e33d1a04b61a5c0e9eb4884ba342"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:c6affd18ed2608976739b47befce9f80f7848209c892ccb1001d494296af33af"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:1a7314e654a06cfc68a50bfc61bbacc548257d8742fbecfe0418c3b0d4295c04"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fba0fcba4ffd60ab23d24486f85733a5cc1fcf46d1286c9dc3eed329809e9ee3"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dace50138c81c6f70acfff91a7a15acc85e3d45be0edbcf164f26fd86cf3c7a5"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:dd45a7973afe651d7fdb6b836fa1f9177d318de20211a28f4580d9af5c2aacbb"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:33121c1596bb4d672579969a4901730f555447204c7c2573621803f7990cd309"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:b5131d77a6c4cdfe3b00baa7eb95602c7f09d955c5490dd3bc0ec0e290ee4010"},
-    {file = "fastparquet-2024.2.0-cp39-cp39-win_amd64.whl", hash = "sha256:06736e5bb0827f861ac0901310baedf7e7b5f52dfcd89d435963ae328203597c"},
-    {file = "fastparquet-2024.2.0.tar.gz", hash = "sha256:81a8f60c51793eb2436b4fdbbf115ff8578a4a457a179240bc08f9d9573d57a4"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:9dfbed87b4b58b0794b2cb3aa4abcb43fc01480a10c7779a323d2dd1599f6acd"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:07fc5a45450a39cd07c6ef0e0219ac4b1879f8b27c825ee4ba5d87a3ae505f11"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4a2045c21f90358541286f26f0735bfb2265b075413fbced3b876fc8848eda52"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f411056152b5d3cc82b6624d9da80535d10d9277d921fdb2e9516e93c8c227e8"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:cc99d7c0f1816394d53aadd47919bba70bb81355259d8788d28e35913816aee0"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:42149929b71d9122bd501aa695681f40a04a9fa3f5b802cf0fb6aa4e95ccf2dd"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:e5b1ed889f4ac7ea059ff95f4a01f5c07c825c50c2e1bc9e2b64c814df94c243"},
+    {file = "fastparquet-2024.5.0-cp310-cp310-win_amd64.whl", hash = "sha256:f5c3cabcfa2f534e4b23343c1ab84c37d336da73770005e608d1894ab1084600"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:56d03b0a291d6a575ab365516c53b4da8e040347f8d43af79be25893c591b38c"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:784989ee2c251960b8f00dc38c6c730f784712c8e3d08cc7e0ce842055476af1"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d20bba5c39139a88d8d6931764b830ba14042742d802238d9edf86d4d765ad7a"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:08358d99278c5d3fb523d819fff5c74d572d8f67ebbe2215a2c7bfca7e3664cf"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:e9de270e17a6ae2f02c716421d60e18d35d4718037f561b3e359989db19f700a"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:ba251231b005c0f3f7e56f6e9cd1939be99b2d810ab5b05039271e260c0196c6"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:1496d83d7a77c19abae796e3b582539884fc893d75a3ad4f90df12f8f23a902a"},
+    {file = "fastparquet-2024.5.0-cp311-cp311-win_amd64.whl", hash = "sha256:ea3796c4a38ef8b372a3056b5cef52ca8182fa554fa51c7637c2421e69ee56e5"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:e1fa068ef1826bff6d4a9106a6f9e9d6fd20b8b516da4b82d87840cb5fd3947c"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:3a60f7b0b308d6b9f12c642cf5237a05d754926fb31ce865ff7072bceab19fbb"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4e6ac308a2f391ce589c99b8376e7cdfe4241ef5770ac4cf4c1c93f940bda83c"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2b3cf7b4eb1b06e87b97a3a5c9124e4b1c08a8903ba017052c5fe2c482414a3d"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:5626fc72204001b7e82fedb4b02174ecb4e2d4143b38b4ea8d2f9eb65f6b000e"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:c8b2e86fe6488cce0e3d41263bb0296ef9bbb875a2fca09d67d7685640017a66"},
+    {file = "fastparquet-2024.5.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:2a951106782d51e5ab110beaad29c4aa0537f045711bb0bf146f65aeaed14174"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:47695037fdc534ef4247f25ccf17dcbd8825be6ecb70c54ca54d588a794f4a6d"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:fc3d35ff8341cd65baecac71062e9d73393d7afda207b3421709c1d3f4baa194"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:691348cc85890663dd3c0bb02544d38d4c07a0c3d68837324dc01007301150b5"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dfdc8aaec67edd30814c2c2f0e291eb3c3044525d18c87e835ef8793d6e2ea2d"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:0034d1b5af3a71cc2fb29c590f442c0b514f710d6d6996794ae375dcfe050c05"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-musllinux_1_2_i686.whl", hash = "sha256:b562be0f43a007493014512602ab6b0207d13ea4ae85e0d94d61febf08efa1ee"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-musllinux_1_2_x86_64.whl", hash = "sha256:611da9043f9dab1c63e6c90a6b124e3d2789c34fefa00d45356517f1e8a09c83"},
+    {file = "fastparquet-2024.5.0-cp39-cp39-win_amd64.whl", hash = "sha256:cb93e8951f46943c8567c9a555cb3d24d2c78efdf78e95fd72177d80da73a10f"},
+    {file = "fastparquet-2024.5.0.tar.gz", hash = "sha256:dffd1d0ac6e89e31c5b6dacf67a8d299d4afbbcf0bf8b797373904c819c48f51"},
 ]
 
 [package.dependencies]
 cramjam = ">=2.3"
 fsspec = "*"
-numpy = ">=1.20.3"
+numpy = "*"
 packaging = "*"
 pandas = ">=1.5.0"
 
