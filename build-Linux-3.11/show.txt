@@ -1,0 +1,26 @@
+fastparquet 2024.5.0 Python support for Parquet file format
+├── cramjam >=2.3
+├── fsspec *
+├── numpy *
+├── packaging *
+└── pandas >=1.5.0
+    ├── numpy >=1.22.4 
+    ├── numpy >=1.23.2 (circular dependency aborted here)
+    ├── numpy >=1.26.0 (circular dependency aborted here)
+    ├── python-dateutil >=2.8.2 
+    │   └── six >=1.5 
+    ├── pytz >=2020.1 
+    └── tzdata >=2022.7 
+mongoengine 0.28.2 MongoEngine is a Python Object-Document Mapper for working with MongoDB.
+└── pymongo >=3.4,<5.0
+    └── dnspython >=1.16.0,<3.0.0 
+pandas 2.2.2 Powerful data structures for data analysis, time series, and statistics
+├── numpy >=1.22.4
+├── numpy >=1.23.2
+├── numpy >=1.26.0
+├── python-dateutil >=2.8.2
+│   └── six >=1.5 
+├── pytz >=2020.1
+└── tzdata >=2022.7
+pyarrow 16.1.0 Python library for Apache Arrow
+└── numpy >=1.16.6
