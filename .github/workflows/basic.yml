@@ -25,7 +25,7 @@ jobs:
           mongodb-version: 6.0
           mongodb-db: test
           mongodb-port: 27017
-          
+
       - name: Test on Linux
         shell: bash
         run: |
