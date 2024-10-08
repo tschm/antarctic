@@ -27,7 +27,7 @@ jobs:
                        pytest-html \
                        pytest-random-order
 
-            poetry run pytest --cov=${{ inputs.source-folder || 'cvx' }} --random-order --verbose \
+            poetry run pytest --cov='antarctic' --random-order --verbose \
                               --html=artifacts/tests/html-report/report.html \
                               --cov-report term \
                               --cov-report xml:artifacts/tests/coverage/coverage.xml \
@@ -39,17 +39,18 @@ jobs:
             # I want to upload the result to gh-pages, hence this file disturbs
             rm -f artifacts/tests/html-coverage/.gitignore
 
+
       - name: Archive tests results
         uses: actions/upload-artifact@v4
         with:
           name: tests_coverage
           path: artifacts/tests
           retention-days: 1
-
-
-      - uses: cvxgrp/.github/actions/coverage@main
-        with:
-          source-folder: "antarctic"
+          
+    
+      #- uses: cvxgrp/.github/actions/coverage@main
+      #  with:
+      #    source-folder: "antarctic"
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
