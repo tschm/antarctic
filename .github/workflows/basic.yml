@@ -19,6 +19,13 @@ jobs:
     steps:
       - uses: cvxgrp/.github/actions/setup-environment@main
 
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.11.0
+        with:
+          mongodb-version: 6.0
+          mongodb-db: test
+          mongodb-port: 27017
+          
       - name: Test on Linux
         shell: bash
         run: |
