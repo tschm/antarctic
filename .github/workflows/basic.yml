@@ -17,6 +17,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: cvxgrp/.github/actions/setup-environment@main
+
+      - name: Test on Linux
+        shell: bash
+        run: |
+            poetry run pip install --no-cache-dir \
+                       pytest-cov \
+                       pytest-html \
+                       pytest-random-order
+
+            poetry run pytest --cov=${{ inputs.source-folder || 'cvx' }} --random-order --verbose \
+                              --html=artifacts/tests/html-report/report.html \
+                              --cov-report term \
+                              --cov-report xml:artifacts/tests/coverage/coverage.xml \
+                              --cov-report json:artifacts/tests/coverage/coverage.json \
+                              --cov-report lcov:artifacts/tests/coverage/coverage.info \
+                              --cov-report html:artifacts/tests/html-coverage \
+                              tests/
+
+            # I want to upload the result to gh-pages, hence this file disturbs
+            rm -f artifacts/tests/html-coverage/.gitignore
+
+      - name: Archive tests results
+        uses: actions/upload-artifact@v4
+        with:
+          name: tests_coverage
+          path: artifacts/tests
+          retention-days: 1
+          
+    
       - uses: cvxgrp/.github/actions/coverage@main
         with:
           source-folder: "antarctic"
