@@ -18,7 +18,9 @@ jobs:
 
     steps:
       - uses: cvxgrp/.github/actions/coverage@main
-
+        with:
+          source-folder: "antarctic"
+          
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
         with:
