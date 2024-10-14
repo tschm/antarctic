@@ -362,18 +362,23 @@ test = ["Pillow (>=7.0.0)", "blinker", "coverage", "pytest", "pytest-cov"]
 
 [[package]]
 name = "mongomock"
-version = "4.1.2"
+version = "4.2.0.post1"
 description = "Fake pymongo stub for testing simple MongoDB-dependent code"
 optional = false
 python-versions = "*"
 files = [
-    {file = "mongomock-4.1.2-py2.py3-none-any.whl", hash = "sha256:08a24938a05c80c69b6b8b19a09888d38d8c6e7328547f94d46cadb7f47209f2"},
-    {file = "mongomock-4.1.2.tar.gz", hash = "sha256:f06cd62afb8ae3ef63ba31349abd220a657ef0dd4f0243a29587c5213f931b7d"},
+    {file = "mongomock-4.2.0.post1-py2.py3-none-any.whl", hash = "sha256:ff78f1944bf0cdcfc291ece198357db805c2f0db39e814bcef8a43c9f53e8a81"},
+    {file = "mongomock-4.2.0.post1.tar.gz", hash = "sha256:9241d2cec7274b9736dbe8edacb19528ff66af3b3779b324d79ecc4201227f31"},
 ]
 
 [package.dependencies]
 packaging = "*"
+pytz = "*"
 sentinels = "*"
+
+[package.extras]
+pyexecjs = ["pyexecjs"]
+pymongo = ["pymongo"]
 
 [[package]]
 name = "nodeenv"
