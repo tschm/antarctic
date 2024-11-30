@@ -117,3 +117,26 @@ update the MongoDB database once a day. It's extremely fast
 to read the Pandas objects out of such a construction.
 
 Often such concepts are called DataStores.
+
+## uv
+
+Starting with
+
+```bash
+make install
+```
+
+will install [uv](https://github.com/astral-sh/uv) and create
+the virtual environment defined in
+pyproject.toml and locked in uv.lock.
+
+## marimo
+
+We install [marimo](https://marimo.io) on the fly within the aforementioned
+virtual environment. Executing
+
+```bash
+make marimo
+```
+
+will install and start marimo.
