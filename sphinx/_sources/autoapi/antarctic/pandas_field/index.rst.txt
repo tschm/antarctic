@@ -29,6 +29,8 @@ Module Contents
 
 
    .. py:attribute:: compression
+      :value: 'zstd'
+
 
 
    .. py:method:: __set__(instance, value: Union[pandas.DataFrame, bytes])
