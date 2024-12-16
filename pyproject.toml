@@ -1,4 +1,4 @@
-[tool.poetry]
+[project]
 name = "antarctic"
 version = "0.0.0"
 description = "..."
