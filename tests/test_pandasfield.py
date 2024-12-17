@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 import pytest
-from mongoengine import Document
-from mongoengine import StringField
+from mongoengine import Document, StringField
 
 from antarctic.pandas_field import PandasField
 

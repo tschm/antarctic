@@ -5,10 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 
 import pandas as pd
-from mongoengine import DateTimeField
-from mongoengine import DictField
-from mongoengine import Document
-from mongoengine import StringField
+from mongoengine import DateTimeField, DictField, Document, StringField
 
 
 class XDocument(Document):
