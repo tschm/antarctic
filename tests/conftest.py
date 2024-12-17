@@ -5,8 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from mongoengine import connect
-from mongoengine import disconnect
+from mongoengine import connect, disconnect
 
 
 @pytest.fixture(scope="session", name="resource_dir")

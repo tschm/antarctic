@@ -23,14 +23,6 @@ dev = [
     "mongomock",
 ]
 
-[tool.ruff]
-select = ["E", "F", "I"]
-line-length = 120
-target-version = "py310"
-exclude = [
-    "*__init__.py"
-]
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
