@@ -1,4 +1,4 @@
-dname: "ci"
+name: "ci"
 
 on:
 - push
