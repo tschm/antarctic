@@ -21,6 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cvxgrp/.github/actions/uv/pdoc@main
+        with:
+          source-folder: 'antarctic'
 
   test:
     runs-on: "ubuntu-latest"
