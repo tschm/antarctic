@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: cvxgrp/.github/actions/setup-environment@main
+      - uses: actions/checkout@v4
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.11.0
