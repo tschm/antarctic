@@ -29,3 +29,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["antarctic"]
+
+[tool.deptry.per_rule_ignores]
+DEP002 = ["fastparquet"]
