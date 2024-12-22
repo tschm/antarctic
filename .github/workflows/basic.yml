@@ -64,3 +64,4 @@ jobs:
         with:
           files: artifacts/tests/coverage/coverage.info
           format: lcov
+          source-path: antarctic
