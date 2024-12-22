@@ -29,7 +29,7 @@ jobs:
           mongodb-db: test
           mongodb-port: 27017
 
-      - uses: cvxgrp/.github/actions/test@main
+      - uses: cvxgrp/.github/actions/uv/test@main
         with:
           source-folder: 'antarctic'
 
@@ -37,7 +37,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: cvxgrp/.github/actions/jupyter@main
+      - uses: cvxgrp/.github/actions/uv/jupyter@main
 
   book:
     runs-on: "ubuntu-latest"
