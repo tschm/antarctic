@@ -5,21 +5,14 @@ on:
 
 
 jobs:
-  checkout:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: actions/checkout@v4
-
   sphinx:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
       - uses: cvxgrp/.github/actions/uv/sphinx@main
 
   pdoc:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
       - uses: cvxgrp/.github/actions/uv/pdoc@main
         with:
           source-folder: 'antarctic'
@@ -27,8 +20,6 @@ jobs:
   test:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
-
       # uses MongoMock
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.11.0
@@ -44,7 +35,6 @@ jobs:
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
       - uses: cvxgrp/.github/actions/uv/jupyter@main
 
   book:
@@ -55,17 +45,4 @@ jobs:
       contents: write
 
     steps:
-
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: .book
-
-      - name: GitHub Pages action
-        uses: JamesIves/github-pages-deploy-action@v4.7.2
-        with:
-          branch: gh-pages          # The branch the action should deploy to.
-          folder: .book             # The folder the action should deploy.
+      - uses: cvxgrp/.github/actions/book@main

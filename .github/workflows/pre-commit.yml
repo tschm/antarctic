@@ -15,7 +15,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.11.0
@@ -37,7 +37,6 @@ jobs:
   deptry:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: cvxgrp/.github/actions/uv/deptry@main
         with:
           source-folder: 'antarctic'
