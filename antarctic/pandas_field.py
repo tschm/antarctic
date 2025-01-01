@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 """
 This module provides a Pandas type for MongoEngine
 """
+
 from __future__ import annotations
 
 from io import BytesIO
-from typing import List, Optional, Union
 
 import pandas as pd
 import pyarrow as pa
@@ -13,7 +12,7 @@ import pyarrow.parquet as pq
 from mongoengine.base import BaseField
 
 
-def _read(value: bytes, columns: Optional[List[str]] = None) -> pd.DataFrame:
+def _read(value: bytes, columns: list[str] | None = None) -> pd.DataFrame:
     """
     Read a binary representation by the write method given below.
 
@@ -51,7 +50,7 @@ class PandasField(BaseField):
         super().__init__(**kwargs)
         self.compression = compression
 
-    def __set__(self, instance, value: Union[pd.DataFrame, bytes]):
+    def __set__(self, instance, value: pd.DataFrame | bytes):
         """convert the incoming series into a byte-stream document"""
         if value is not None:
             if isinstance(value, pd.DataFrame):

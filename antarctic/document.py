@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 """overload the document class of MongoEngine"""
+
 from __future__ import annotations
 
 from datetime import datetime
