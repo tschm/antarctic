@@ -336,7 +336,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -352,6 +354,24 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fields">Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#documents">Documents</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#database-vs-datastore">Database vs. Datastore</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uv">uv</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo">marimo</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -362,8 +382,133 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="antarctic">
-<h1>Antarctic<a class="headerlink" href="#antarctic" title="Link to this heading">#</a></h1>
-<p>Ja</p>
+<h1><a class="reference external" href="https://tschm.github.io/antarctic/book">Antarctic</a><a class="headerlink" href="#antarctic" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://github.com/tschm/antarctic/actions/workflows/book.yml"><img alt="Book" src="https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/tschm/antarctic/actions/"><img alt="Release" src="https://github.com/tschm/antarctic/workflows/Release/badge.svg" /></a>
+<a class="reference external" href="https://deepsource.io/gh/tschm/antarctic/?ref=repository-badge"><img alt="DeepSource" src="https://deepsource.io/gh/tschm/antarctic.svg/?label=active+issues&amp;show_trend=true&amp;token=Ap44D1XBPLUb19JqC763UIWf" /></a>
+<a class="reference external" href="https://results.pre-commit.ci/latest/github/tschm/TinyCTA/main"><img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/tschm/TinyCTA/main.svg" /></a></p>
+<p>Project to persist Pandas data structures in a MongoDB database.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">antarctic</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<p>This project (unless the popular arctic project which I admire)
+is based on top of <a class="reference external" href="https://pypi.org/project/mongoengine/">MongoEngine</a>.
+MongoEngine is an ORM for MongoDB. MongoDB stores documents.
+We introduce a new field and extend the Document class
+to make Antarctic a convenient choice for storing Pandas (time series) data.</p>
+<section id="fields">
+<h3>Fields<a class="headerlink" href="#fields" title="Link to this heading">#</a></h3>
+<p>We introduce first a new field — the PandasField.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">connect</span>
+<span class="kn">from</span> <span class="nn">antarctic.pandas_field</span> <span class="kn">import</span> <span class="n">PandasField</span>
+
+<span class="c1"># connect with your existing MongoDB</span>
+<span class="c1"># (here I am using a popular interface mocking a MongoDB)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;mongomock://localhost&quot;</span><span class="p">)</span>
+
+<span class="c1"># Define the blueprint for a portfolio document</span>
+<span class="k">class</span> <span class="nc">Portfolio</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+ <span class="n">nav</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+ <span class="n">weights</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+ <span class="n">prices</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The portfolio objects works exactly the way you think it works</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">nav</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nav&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">nav</span><span class="p">[</span><span class="s2">&quot;nav&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">prices</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Behind the scenes we convert the Frame objects
+into parquet bytestreams and
+store them in a MongoDB database.</p>
+<p>The format should also be readable by R.</p>
+<section id="documents">
+<h4>Documents<a class="headerlink" href="#documents" title="Link to this heading">#</a></h4>
+<p>In most cases we have copies of very similar documents,
+e.g. we store Portfolios and Symbols rather than just a Portfolio or a Symbol.
+For this purpose we have developed the abstract <code class="docutils literal notranslate"><span class="pre">XDocument</span></code> class
+relying on the Document class of MongoEngine.
+It provides some convenient tools to simplify looping
+over all or a subset of Documents of the same type, e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">antarctic.document</span> <span class="kn">import</span> <span class="n">XDocument</span>
+<span class="kn">from</span> <span class="nn">antarctic.pandas_field</span> <span class="kn">import</span> <span class="n">PandasField</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;mongodb://localhost&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="n">XDocument</span><span class="p">):</span>
+ <span class="n">price</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We define a bunch of symbols and assign a price for each (or some of it):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="c1"># We can access subsets like</span>
+<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">Symbol</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">]):</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+<span class="c1"># often we need a dictionary of Symbols:</span>
+<span class="n">Symbol</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">])</span>
+
+<span class="c1"># Each XDocument also provides a field for reference data:</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="s2">&quot;MyProp1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ABC&quot;</span>
+<span class="n">s2</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="s2">&quot;MyProp2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;BCD&quot;</span>
+
+<span class="c1"># You can loop over (subsets) of Symbols and extract reference and/or series data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Symbol</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">(</span><span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Symbol</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">series</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Symbol</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">price</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The XDocument class is exposing DataFrames both for reference and time series data.
+There is an <code class="docutils literal notranslate"><span class="pre">apply</span></code> method for using a function on (subset) of documents.</p>
+</section>
+</section>
+<section id="database-vs-datastore">
+<h3>Database vs. Datastore<a class="headerlink" href="#database-vs-datastore" title="Link to this heading">#</a></h3>
+<p>Storing json or bytestream representations of Pandas objects
+is not exactly a database. Appending is rather expensive as one would have
+to extract the original Pandas object, append to it and convert
+the new object back into a json or bytestream representation.
+Clever sharding can mitigate such effects but at the end of the day
+you shouldn’t update such objects too often. Often practitioners
+use a small database for recording (e.g. over the last 24h) and
+update the MongoDB database once a day. It’s extremely fast
+to read the Pandas objects out of such a construction.</p>
+<p>Often such concepts are called DataStores.</p>
+</section>
+</section>
+<section id="uv">
+<h2>uv<a class="headerlink" href="#uv" title="Link to this heading">#</a></h2>
+<p>You need to install <a class="reference external" href="https://taskfile.dev">task</a>.
+Starting with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>task<span class="w"> </span>antarctic:install
+</pre></div>
+</div>
+<p>will install <a class="reference external" href="https://github.com/astral-sh/uv">uv</a> and create
+the virtual environment defined in
+pyproject.toml and locked in uv.lock.</p>
+</section>
+<section id="marimo">
+<h2>marimo<a class="headerlink" href="#marimo" title="Link to this heading">#</a></h2>
+<p>We install <a class="reference external" href="https://marimo.io">marimo</a> on the fly within the aforementioned
+virtual environment. Executing</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>task<span class="w"> </span>antarctic:marimo
+</pre></div>
+</div>
+<p>will install and start marimo.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -413,6 +558,32 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fields">Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#documents">Documents</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#database-vs-datastore">Database vs. Datastore</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uv">uv</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marimo">marimo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
