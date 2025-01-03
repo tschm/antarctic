@@ -2,8 +2,9 @@
 
 [![Book](https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/book.yml)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
-[![DeepSource](https://deepsource.io/gh/tschm/antarctic.svg/?label=active+issues&show_trend=true&token=Ap44D1XBPLUb19JqC763UIWf)](https://deepsource.io/gh/tschm/antarctic/?ref=repository-badge)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/tschm/TinyCTA/main.svg)](https://results.pre-commit.ci/latest/github/tschm/TinyCTA/main)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tschm/antarctic)
 
 Project to persist Pandas data structures in a MongoDB database.
 
