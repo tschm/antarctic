@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
-        
+
       - uses: cvxgrp/.github/actions/uv/pdoc@main
         with:
           source-folder: 'antarctic'
@@ -28,7 +28,7 @@ jobs:
 
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
-        
+
       - uses: cvxgrp/.github/actions/uv/test@main
         with:
           source-folder: 'antarctic'
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
-        
+
       - uses: cvxgrp/.github/actions/uv/jupyter@main
 
   book:
@@ -51,5 +51,5 @@ jobs:
     steps:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
-        
+
       - uses: cvxgrp/.github/actions/book@main
