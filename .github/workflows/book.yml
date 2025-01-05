@@ -40,7 +40,6 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/jupyter@main
       - uses: cvxgrp/.github/actions/uv/jupyter@v2.0.0
 
   book:
@@ -54,5 +53,4 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/book@main
       - uses: cvxgrp/.github/actions/book@v2.0.0
