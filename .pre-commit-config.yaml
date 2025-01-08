@@ -22,7 +22,7 @@ repos:
         args: [ "--ignore", "book/**/*.md" ]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.30.0
+    rev: 0.31.0
     hooks:
       - id: check-renovate
         args: [ "--verbose" ]
