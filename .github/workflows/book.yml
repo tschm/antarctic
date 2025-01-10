@@ -13,7 +13,8 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/pdoc@v2.0.2
         with:
-          source-folder: 'src/antarctic'
+          source-folder: ${SOURCE_FOLDER}
+          #'src/antarctic'
 
   test:
     runs-on: "ubuntu-latest"
