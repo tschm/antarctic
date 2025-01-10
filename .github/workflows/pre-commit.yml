@@ -22,6 +22,7 @@ jobs:
       - uses: cvxgrp/.github/actions/uv/coverage@v2.0.2
         with:
           source-folder: 'antarctic'
+          tests-folder: 'src/tests'
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
