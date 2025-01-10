@@ -11,9 +11,14 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
+      - name: Load .env file
+        uses: xom9ikk/dotenv@v2  # Dedicated action for loading .env files
+        with:
+          path: ./.env  # Path to .env file
+
       - uses: cvxgrp/.github/actions/uv/pdoc@v2.0.2
         with:
-          source-folder: ${SOURCE_FOLDER}
+          source-folder: ${env.SOURCE_FOLDER}
           #'src/antarctic'
 
   test:
