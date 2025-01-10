@@ -19,10 +19,13 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
+      - name: Load .env file
+        uses: xom9ikk/dotenv@v2  # Dedicated action for loading .env files
+
       - uses: cvxgrp/.github/actions/uv/coverage@v2.0.2
         with:
-          source-folder: 'antarctic'
-          tests-folder: 'src/tests'
+          source-folder: ${{ env.SOURCE_FOLDER }}
+          tests-folder: ${{ env.TESTS_FOLDER }}
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
@@ -38,4 +41,4 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/deptry@v2.0.2
         with:
-          source-folder: 'src/antarctic'
+          source-folder: ${{ env.SOURCE_FOLDER }}
