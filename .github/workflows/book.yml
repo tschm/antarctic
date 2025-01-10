@@ -13,7 +13,7 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/pdoc@v2.0.2
         with:
-          source-folder: 'antarctic'
+          source-folder: 'src/antarctic'
 
   test:
     runs-on: "ubuntu-latest"
@@ -32,6 +32,7 @@ jobs:
       - uses: cvxgrp/.github/actions/uv/test@v2.0.2
         with:
           source-folder: 'antarctic'
+          tests-folder: 'src/tests'
 
   jupyter:
     runs-on: "ubuntu-latest"

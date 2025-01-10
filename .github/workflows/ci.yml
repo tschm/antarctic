@@ -29,4 +29,5 @@ jobs:
       - uses: cvxgrp/.github/actions/uv/test@v2.0.2
         with:
           python-version: ${{ matrix.python-version }}
-          source-folder: 'antarctic'
+          source-folder: 'src/antarctic'
+          tests-folder: 'src/tests'
