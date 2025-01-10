@@ -1,21 +1,17 @@
 import marimo
 
-__generated_with = "0.9.27"
+__generated_with = "0.10.10"
 app = marimo.App()
 
 
 @app.cell
-def __(mo):
-    mo.md(
-        r"""
-        # Demo
-        """
-    )
+def _(mo):
+    mo.md(r"""# Demo""")
     return
 
 
 @app.cell
-def __():
+def _():
     import pandas as pd
     from mongoengine import Document, connect
     from mongomock import MongoClient
@@ -26,14 +22,14 @@ def __():
 
 
 @app.cell
-def __():
+def _():
     from antarctic.pandas_field import PandasField
 
     return (PandasField,)
 
 
 @app.cell
-def __(Document, PandasField):
+def _(Document, PandasField):
     class Portfolio(Document):
         nav = PandasField()
         weights = PandasField()
@@ -43,21 +39,21 @@ def __(Document, PandasField):
 
 
 @app.cell
-def __(pd):
+def _(pd):
     ts = pd.read_csv("data/ts.csv", index_col=0, parse_dates=True)
     print(ts)
     return (ts,)
 
 
 @app.cell
-def __(pd):
+def _(pd):
     prices = pd.read_csv("data/price.csv", index_col=0, parse_dates=True, header=0)
     print(prices)
     return (prices,)
 
 
 @app.cell
-def __(Portfolio, pd, prices, ts):
+def _(Portfolio, pd, prices, ts):
     portfolio = Portfolio(
         nav=ts,
         prices=prices,
@@ -68,7 +64,7 @@ def __(Portfolio, pd, prices, ts):
 
 
 @app.cell
-def __():
+def _():
     import marimo as mo
 
     return (mo,)
