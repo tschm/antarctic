@@ -31,7 +31,7 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/test@v2.0.2
         with:
-          source-folder: 'antarctic'
+          source-folder: 'src/antarctic'
           tests-folder: 'src/tests'
 
   jupyter:
