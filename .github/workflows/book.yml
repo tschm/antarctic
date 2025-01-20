@@ -11,12 +11,9 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - name: Load .env file
-        uses: xom9ikk/dotenv@v2  # Dedicated action for loading .env files
-
       - uses: cvxgrp/.github/actions/uv/pdoc@v2.0.6
         with:
-          source-folder: ${{ env.SOURCE_FOLDER }}
+          source-folder: src/antarctic
 
 
   test:
@@ -35,7 +32,7 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/test@v2.0.6
         with:
-          tests-folder: ${{ env.TESTS_FOLDER }}
+          tests-folder: src/tests
 
   jupyter:
     runs-on: "ubuntu-latest"
