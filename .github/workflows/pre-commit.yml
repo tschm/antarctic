@@ -24,8 +24,8 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/coverage@v2.0.6
         with:
-          source-folder: ${{ env.SOURCE_FOLDER }}
-          tests-folder: ${{ env.TESTS_FOLDER }}
+          source-folder: src/antarctic
+          tests-folder: src/tests
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
@@ -44,4 +44,4 @@ jobs:
 
       - uses: cvxgrp/.github/actions/uv/deptry@v2.0.6
         with:
-          source-folder: ${{ env.SOURCE_FOLDER }}
+          source-folder: src/antarctic

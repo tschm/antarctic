@@ -32,4 +32,4 @@ jobs:
       - uses: cvxgrp/.github/actions/uv/test@v2.0.6
         with:
           python-version: ${{ matrix.python-version }}
-          tests-folder: ${{ env.TESTS_FOLDER }}
+          tests-folder: src/tests
