@@ -1,5 +1,6 @@
 # [Antarctic](https://tschm.github.io/antarctic/book)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Book](https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/book.yml)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/tschm/TinyCTA/main.svg)](https://results.pre-commit.ci/latest/github/tschm/TinyCTA/main)
