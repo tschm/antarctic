@@ -19,7 +19,7 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/coverage@v2.0.9
+      - uses: cvxgrp/.github/actions/uv/coverage@v2.0.10
         with:
           source-folder: src/antarctic
           tests-folder: src/tests
@@ -36,6 +36,6 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/deptry@v2.0.9
+      - uses: cvxgrp/.github/actions/uv/deptry@v2.0.10
         with:
           source-folder: src/antarctic
