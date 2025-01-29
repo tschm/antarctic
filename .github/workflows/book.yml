@@ -11,7 +11,7 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/pdoc@v2.0.11
+      - uses: cvxgrp/.github/actions/uv/pdoc@v2.0.12
         with:
           source-folder: src/antarctic
 
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/test@v2.0.11
+      - uses: cvxgrp/.github/actions/uv/test@v2.0.12
         with:
           tests-folder: src/tests
 
@@ -40,7 +40,7 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/jupyter@v2.0.11
+      - uses: cvxgrp/.github/actions/uv/jupyter@v2.0.12
 
   book:
     runs-on: "ubuntu-latest"
@@ -53,4 +53,4 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/book@v2.0.11
+      - uses: cvxgrp/.github/actions/book@v2.0.12
