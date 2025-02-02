@@ -7,38 +7,7 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
-      - uses: pre-commit/action@v3.0.1
-        with:
-          extra_args: '--verbose --all-files'
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      #- uses: actions/checkout@v4
-
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.12.0
-        with:
-          mongodb-version: 6.0
-          mongodb-db: test
-          mongodb-port: 27017
-
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
-      - uses: cvxgrp/.github/actions/uv/coverage@v2.0.17
-        with:
-          source-folder: src/antarctic
-          tests-folder: src/tests
-
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v2
-        with:
-          files: artifacts/tests/coverage/coverage.info
-          format: lcov
+      - uses: cvxgrp/.github/actions/pre-commit@v2.1.0
 
   deptry:
     runs-on: ubuntu-latest
