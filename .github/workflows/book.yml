@@ -37,10 +37,10 @@ jobs:
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
+      - name: "Build the virtual environment for ${{ github.repository }}"
+        uses: cvxgrp/.github/actions/uv/environment@v2.1.0
 
-      - uses: cvxgrp/.github/actions/uv/jupyter@v2.1.0
+      - uses: cvxgrp/.github/actions/jupyter@v2.1.0
 
   book:
     runs-on: "ubuntu-latest"
