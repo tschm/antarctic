@@ -23,9 +23,6 @@ jobs:
           mongodb-db: test
           mongodb-port: 27017
 
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
       - uses: cvxgrp/.github/actions/uv/test@v2.0.17
         with:
           python-version: ${{ matrix.python-version }}
