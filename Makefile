@@ -53,4 +53,3 @@ help: ## Display this help message
 	@printf "  make $(BLUE)<target>$(RESET)\n\n"
 	@printf "$(BOLD)Targets:$(RESET)\n"
 	@awk 'BEGIN {FS = ":.*##"; printf ""} /^[a-zA-Z_-]+:.*?##/ { printf "  $(BLUE)%-15s$(RESET) %s\n", $$1, $$2 } /^##@/ { printf "\n$(BOLD)%s$(RESET)\n", substr($$0, 5) }' $(MAKEFILE_LIST)
-
