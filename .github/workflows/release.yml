@@ -1,26 +1,20 @@
 name: Bump version and publish
 
 on:
-  workflow_dispatch:
-  workflow_run:
-    workflows: [ "CI" ]
-    types: [ completed ]
+  workflow_dispatch
 
 jobs:
   tag:
     permissions:
       contents: write
 
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.head_branch == 'main')
-
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate Tag
-        uses: cvxgrp/.github/actions/uv/tag@v2.0.17
+      - name: "Build the virtual environment for ${{ github.repository }}"
+        uses: cvxgrp/.github/actions/uv/environment@v2.1.0
+
+      - uses: cvxgrp/.github/actions/tag@v2.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
