@@ -11,7 +11,7 @@ jobs:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: cvxgrp/.github/actions/environment@v2.2.1
 
-      - uses: cvxgrp/.github/actions/pdoc@v2.2.0
+      - uses: cvxgrp/.github/actions/pdoc@v2.2.1
         with:
           source-folder: src/antarctic
 
@@ -30,7 +30,7 @@ jobs:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: cvxgrp/.github/actions/environment@v2.2.1
 
-      - uses: cvxgrp/.github/actions/test@v2.2.0
+      - uses: cvxgrp/.github/actions/test@v2.2.1
         with:
           tests-folder: src/tests
 
@@ -40,7 +40,7 @@ jobs:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: cvxgrp/.github/actions/environment@v2.2.1
 
-      - uses: cvxgrp/.github/actions/jupyter@v2.2.0
+      - uses: cvxgrp/.github/actions/jupyter@v2.2.1
 
   book:
     runs-on: "ubuntu-latest"
@@ -53,4 +53,4 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/book@v2.2.0
+      - uses: cvxgrp/.github/actions/book@v2.2.1
