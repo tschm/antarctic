@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import mongomock
 import pytest
 from mongoengine import connect, disconnect
 
@@ -22,5 +23,11 @@ def resource_fixture():
 @pytest.fixture(scope="session", name="client")
 def client_fixture():
     """database fixture"""
-    yield connect()
+    # yield connect()
+    yield connect(
+        "mongoenginetest",
+        host="mongodb://localhost",
+        mongo_client_class=mongomock.MongoClient,
+    )
+
     disconnect()
