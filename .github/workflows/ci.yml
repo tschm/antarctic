@@ -17,12 +17,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.12.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-          mongodb-db: test
-          mongodb-port: 27017
+      #- name: Start MongoDB
+      #  uses: supercharge/mongodb-github-action@1.12.0
+      #  with:
+      #    mongodb-version: ${{ matrix.mongodb-version }}
+      #    mongodb-db: test
+      #    mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: cvxgrp/.github/actions/environment@v2.2.3
