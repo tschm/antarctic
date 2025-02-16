@@ -14,7 +14,7 @@ authors = [{name = "Thomas Schmelzer", email = "thomas.schmelzer@gmail.com"}]
 
 [project.urls]
 repository = "https://github.com/tschm/antarctic"
-homepage = "https://tschm.github.io/antarctic"
+homepage = "https://tschm.github.io/antarctic/book"
 
 
 [dependency-groups]
