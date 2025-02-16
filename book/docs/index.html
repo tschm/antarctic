@@ -391,7 +391,7 @@
 <p>Project to persist Pandas data structures in a MongoDB database.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">antarctic</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>antarctic
 </pre></div>
 </div>
 </section>
@@ -405,29 +405,32 @@ to make Antarctic a convenient choice for storing Pandas (time series) data.</p>
 <section id="fields">
 <h3>Fields<a class="headerlink" href="#fields" title="Link to this heading">#</a></h3>
 <p>We introduce first a new field — the PandasField.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mongoengine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">connect</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">antarctic.pandas_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">PandasField</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">mongomock</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># connect with your existing MongoDB</span>
-<span class="c1"># (here I am using a popular interface mocking a MongoDB)</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;mongomock://localhost&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mongoengine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">connect</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">antarctic.pandas_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">PandasField</span>
 
-<span class="c1"># Define the blueprint for a portfolio document</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Portfolio</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
- <span class="n">nav</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
- <span class="n">weights</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
- <span class="n">prices</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+<span class="go"># connect with your existing MongoDB</span>
+<span class="go"># (here I am using a popular interface mocking a MongoDB)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="s1">&#39;mongoenginetest&#39;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;mongodb://localhost&#39;</span><span class="p">,</span> <span class="n">mongo_client_class</span><span class="o">=</span><span class="n">mongomock</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">)</span>
+
+<span class="go"># Define the blueprint for a portfolio document</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">Portfolio</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">nav</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">weights</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">prices</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The portfolio objects works exactly the way you think it works</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">()</span>
-<span class="n">p</span><span class="o">.</span><span class="n">nav</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nav&quot;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;src/tests/resources/price.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">nav</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nav&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">prices</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">,</span><span class="s2">&quot;D&quot;</span><span class="p">]]</span> <span class="c1">#pd.DataFrame(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">portfolio</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">nav</span><span class="p">[</span><span class="s2">&quot;nav&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">prices</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nav</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">nav</span><span class="p">[</span><span class="s2">&quot;nav&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prices</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">prices</span>
 </pre></div>
 </div>
 <p>Behind the scenes we convert the Frame objects
@@ -442,34 +445,32 @@ For this purpose we have developed the abstract <code class="docutils literal no
 relying on the Document class of MongoEngine.
 It provides some convenient tools to simplify looping
 over all or a subset of Documents of the same type, e.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">antarctic.document</span><span class="w"> </span><span class="kn">import</span> <span class="n">XDocument</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">antarctic.pandas_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">PandasField</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">antarctic.document</span><span class="w"> </span><span class="kn">import</span> <span class="n">XDocument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">antarctic.pandas_field</span><span class="w"> </span><span class="kn">import</span> <span class="n">PandasField</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;mongodb://localhost&quot;</span><span class="p">)</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Symbol</span><span class="p">(</span><span class="n">XDocument</span><span class="p">):</span>
- <span class="n">price</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">Symbol</span><span class="p">(</span><span class="n">XDocument</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">price</span> <span class="o">=</span> <span class="n">PandasField</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>We define a bunch of symbols and assign a price for each (or some of it):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-<span class="c1"># We can access subsets like</span>
-<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">Symbol</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">]):</span>
- <span class="nb">print</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+<span class="go"># We can access subsets like</span>
+<span class="go">for symbol in Symbol.subset(names=[&quot;B&quot;]):</span>
+<span class="go">    print(symbol)</span>
 
-<span class="c1"># often we need a dictionary of Symbols:</span>
-<span class="n">Symbol</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">])</span>
+<span class="go"># often we need a dictionary of Symbols:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="n">Symbol</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">])</span>
 
-<span class="c1"># Each XDocument also provides a field for reference data:</span>
-<span class="n">s1</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="s2">&quot;MyProp1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ABC&quot;</span>
-<span class="n">s2</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="s2">&quot;MyProp2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;BCD&quot;</span>
+<span class="go"># Each XDocument also provides a field for reference data:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="s2">&quot;MyProp1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ABC&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="s2">&quot;MyProp2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;BCD&quot;</span>
 
-<span class="c1"># You can loop over (subsets) of Symbols and extract reference and/or series data</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Symbol</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">(</span><span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Symbol</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">series</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Symbol</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">price</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))</span>
+<span class="go"># You can loop over (subsets) of Symbols and extract reference and/or series data</span>
+<span class="go">print(Symbol.reference_frame(objects=[s1, s2]))</span>
+<span class="go">print(Symbol.frame(series=&quot;price&quot;, key=&quot;price&quot;))</span>
+<span class="go">print(Symbol.apply(func=lambda x: x.price[&quot;price&quot;].mean(), default=np.nan))</span>
 </pre></div>
 </div>
 <p>The XDocument class is exposing DataFrames both for reference and time series data.
