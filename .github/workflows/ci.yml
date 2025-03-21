@@ -25,10 +25,10 @@ jobs:
       #    mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: cvxgrp/.github/actions/environment@v2.2.7
+        uses: cvxgrp/.github/actions/environment@v2.2.8
         with:
           python-version: ${{ matrix.python-version }}
 
-      - uses: cvxgrp/.github/actions/test@v2.2.7
+      - uses: cvxgrp/.github/actions/test@v2.2.8
         with:
           tests-folder: src/tests
