@@ -38,9 +38,9 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.56
+        uses: tschm/cradle/actions/environment@v0.1.57
 
-      - uses: tschm/cradle/actions/jupyter@v0.1.56
+      - uses: tschm/cradle/actions/jupyter@v0.1.57
 
   book:
     runs-on: "ubuntu-latest"
@@ -53,4 +53,4 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: tschm/cradle/actions/book@v0.1.56
+      - uses: tschm/cradle/actions/book@v0.1.57
