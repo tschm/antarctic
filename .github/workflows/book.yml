@@ -9,9 +9,9 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.56
+        uses: tschm/cradle/actions/environment@v0.1.57
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.56
+      - uses: tschm/cradle/actions/pdoc@v0.1.57
         with:
           source-folder: src/antarctic
 
@@ -28,9 +28,9 @@ jobs:
           mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.56
+        uses: tschm/cradle/actions/environment@v0.1.57
 
-      - uses: tschm/cradle/actions/test@v0.1.56
+      - uses: tschm/cradle/actions/test@v0.1.57
         with:
           tests-folder: src/tests
 
