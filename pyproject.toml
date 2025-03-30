@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "mongoengine",
-    "pandas>=2.2.3",
+    "pandas==2.2.3",
     "pyarrow",
     "fastparquet"
 ]
@@ -19,9 +19,9 @@ homepage = "https://tschm.github.io/antarctic/book"
 
 [project.optional-dependencies]
 dev = [
-    "pytest-cov>=6.0.0",
-    "pytest>=8.3.3",
-    "pre-commit>=4.0.1",
+    "pytest-cov==6.0.0",
+    "pytest==8.3.5",
+    "pre-commit==4.2.0",
     "mongomock",
 ]
 
