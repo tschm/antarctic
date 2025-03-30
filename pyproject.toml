@@ -5,10 +5,10 @@ description = "..."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "mongoengine",
-    "pandas==2.2.3",
-    "pyarrow",
-    "fastparquet"
+    "mongoengine>=0.25.0",
+    "pandas>=2.0",
+    "pyarrow>=0.15.0",
+    "fastparquet>=0.8.0"
 ]
 authors = [{name = "Thomas Schmelzer", email = "thomas.schmelzer@gmail.com"}]
 
@@ -22,7 +22,7 @@ dev = [
     "pytest-cov==6.0.0",
     "pytest==8.3.5",
     "pre-commit==4.2.0",
-    "mongomock",
+    "mongomock==4.3.0",
 ]
 
 [build-system]
