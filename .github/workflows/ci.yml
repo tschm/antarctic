@@ -25,10 +25,10 @@ jobs:
       #    mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.60
+        uses: tschm/cradle/actions/environment@v0.1.63
         with:
           python-version: ${{ matrix.python-version }}
 
-      - uses: tschm/cradle/actions/test@v0.1.60
+      - uses: tschm/cradle/actions/test@v0.1.63
         with:
           tests-folder: src/tests
