@@ -9,9 +9,9 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.60
+        uses: tschm/cradle/actions/environment@v0.1.63
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.60
+      - uses: tschm/cradle/actions/pdoc@v0.1.63
         with:
           source-folder: src/antarctic
 
@@ -28,9 +28,9 @@ jobs:
       #    mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.60
+        uses: tschm/cradle/actions/environment@v0.1.63
 
-      - uses: tschm/cradle/actions/test@v0.1.60
+      - uses: tschm/cradle/actions/test@v0.1.63
         with:
           tests-folder: src/tests
 
@@ -38,9 +38,9 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.60
+        uses: tschm/cradle/actions/environment@v0.1.63
 
-      - uses: tschm/cradle/actions/jupyter@v0.1.60
+      - uses: tschm/cradle/actions/jupyter@v0.1.63
 
   book:
     runs-on: "ubuntu-latest"
@@ -53,4 +53,4 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: tschm/cradle/actions/book@v0.1.60
+      - uses: tschm/cradle/actions/book@v0.1.63
