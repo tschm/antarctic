@@ -1,10 +1,14 @@
 name: "book"
 
+# This workflow is responsible for building and publishing the documentation book
+# It runs automatically on every push to the repository
+
 on:
 - push
 
 
 jobs:
+  # Generate API documentation using pdoc
   pdoc:
     runs-on: "ubuntu-latest"
     steps:
@@ -16,10 +20,12 @@ jobs:
           source-folder: src/antarctic
 
 
+  # Run tests to ensure documentation examples are valid
   test:
     runs-on: "ubuntu-latest"
     steps:
-      # uses MongoMock
+      # Note: We use MongoMock instead of a real MongoDB instance for testing
+      # This makes tests faster and more reliable
       #- name: Start MongoDB
       #  uses: supercharge/mongodb-github-action@1.12.0
       #  with:
@@ -34,6 +40,7 @@ jobs:
         with:
           tests-folder: src/tests
 
+  # Process Jupyter notebooks for inclusion in the documentation
   jupyter:
     runs-on: "ubuntu-latest"
     permissions:
@@ -44,10 +51,13 @@ jobs:
 
       - uses: tschm/cradle/actions/jupyter@v0.1.68
 
+  # Build and deploy the final documentation book
+  # This job only runs after test, pdoc, and jupyter jobs have completed successfully
   book:
     runs-on: "ubuntu-latest"
     needs: [test, pdoc, jupyter]
 
+    # Write permission is needed to update the GitHub Pages site
     permissions:
       contents: write
 

@@ -1,16 +1,21 @@
 name: Bump version and publish
 
+# This workflow handles the versioning and publishing of the package to PyPI
+# It is manually triggered via the GitHub Actions UI (workflow_dispatch)
+# and follows a three-step process: tagging, building, and publishing
+
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Manual trigger from GitHub UI
 
 permissions:
-  contents: write
+  contents: write  # Write permission needed to create new version tags
 
 jobs:
+  # Generate a new version tag based on semantic versioning
   tagging:
     runs-on: ubuntu-latest
     outputs:
-      new_tag: ${{ steps.tag_step.outputs.new_tag }}
+      new_tag: ${{ steps.tag_step.outputs.new_tag }}  # Pass the new tag to downstream jobs
 
     steps:
       - name: Generate Tag
@@ -19,33 +24,38 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+  # Build the Python package with the new version tag
   build:
     runs-on: ubuntu-latest
-    needs: tagging
+    needs: tagging  # This job depends on the tagging job
     steps:
       - name: build
         uses: tschm/cradle/actions/build@v0.1.68
         with:
-          tag: ${{ needs.tagging.outputs.new_tag }}
+          tag: ${{ needs.tagging.outputs.new_tag }}  # Use the tag generated in the previous job
 
+  # Publish the built package to PyPI
   publish:
-    needs: build
+    needs: build  # This job depends on the build job
     runs-on: ubuntu-latest
-    environment: release
+    environment: release  # Use the 'release' environment which may contain PyPI secrets
 
     permissions:
        contents: read
-       # This permission is required for trusted publishing.
+       # This permission is required for trusted publishing to PyPI
+       # It allows GitHub to sign the package with OIDC
        id-token: write
 
     steps:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
+      # Download the built package artifacts from the build job
       - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
 
+      # Publish the package to PyPI using trusted publishing
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

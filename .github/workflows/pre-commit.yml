@@ -1,17 +1,24 @@
 name: pre-commit
 
+# This workflow runs code quality checks on every push
+# It helps maintain code quality and catch issues early in the development process
+
 on:
   push:
 
 permissions:
-  contents: read
+  contents: read  # Read-only access to repository contents is sufficient for code checks
 
 jobs:
+  # Run pre-commit hooks to check code style, formatting, and other quality checks
+  # This includes tools like black, isort, flake8, etc. configured in .pre-commit-config.yaml
   pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: tschm/cradle/actions/pre-commit@v0.1.68
 
+  # Check for unused dependencies in the project
+  # deptry helps keep the dependency list clean and the project lightweight
   deptry:
     runs-on: ubuntu-latest
     steps:

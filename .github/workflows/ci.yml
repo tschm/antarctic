@@ -1,10 +1,14 @@
 name: "CI"
 
+# This workflow runs continuous integration tests for the project
+# It tests the codebase against multiple Python and MongoDB versions
+# to ensure compatibility and stability
+
 on:
 - push
 
 permissions:
-  contents: read
+  contents: read  # Read-only access to repository contents is sufficient for CI
 
 jobs:
   test:
@@ -15,11 +19,15 @@ jobs:
       matrix:
         # mongo container action only supported on Linux
         os: [ ubuntu-latest ]
+        # Test against multiple Python versions to ensure compatibility
         python-version: [ '3.10', '3.11', '3.12', '3.13' ]
+        # Test against multiple MongoDB versions to ensure compatibility
         mongodb-version: ['4.4', '5.0', '6.0']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Note: We use MongoMock instead of a real MongoDB instance for testing
+      # This makes tests faster and more reliable while still testing MongoDB functionality
       #- name: Start MongoDB
       #  uses: supercharge/mongodb-github-action@1.12.0
       #  with:
@@ -27,11 +35,13 @@ jobs:
       #    mongodb-db: test
       #    mongodb-port: 27017
 
+      # Set up the Python environment with the specified version
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: tschm/cradle/actions/environment@v0.1.68
         with:
           python-version: ${{ matrix.python-version }}
 
+      # Run the test suite
       - uses: tschm/cradle/actions/test@v0.1.68
         with:
           tests-folder: src/tests
