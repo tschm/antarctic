@@ -55,7 +55,4 @@ jobs:
       id-token: write         # Permission to verify deployment origin
 
     steps:
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
       - uses: tschm/cradle/actions/book@v0.1.71
