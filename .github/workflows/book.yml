@@ -51,7 +51,8 @@ jobs:
     needs: [test, pdoc, jupyter]
 
     permissions:
-      contents: write
+      pages: write            # Permission to deploy to Pages
+      id-token: write         # Permission to verify deployment origin
 
     steps:
       - name: Checkout [${{ github.repository }}]
