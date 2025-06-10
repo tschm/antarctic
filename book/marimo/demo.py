@@ -40,14 +40,14 @@ def _(Document, PandasField):
 
 @app.cell
 def _(pd):
-    ts = pd.read_csv("data/ts.csv", index_col=0, parse_dates=True)
+    ts = pd.read_csv("public/ts.csv", index_col=0, parse_dates=True)
     print(ts)
     return (ts,)
 
 
 @app.cell
 def _(pd):
-    prices = pd.read_csv("data/price.csv", index_col=0, parse_dates=True, header=0)
+    prices = pd.read_csv("public/price.csv", index_col=0, parse_dates=True, header=0)
     print(prices)
     return (prices,)
 
