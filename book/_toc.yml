@@ -5,3 +5,5 @@ root: docs/index
 chapters:
     - file: docs/api
     - file: docs/reports
+    - url: https://tschm.github.io/antarctic/marimo/demo/index.html
+      title: Experiment5
