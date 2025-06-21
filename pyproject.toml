@@ -20,7 +20,7 @@ homepage = "https://tschm.github.io/antarctic/book"
 [project.optional-dependencies]
 dev = [
     "pytest-cov==6.2.1",
-    "pytest==8.4.0",
+    "pytest==8.4.1",
     "pre-commit==4.2.0",
     "mongomock==4.3.0",
 ]
