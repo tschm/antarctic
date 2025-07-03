@@ -42,9 +42,10 @@ jobs:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: tschm/cradle/actions/environment@v0.1.75
 
-      - uses: tschm/cradle/actions/test@v0.1.75
+      - uses: tschm/cradle/actions/coverage@v0.1.75
         with:
           tests-folder: src/tests
+          source-folder: src/antarctic
 
   book:
     runs-on: "ubuntu-latest"
