@@ -9,6 +9,8 @@ on:
 jobs:
   marimo:
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
     steps:
       - uses: jebel-quant/marimushka@v0.1.2
         with:
