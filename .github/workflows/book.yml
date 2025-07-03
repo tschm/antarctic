@@ -56,5 +56,8 @@ jobs:
           title: "Antarctic"
           links: |
             {
-              "API": "./pdoc/index.html"
+              "API": "./pdoc/index.html",
+              "Coverage": "./tests/html-coverage/index.html",
+              "Test Report": "./tests/html-report/report.html",
+              "Notebooks": "./marimushka/index.html"
             }
