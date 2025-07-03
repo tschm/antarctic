@@ -43,8 +43,7 @@ clean: ## Clean generated files and directories
 
 marimo: install ## Start a Marimo server
 	@printf "$(BLUE)Start Marimo server...$(RESET)\n"
-	@uv pip install marimo
-	@uv run marimo edit book/marimo
+	@uvx marimo edit --sandbox book/marimo/demo.py
 
 ##@ Help
 
