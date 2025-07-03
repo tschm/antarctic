@@ -13,9 +13,9 @@ jobs:
       contents: read
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.73
+        uses: tschm/cradle/actions/environment@v0.1.75
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.73
+      - uses: tschm/cradle/actions/pdoc@v0.1.75
         with:
           source-folder: src/antarctic
 
@@ -33,9 +33,9 @@ jobs:
       #    mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.73
+        uses: tschm/cradle/actions/environment@v0.1.75
 
-      - uses: tschm/cradle/actions/test@v0.1.73
+      - uses: tschm/cradle/actions/test@v0.1.75
         with:
           tests-folder: src/tests
 
