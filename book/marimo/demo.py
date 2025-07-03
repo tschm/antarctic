@@ -3,40 +3,36 @@
 # dependencies = [
 #     "marimo==0.14.9",
 #     "pandas==2.3.0",
-#     "polars==1.31.0",
-#     "pyarrow==20.0.0",
+#     "mongoengine==0.29.1",
+#     "mongomock==4.3.0",
+#     "antarctic==0.7.34",
 # ]
 # ///
 
 import marimo
 
-__generated_with = "0.10.10"
+__generated_with = "0.14.9"
 app = marimo.App()
 
 with app.setup:
     import marimo as mo
     import pandas as pd
-
-
-@app.cell
-def _():
-    from mongoengine import Document, connect
+    from mongoengine import connect
     from mongomock import MongoClient
-
-    # connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)
-    client = connect(db="test", mongo_client_class=MongoClient)
-    return Document, MongoClient, client, connect
-
-
-@app.cell
-def _():
     from antarctic.pandas_field import PandasField
 
-    return (PandasField,)
+
+@app.cell
+def _():
+    # connect with your existing MongoDB (here I am using a popular interface mocking a MongoDB)
+    client = connect(db="test", mongo_client_class=MongoClient)
+    return client
 
 
 @app.cell
-def _(Document, PandasField):
+def _():
+    from mongoengine import Document
+
     class Portfolio(Document):
         nav = PandasField()
         weights = PandasField()
@@ -47,14 +43,21 @@ def _(Document, PandasField):
 
 @app.cell
 def _():
-    ts = pd.read_csv("public/ts.csv", index_col=0, parse_dates=True)
+    ts = pd.read_csv(
+        mo.notebook_location() / "public" / "ts.csv", index_col=0, parse_dates=True
+    )
     print(ts)
     return (ts,)
 
 
 @app.cell
 def _():
-    prices = pd.read_csv("public/price.csv", index_col=0, parse_dates=True, header=0)
+    prices = pd.read_csv(
+        mo.notebook_location() / "public" / "price.csv",
+        index_col=0,
+        parse_dates=True,
+        header=0,
+    )
     print(prices)
     return (prices,)
 
@@ -67,7 +70,7 @@ def _(Portfolio, prices, ts):
         weights=pd.DataFrame(index=prices.index, columns=prices.columns, data=1.0 / 7),
     )
     portfolio.save()
-    return (portfolio,)
+    return
 
 
 if __name__ == "__main__":
