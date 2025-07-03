@@ -9,6 +9,8 @@ on:
 jobs:
   pdoc:
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: tschm/cradle/actions/environment@v0.1.73
@@ -17,9 +19,10 @@ jobs:
         with:
           source-folder: src/antarctic
 
-
   test:
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
     steps:
       # uses MongoMock
       #- name: Start MongoDB
