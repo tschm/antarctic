@@ -22,9 +22,9 @@ jobs:
       contents: read
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.80
+        uses: tschm/cradle/actions/environment@v0.1.81
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.80
+      - uses: tschm/cradle/actions/pdoc@v0.1.81
         with:
           source-folder: src/antarctic
 
@@ -42,9 +42,9 @@ jobs:
       #    mongodb-port: 27017
 
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.80
+        uses: tschm/cradle/actions/environment@v0.1.81
 
-      - uses: tschm/cradle/actions/coverage@v0.1.80
+      - uses: tschm/cradle/actions/coverage@v0.1.81
         with:
           tests-folder: src/tests
           source-folder: src/antarctic
@@ -61,7 +61,7 @@ jobs:
       id-token: write         # Permission to verify deployment origin
 
     steps:
-      - uses: tschm/cradle/actions/book@v0.1.80
+      - uses: tschm/cradle/actions/book@v0.1.81
         with:
           title: "Antarctic"
           links: |
