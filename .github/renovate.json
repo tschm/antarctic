@@ -4,13 +4,24 @@
     ":enablePreCommit",
     ":automergeMinor",
     ":dependencyDashboard",
-    ":maintainLockFilesWeekly",
     ":semanticCommits",
-    ":pinDevDependencies"
+    ":pinVersions"
   ],
-  "enabledManagers": ["pep621", "pre-commit", "github-actions", "devcontainer"],
+  "enabledManagers": [
+    "pre-commit",
+    "github-actions",
+    "pep621",
+    "devcontainer"
+  ],
+  "packageRules": [
+    {
+      "managers": ["pre-commit"],
+      "groupName": "pre-commit hook updates"
+    }
+  ],
+  "labels": ["dependencies", "renovate"],
   "timezone": "Asia/Dubai",
   "schedule": [
-    "before 10am on wednesday"
+    "before 10am on the third day of the month"
   ]
 }
