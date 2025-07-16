@@ -27,6 +27,7 @@ jobs:
         uses: tschm/cradle/actions/build@v0.3.01
         with:
           tag: ${{ needs.tagging.outputs.new_tag }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     needs: build
