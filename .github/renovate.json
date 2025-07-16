@@ -6,7 +6,7 @@
     ":dependencyDashboard",
     ":semanticCommits",
     ":pinVersions",
-    ":scheduleMonthly"
+    ":presets:scheduleMonthly"
   ],
   "enabledManagers": [
     "pre-commit",
