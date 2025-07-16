@@ -11,8 +11,7 @@
   "enabledManagers": [
     "pre-commit",
     "github-actions",
-    "pep621",
-    "devcontainer"
+    "pep621"
   ],
   "packageRules": [
     {
@@ -21,8 +20,5 @@
     }
   ],
   "labels": ["dependencies", "renovate"],
-  "timezone": "Asia/Dubai",
-  "schedule": [
-    "before 10am on the first day of the month"
-  ]
+  "timezone": "Asia/Dubai"
 }
