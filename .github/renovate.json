@@ -1,30 +1,20 @@
 {
-  "extends": [
-    "config:recommended",
-    ":enablePreCommit",
-    ":automergeMinor",
-    ":dependencyDashboard",
-    ":semanticCommits"
-  ],
-  "enabledManagers": [
-    "pre-commit",
-    "github-actions",
-    "pep621"
-  ],
-  "packageRules": [
-    {
-      "matchManagers": [
-        "pre-commit"
-      ],
-      "groupName": "pre-commit hook updates"
-    }
-  ],
-  "labels": [
-    "dependencies",
-    "renovate"
-  ],
-  "timezone": "Asia/Dubai",
-  "schedule": [
-    "before 10am on tuesday"
-  ]
+    "extends": [
+        "config:recommended",
+        ":enablePreCommit",
+        ":automergeMinor",
+        ":dependencyDashboard",
+        ":maintainLockFilesWeekly",
+        ":semanticCommits",
+        ":pinDevDependencies"
+    ],
+    "enabledManagers": [
+        "pep621",
+        "pre-commit",
+        "github-actions"
+    ],
+    "timezone": "Asia/Dubai",
+    "schedule": [
+        "before 10am on tuesday"
+    ]
 }
