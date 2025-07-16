@@ -13,11 +13,16 @@
   ],
   "packageRules": [
     {
-      "managers": ["pre-commit"],
+      "matchManagers": [
+        "pre-commit"
+      ],
       "groupName": "pre-commit hook updates"
     }
   ],
-  "labels": ["dependencies", "renovate"],
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
   "timezone": "Asia/Dubai",
   "schedule": [
     "before 10am on tuesday"
