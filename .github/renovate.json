@@ -23,6 +23,6 @@
   "labels": ["dependencies", "renovate"],
   "timezone": "Asia/Dubai",
   "schedule": [
-    "0 9 * * 1-5"
+    "before 10am on the first day of the month"
   ]
 }
