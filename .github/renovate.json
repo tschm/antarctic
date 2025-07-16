@@ -5,8 +5,7 @@
     ":automergeMinor",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":pinVersions",
-    ":presets:scheduleMonthly"
+    ":pinVersions"
   ],
   "enabledManagers": [
     "pre-commit",
@@ -20,5 +19,8 @@
     }
   ],
   "labels": ["dependencies", "renovate"],
-  "timezone": "Asia/Dubai"
+  "timezone": "Asia/Dubai",
+  "schedule": [
+    "before 10am on tuesday"
+  ]
 }
