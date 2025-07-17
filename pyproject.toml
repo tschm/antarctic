@@ -41,15 +41,3 @@ pep621_dev_dependency_groups = ["dev"]
 # bson is part of pymongo package and should not be installed separately
 DEP001 = ["bson"]
 DEP002 = ["fastparquet"]
-
-[tool.ruff]
-line-length = 120
-target-version = "py312"
-
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP"]
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-line-ending = "auto"
