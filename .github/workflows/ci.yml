@@ -16,17 +16,9 @@ jobs:
         # mongo container action only supported on Linux
         os: [ ubuntu-latest ]
         python-version: [ '3.11', '3.12', '3.13' ]
-        #mongodb-version: ['4.4', '5.0', '6.0']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      #- name: Start MongoDB
-      #  uses: supercharge/mongodb-github-action@1.12.0
-      #  with:
-      #    mongodb-version: ${{ matrix.mongodb-version }}
-      #    mongodb-db: test
-      #    mongodb-port: 27017
-
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: tschm/cradle/actions/environment@v0.3.01
         with:
