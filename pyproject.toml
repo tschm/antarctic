@@ -3,7 +3,7 @@ name = "antarctic"
 version = "0.0.0"
 description = "..."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "mongoengine>=0.25.0",
     "pandas>=2.0",

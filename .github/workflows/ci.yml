@@ -15,8 +15,8 @@ jobs:
       matrix:
         # mongo container action only supported on Linux
         os: [ ubuntu-latest ]
-        python-version: [ '3.10', '3.11', '3.12', '3.13' ]
-        mongodb-version: ['4.4', '5.0', '6.0']
+        python-version: [ '3.11', '3.12', '3.13' ]
+        #mongodb-version: ['4.4', '5.0', '6.0']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
