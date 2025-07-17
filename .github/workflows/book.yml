@@ -7,6 +7,26 @@ on:
 
 
 jobs:
+  parse-env:
+    runs-on: ubuntu-latest
+    outputs:
+      source-folder: ${{ steps.export.outputs.SOURCE_FOLDER }}
+      tests-folder: ${{ steps.export.outputs.TESTS_FOLDER }}
+      marimo-folder: ${{ steps.export.outputs.MARIMO_FOLDER }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse .env and export variables
+        id: export
+        run: |
+          set -a
+          source .env
+          echo "SOURCE_FOLDER=$SOURCE_FOLDER" >> "$GITHUB_OUTPUT"
+          echo "TESTS_FOLDER=$TESTS_FOLDER" >> "$GITHUB_OUTPUT"
+          echo "MARIMO_FOLDER=$MARIMO_FOLDER" >> "GITHUB_OUTPUT"
+          set +a
+        shell: bash
+
   marimo:
     runs-on: "ubuntu-latest"
     permissions:
@@ -33,14 +53,6 @@ jobs:
     permissions:
       contents: read
     steps:
-      # uses MongoMock
-      #- name: Start MongoDB
-      #  uses: supercharge/mongodb-github-action@1.12.0
-      #  with:
-      #    mongodb-version: '5.0'
-      #    mongodb-db: test
-      #    mongodb-port: 27017
-
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: tschm/cradle/actions/environment@v0.3.01
 
