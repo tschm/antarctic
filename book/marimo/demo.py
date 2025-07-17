@@ -5,7 +5,7 @@
 #     "pandas==2.3.0",
 #     "mongoengine==0.29.1",
 #     "mongomock==4.3.0",
-#     "antarctic==0.7.34",
+#     "antarctic==0.7.35",
 # ]
 # ///
 
@@ -19,6 +19,7 @@ with app.setup:
     import pandas as pd
     from mongoengine import connect
     from mongomock import MongoClient
+
     from antarctic.pandas_field import PandasField
 
 
@@ -43,9 +44,7 @@ def _():
 
 @app.cell
 def _():
-    ts = pd.read_csv(
-        mo.notebook_location() / "public" / "ts.csv", index_col=0, parse_dates=True
-    )
+    ts = pd.read_csv(mo.notebook_location() / "public" / "ts.csv", index_col=0, parse_dates=True)
     print(ts)
     return (ts,)
 

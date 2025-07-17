@@ -35,7 +35,10 @@ We introduce first a new field --- the PandasField.
 
 # connect with your existing MongoDB
 # (here I am using a popular interface mocking a MongoDB)
->>> client = connect('mongoenginetest', host='mongodb://localhost', mongo_client_class=mongomock.MongoClient)
+>>> client = connect('mongoenginetest', 
+...                  host='mongodb://localhost', 
+...                  mongo_client_class=mongomock.MongoClient, 
+...                  uuidRepresentation="standard")
 
 # Define the blueprint for a portfolio document
 >>> class Portfolio(Document):

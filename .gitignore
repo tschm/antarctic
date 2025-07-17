@@ -2,6 +2,7 @@
 .task
 docs
 __marimo__
+pdoc
 
 sandbox/*
 *.pyc
