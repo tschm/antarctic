@@ -8,6 +8,7 @@ permissions:
 
 jobs:
   test:
+    if: github.repository != 'tschm/.config-templates'
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
 

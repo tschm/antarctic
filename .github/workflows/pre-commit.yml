@@ -1,4 +1,4 @@
-name: pre-commit
+name: "PRE-COMMIT"
 
 on:
   push:
@@ -9,15 +9,6 @@ permissions:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    if: github.repository != 'tschm/.config-templates'
     steps:
       - uses: tschm/cradle/actions/pre-commit@v0.3.01
-
-  deptry:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.3.01
-
-      - uses: tschm/cradle/actions/deptry@v0.3.01
-        with:
-          source-folder: src/antarctic
