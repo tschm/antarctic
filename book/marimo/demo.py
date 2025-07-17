@@ -2,11 +2,11 @@
 # requires-python = ">=3.12"
 # dependencies = [
 #     "marimo==0.14.9",
-#     "pandas==2.3.0",
+#     "pandas==2.3.1",
 #     "mongoengine==0.29.1",
 #     "mongomock==4.3.0",
 #     "antarctic==0.7.35",
-#     "plotly==5.18.0",
+#     "plotly==6.2.0",
 # ]
 # ///
 

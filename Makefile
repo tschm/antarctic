@@ -4,6 +4,9 @@ BOLD := \033[1m
 GREEN := \033[32m
 RESET := \033[0m
 
+include .env
+export $(shell sed 's/=.*//' .env)
+
 .DEFAULT_GOAL := help
 
 .PHONY: help verify install fmt lint test build check marimo clean docs
@@ -36,7 +39,7 @@ check: lint test ## Run all checks (lint and test)
 
 test: install ## Run all tests
 	@printf "$(BLUE)Running tests...$(RESET)\n"
-	@uv run pytest src/tests --cov=antarctic --cov-report=term
+	@uv run pytest $(TESTS_FOLDER) --cov=$(SOURCE_FOLDER) --cov-report=term
 
 ##@ Building
 
@@ -50,8 +53,16 @@ build: install ## Build the package
 docs: install ## Build documentation
 	@printf "$(BLUE)Building documentation...$(RESET)\n"
 	@uv pip install pdoc
-	@uv run pdoc -o pdoc src/antarctic
-
+	@{ \
+		uv run pdoc -o pdoc $(SOURCE_FOLDER); \
+		if command -v xdg-open >/dev/null 2>&1; then \
+			xdg-open "pdoc/index.html"; \
+		elif command -v open >/dev/null 2>&1; then \
+			open "pdoc/index.html"; \
+		else \
+			echo "Documentation generated. Open pdoc/index.html manually"; \
+		fi; \
+	}
 
 ##@ Cleanup
 
@@ -67,11 +78,11 @@ clean: ## Clean generated files and directories
 
 marimo: uv ## Start a Marimo server
 	@printf "$(BLUE)Start Marimo server...$(RESET)\n"
-	@uvx marimo edit --sandbox book/marimo/demo.py
+	@uvx marimo edit --sandbox $(MARIMO_FOLDER)
 
-run-marimo: uv ## Run the Marimo notebook from the command line
-	@printf "$(BLUE)Running Marimo notebook...$(RESET)\n"
-	@uvx marimo run --sandbox book/marimo/demo.py
+#run-marimo: uv ## Run the Marimo notebook from the command line
+#	@printf "$(BLUE)Running Marimo notebook...$(RESET)\n"
+#	@uvx marimo run --sandbox book/marimo/demo.py
 
 ##@ Help
 

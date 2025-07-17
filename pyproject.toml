@@ -23,6 +23,7 @@ dev = [
     "pytest==8.4.1",
     "pre-commit==4.2.0",
     "mongomock==4.3.0",
+    "python-dotenv==1.1.1"
 ]
 
 [build-system]
@@ -44,6 +45,7 @@ DEP002 = ["fastparquet"]
 [tool.ruff]
 line-length = 120
 target-version = "py312"
+
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP"]
 
