@@ -11,6 +11,7 @@ def project_root():
 
     Returns:
         Path: The path to the project root directory.
+
     """
     return Path(__file__).parent.parent.parent
 
@@ -21,6 +22,7 @@ def env_content(project_root: Path):
 
     Returns:
         dict: A dictionary containing the key-value pairs from the .env file.
+
     """
     # Get the project root directory
     env_file_path = project_root / ".env"
@@ -54,6 +56,7 @@ def test_folder_exists(env_content, project_root, folder_key):
 
     Verifies:
         The folder path exists in the project structure.
+
     """
     # Get the folder path from the env_content fixture
     folder_path = env_content.get(folder_key)

@@ -1,5 +1,4 @@
-"""
-Extension of the MongoEngine Document class with additional functionality.
+"""Extension of the MongoEngine Document class with additional functionality.
 
 This module provides an abstract base class that extends MongoEngine's Document
 with additional methods for working with collections of documents, extracting
@@ -18,8 +17,7 @@ from mongoengine import DateTimeField, DictField, Document, QuerySet, StringFiel
 
 
 class XDocument(Document):
-    """
-    Abstract base class for MongoDB documents with extended functionality.
+    """Abstract base class for MongoDB documents with extended functionality.
 
     XDocument is an abstract MongoDB Document that cannot be instantiated directly.
     All concrete objects such as Symbols or Strategies should inherit from this class.
@@ -30,6 +28,7 @@ class XDocument(Document):
         name: Unique identifier for the document
         reference: Dictionary for storing reference data
         date_modified: Timestamp of the last modification
+
     """
 
     meta = {"abstract": True}
@@ -42,14 +41,14 @@ class XDocument(Document):
 
     @classmethod
     def reference_frame(cls, objects: QuerySet | None = None) -> pd.DataFrame:
-        """
-        Create a DataFrame containing reference data for each document.
+        """Create a DataFrame containing reference data for each document.
 
         Args:
             objects: QuerySet of documents to include (defaults to all documents of this class)
 
         Returns:
             pd.DataFrame: DataFrame with reference data, indexed by document name
+
         """
         objects = objects or cls.objects
 
@@ -64,14 +63,14 @@ class XDocument(Document):
 
     @classmethod
     def subset(cls, names: list[str] | None = None) -> QuerySet:
-        """
-        Extract a subset of documents from the database.
+        """Extract a subset of documents from the database.
 
         Args:
             names: List of document names to include (defaults to all documents)
 
         Returns:
             QuerySet: Filtered set of documents
+
         """
         if names is None:
             return cls.objects
@@ -81,14 +80,14 @@ class XDocument(Document):
 
     @classmethod
     def to_dict(cls, objects: QuerySet | None = None) -> dict[str, XDocument]:
-        """
-        Create a dictionary of documents with names as keys.
+        """Create a dictionary of documents with names as keys.
 
         Args:
             objects: QuerySet of documents to include (defaults to all documents of this class)
 
         Returns:
             Dict[str, XDocument]: Dictionary mapping document names to document objects
+
         """
         # Represent all documents of a class as a dictionary for easy lookup
         objects = objects or cls.objects
@@ -98,8 +97,7 @@ class XDocument(Document):
     def apply(
         cls, func: Callable[[XDocument], Any], default: Any, objects: QuerySet | None = None
     ) -> Iterator[tuple[str, Any]]:
-        """
-        Apply a function to each document, yielding name and result pairs.
+        """Apply a function to each document, yielding name and result pairs.
 
         If the function raises an exception for a document, yields the default value instead.
 
@@ -110,6 +108,7 @@ class XDocument(Document):
 
         Yields:
             Tuple[str, Any]: Pairs of (document_name, function_result)
+
         """
         objects = objects or cls.objects
 
@@ -122,8 +121,7 @@ class XDocument(Document):
 
     @classmethod
     def frame(cls, series: str, key: str, objects: QuerySet | None = None) -> pd.DataFrame:
-        """
-        Create a DataFrame from a specific field and key across multiple documents.
+        """Create a DataFrame from a specific field and key across multiple documents.
 
         Args:
             series: Name of the field to extract from each document
@@ -132,6 +130,7 @@ class XDocument(Document):
 
         Returns:
             pd.DataFrame: DataFrame with columns named by document names and values from the specified field/key
+
         """
         objects = objects or cls.objects
 
@@ -140,20 +139,19 @@ class XDocument(Document):
         return pd.DataFrame({p.name: getattr(p, series)[key] for p in objects}).dropna(axis=1, how="all")
 
     def __lt__(self, other: XDocument) -> bool:
-        """
-        Compare documents by name for sorting.
+        """Compare documents by name for sorting.
 
         Args:
             other: Another document to compare with
 
         Returns:
             bool: True if this document's name is lexicographically less than the other's
+
         """
         return self.name < other.name
 
     def __eq__(self, other: Any) -> bool:
-        """
-        Check if two documents are equal.
+        """Check if two documents are equal.
 
         Two documents are equal if they are of the same class and have the same name.
 
@@ -162,35 +160,36 @@ class XDocument(Document):
 
         Returns:
             bool: True if the documents are equal
+
         """
         # Two documents are the same if they have the same name and class
         return self.__class__ == other.__class__ and self.name == other.name
 
     def __hash__(self) -> int:
-        """
-        Generate a hash value for the document.
+        """Generate a hash value for the document.
 
         This allows documents to be used in sets and as dictionary keys.
 
         Returns:
             int: Hash value based on the document's JSON representation
+
         """
         return hash(self.to_json(json_options=RELAXED_JSON_OPTIONS))
 
     def __str__(self) -> str:
-        """
-        Generate a string representation of the document.
+        """Generate a string representation of the document.
 
         Returns:
             str: String in the format "<ClassName: document_name>"
+
         """
         return f"<{self.__class__.__name__}: {self.name}>"
 
     def __repr__(self) -> str:
-        """
-        Generate a representation of the document for debugging.
+        """Generate a representation of the document for debugging.
 
         Returns:
             str: String in the format "<ClassName: document_name>"
+
         """
         return f"<{self.__class__.__name__}: {self.name}>"

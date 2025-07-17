@@ -1,5 +1,4 @@
-"""
-Tests for the XDocument class functionality.
+"""Tests for the XDocument class functionality.
 
 This module contains tests for the XDocument class, which is an extension of
 MongoEngine's Document class with additional functionality for working with
@@ -23,8 +22,7 @@ from antarctic.pandas_field import PandasField
 
 
 class Singer(XDocument):
-    """
-    Test document class that inherits from XDocument.
+    """Test document class that inherits from XDocument.
 
     This class is used for testing the functionality of the XDocument class.
     It represents a singer with a price field that stores time series data.
@@ -34,14 +32,14 @@ class Singer(XDocument):
 
 
 def test_reference_frame(client: MongoClient) -> None:
-    """
-    Test the reference_frame method of XDocument.
+    """Test the reference_frame method of XDocument.
 
     This test verifies that the reference_frame method correctly extracts
     reference data from documents and creates a properly formatted DataFrame.
 
     Args:
         client: MongoDB client fixture
+
     """
     # Clean up any existing Singer documents
     Singer.objects.delete()
@@ -68,8 +66,7 @@ def test_reference_frame(client: MongoClient) -> None:
 
 
 def test_lt() -> None:
-    """
-    Test the less than comparison operator for XDocument.
+    """Test the less than comparison operator for XDocument.
 
     This test verifies that XDocument instances can be compared using the
     less than operator, which compares them by name.
@@ -78,14 +75,14 @@ def test_lt() -> None:
 
 
 def test_equals(client: MongoClient) -> None:
-    """
-    Test the equality comparison operator for XDocument.
+    """Test the equality comparison operator for XDocument.
 
     This test verifies that two XDocument instances with the same name
     are considered equal, even if they are different instances.
 
     Args:
         client: MongoDB client fixture
+
     """
     # Clean up any existing Singer documents
     Singer.objects.delete()
@@ -97,14 +94,14 @@ def test_equals(client: MongoClient) -> None:
 
 
 def test_products(client: MongoClient) -> None:
-    """
-    Test the subset method of XDocument.
+    """Test the subset method of XDocument.
 
     This test verifies that the subset method correctly filters documents
     by name and that the reference_frame method works with subsets.
 
     Args:
         client: MongoDB client fixture
+
     """
     # Clean up any existing Singer documents
     Singer.objects.delete()
@@ -135,14 +132,14 @@ def test_products(client: MongoClient) -> None:
 
 
 def test_not_unique_name(client: MongoClient) -> None:
-    """
-    Test that document names must be unique.
+    """Test that document names must be unique.
 
     This test verifies that attempting to create two documents with the
     same name raises a NotUniqueError.
 
     Args:
         client: MongoDB client fixture
+
     """
     # Clean up any existing Singer documents
     Singer.objects.delete()
@@ -161,14 +158,14 @@ def test_not_unique_name(client: MongoClient) -> None:
 
 
 def test_to_dict(client: MongoClient) -> None:
-    """
-    Test the to_dict method of XDocument.
+    """Test the to_dict method of XDocument.
 
     This test verifies that the to_dict method correctly creates a dictionary
     mapping document names to document objects.
 
     Args:
         client: MongoDB client fixture
+
     """
     # Clean up any existing Singer documents
     Singer.objects.delete()
@@ -180,14 +177,14 @@ def test_to_dict(client: MongoClient) -> None:
 
 
 def test_apply(client: MongoClient) -> None:
-    """
-    Test the apply method of XDocument.
+    """Test the apply method of XDocument.
 
     This test verifies that the apply method correctly applies a function
     to each document and returns the expected results.
 
     Args:
         client: MongoDB client fixture
+
     """
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
@@ -208,14 +205,14 @@ def test_apply(client: MongoClient) -> None:
 
 
 def test_apply_missing(client: MongoClient) -> None:
-    """
-    Test the apply method with missing data.
+    """Test the apply method with missing data.
 
     This test verifies that the apply method correctly handles cases where
     some documents are missing the data needed by the applied function.
 
     Args:
         client: MongoDB client fixture
+
     """
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
@@ -235,14 +232,14 @@ def test_apply_missing(client: MongoClient) -> None:
 
 
 def test_repr(client: MongoClient) -> None:
-    """
-    Test the string representation methods of XDocument.
+    """Test the string representation methods of XDocument.
 
     This test verifies that the __str__ and __repr__ methods correctly
     format the document's class name and name attribute.
 
     Args:
         client: MongoDB client fixture
+
     """
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
@@ -251,8 +248,7 @@ def test_repr(client: MongoClient) -> None:
 
 
 def test_frame(resource_dir: Path, client: MongoClient) -> None:
-    """
-    Test the frame method of XDocument.
+    """Test the frame method of XDocument.
 
     This test verifies that the frame method correctly extracts a specific
     field and key from multiple documents and creates a properly formatted DataFrame.
@@ -260,6 +256,7 @@ def test_frame(resource_dir: Path, client: MongoClient) -> None:
     Args:
         resource_dir: Path to the test resources directory
         client: MongoDB client fixture
+
     """
     Singer.objects.delete()
     s1 = Singer(name="Falco").save()
@@ -283,8 +280,7 @@ def test_frame(resource_dir: Path, client: MongoClient) -> None:
 
 
 def test_names(client: MongoClient) -> None:
-    """
-    Test filtering documents by name.
+    """Test filtering documents by name.
 
     This test verifies that documents can be correctly filtered by name
     using the name__in query operator, and that the order of names in the
@@ -292,6 +288,7 @@ def test_names(client: MongoClient) -> None:
 
     Args:
         client: MongoDB client fixture
+
     """
     s1 = Singer(name="A").save()
     s2 = Singer(name="B").save()

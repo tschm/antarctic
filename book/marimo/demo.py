@@ -1,3 +1,4 @@
+"""Antarctic Demo."""
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
@@ -44,11 +45,11 @@ def _():
 
         @property
         def nav(self):
-            """
-            Compute NAV from weights and prices.
+            """Compute NAV from weights and prices.
 
             Returns:
                 pd.DataFrame: DataFrame with computed NAV values
+
             """
             # Ensure weights and prices have the same index and columns
             common_index = self.weights.index.intersection(self.prices.index)

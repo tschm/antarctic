@@ -41,3 +41,4 @@ pep621_dev_dependency_groups = ["dev"]
 # bson is part of pymongo package and should not be installed separately
 DEP001 = ["bson"]
 DEP002 = ["fastparquet"]
+

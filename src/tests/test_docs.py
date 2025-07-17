@@ -1,5 +1,4 @@
-"""
-Tests for validating code examples in the project documentation.
+"""Tests for validating code examples in the project documentation.
 
 This module contains tests that extract Python code blocks from the README.md file
 and run them through doctest to ensure they are valid and working as expected.
@@ -17,8 +16,7 @@ from _pytest.capture import CaptureFixture
 
 @pytest.fixture()
 def docstring(root_dir: Path) -> str:
-    """
-    Extract Python code blocks from README.md and prepare them for doctest.
+    """Extract Python code blocks from README.md and prepare them for doctest.
 
     This fixture reads the README.md file, extracts all Python code blocks
     (enclosed in triple backticks with 'python' language identifier), and
@@ -29,6 +27,7 @@ def docstring(root_dir: Path) -> str:
 
     Returns:
         str: A docstring containing all Python code examples from README.md
+
     """
     # Read the README.md file
     with open(root_dir / "README.md") as f:
@@ -46,8 +45,7 @@ def docstring(root_dir: Path) -> str:
 
 
 def test_blocks(root_dir: Path, docstring: str, capfd: CaptureFixture[str]) -> None:
-    """
-    Test that all Python code blocks in README.md execute without errors.
+    """Test that all Python code blocks in README.md execute without errors.
 
     This test runs all the Python code examples from the README.md file
     through doctest to ensure they execute correctly. It captures any
@@ -60,6 +58,7 @@ def test_blocks(root_dir: Path, docstring: str, capfd: CaptureFixture[str]) -> N
 
     Raises:
         pytest.fail: If any doctest fails or produces unexpected output
+
     """
     # Change to the root directory to ensure imports work correctly
     os.chdir(root_dir)

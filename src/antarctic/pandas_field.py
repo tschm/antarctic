@@ -1,5 +1,4 @@
-"""
-This module provides a custom Pandas field type for MongoEngine.
+"""Provide a custom Pandas field type for MongoEngine.
 
 It allows storing pandas DataFrames in MongoDB by converting them to and from
 parquet-formatted byte streams. This enables efficient storage and retrieval
@@ -18,8 +17,7 @@ from mongoengine.base import BaseField
 
 
 def _read(value: bytes, columns: list[str] | None = None) -> pd.DataFrame:
-    """
-    Read a DataFrame from its binary parquet representation.
+    """Read a DataFrame from its binary parquet representation.
 
     Args:
         value: Binary representation of a DataFrame stored as parquet
@@ -27,6 +25,7 @@ def _read(value: bytes, columns: list[str] | None = None) -> pd.DataFrame:
 
     Returns:
         pd.DataFrame: The reconstructed pandas DataFrame
+
     """
     with BytesIO(value) as buffer:
         table = pq.read_table(buffer, columns=columns)
@@ -34,8 +33,7 @@ def _read(value: bytes, columns: list[str] | None = None) -> pd.DataFrame:
 
 
 def _write(value: pd.DataFrame, compression: str = "zstd") -> bytes:
-    """
-    Convert a Pandas DataFrame into a compressed parquet byte-stream.
+    """Convert a Pandas DataFrame into a compressed parquet byte-stream.
 
     The byte-stream encodes in its metadata the structure of the Pandas object,
     including column names, data types, and index information.
@@ -46,6 +44,7 @@ def _write(value: pd.DataFrame, compression: str = "zstd") -> bytes:
 
     Returns:
         bytes: Binary representation of the DataFrame in parquet format
+
     """
     if isinstance(value, pd.DataFrame):
         table = pa.Table.from_pandas(value)
@@ -56,8 +55,7 @@ def _write(value: pd.DataFrame, compression: str = "zstd") -> bytes:
 
 
 class PandasField(BaseField):
-    """
-    Custom MongoEngine field type for storing pandas DataFrames.
+    """Custom MongoEngine field type for storing pandas DataFrames.
 
     This field handles the conversion between pandas DataFrames and binary data
     that can be stored in MongoDB. It uses parquet format for efficient storage
@@ -65,19 +63,18 @@ class PandasField(BaseField):
     """
 
     def __init__(self, compression: str = "zstd", **kwargs: Any) -> None:
-        """
-        Initialize a PandasField.
+        """Initialize a PandasField.
 
         Args:
             compression: Compression algorithm to use for parquet storage (default: "zstd")
             **kwargs: Additional arguments passed to the parent BaseField
+
         """
         super().__init__(**kwargs)
         self.compression = compression
 
     def __set__(self, instance: Any, value: pd.DataFrame | bytes | None) -> None:
-        """
-        Convert and set the value for this field.
+        """Convert and set the value for this field.
 
         If the value is a DataFrame, it's converted to a parquet byte stream.
         If it's already bytes, it's stored as-is.
@@ -88,6 +85,7 @@ class PandasField(BaseField):
 
         Raises:
             AssertionError: If the value is neither a DataFrame, bytes, nor None
+
         """
         if value is not None:
             if isinstance(value, pd.DataFrame):
@@ -101,8 +99,7 @@ class PandasField(BaseField):
         super().__set__(instance, value)
 
     def __get__(self, instance: Any, owner: type) -> pd.DataFrame | None:
-        """
-        Retrieve and convert the stored value back to a DataFrame.
+        """Retrieve and convert the stored value back to a DataFrame.
 
         Args:
             instance: The document instance
@@ -110,6 +107,7 @@ class PandasField(BaseField):
 
         Returns:
             Optional[pd.DataFrame]: The retrieved DataFrame or None if no data
+
         """
         data = super().__get__(instance, owner)
 
