@@ -29,12 +29,13 @@ jobs:
 
   marimo:
     runs-on: "ubuntu-latest"
+    needs: parse-env
     permissions:
       contents: read
     steps:
       - uses: jebel-quant/marimushka@v0.1.4
         with:
-          notebooks: 'book/marimo'
+          notebooks: ${{ needs.parse-env.outputs.marimo-folder }}
 
   pdoc:
     runs-on: "ubuntu-latest"
