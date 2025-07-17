@@ -65,9 +65,13 @@ clean: ## Clean generated files and directories
 
 ##@ Marimo & Jupyter
 
-marimo: install ## Start a Marimo server
+marimo: uv ## Start a Marimo server
 	@printf "$(BLUE)Start Marimo server...$(RESET)\n"
 	@uvx marimo edit --sandbox book/marimo/demo.py
+
+run-marimo: uv ## Run the Marimo notebook from the command line
+	@printf "$(BLUE)Running Marimo notebook...$(RESET)\n"
+	@uvx marimo run --sandbox book/marimo/demo.py
 
 ##@ Help
 
