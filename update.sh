@@ -70,6 +70,7 @@ cp -fR "${TEMP_DIR}/.config-templates-main/." . || {
 # Clean before you commit
 cleanup
 
+# Install pre-commit as needed for the git commit further below
 uv pip install pre-commit
 
 # Commit changes if there are any
