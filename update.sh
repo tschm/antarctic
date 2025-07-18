@@ -62,12 +62,12 @@ else
   git checkout --quiet -b "${BRANCH_NAME}"
 fi
 
-## Copy new files (preserving existing files with --ignore-existing)
-#cp -nR "${TEMP_DIR}/.config-templates-main/." . || {
-#  die "Failed to copy templates. Some files may already exist."
-#}
-#
-## Commit changes if there are any
+# Copy new files (preserving existing files with --ignore-existing)
+cp -nR "${TEMP_DIR}/.config-templates-main/." . || {
+  die "Failed to copy templates. Some files may already exist."
+}
+
+# Commit changes if there are any
 #if git diff-index --quiet HEAD --; then
 #  echo "✅ No changes to commit."
 #else
