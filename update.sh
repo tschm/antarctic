@@ -73,6 +73,8 @@ cp -fR "${TEMP_DIR}/.config-templates-main/." . || {
 # Clean before you commit
 cleanup
 
+uv pip install pre-commit
+
 # Commit changes if there are any
 if git diff-index --quiet HEAD --; then
   echo "✅ No changes to commit."
