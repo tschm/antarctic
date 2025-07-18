@@ -1,12 +1,14 @@
 name: "UPDATE"
 
 on:
-  push
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
-  pull-requests: write   # for creating/modifying PRs
-  actions: write         # for managing workflows (but not committing them)
+  #pull-requests: write   # for creating/modifying PRs
+  #actions: write         # for managing workflows (but not committing them)
 
 
 jobs:
@@ -29,3 +31,48 @@ jobs:
           body: "This PR syncs configuration files from the central `.config-templates` repo."
           branch: "sync/update-configs"
           delete-branch: true
+
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Download the templates
+        run: |
+          curl -L https://github.com/tschm/.config-templates/archive/main.zip -o templates.zip
+          
+          unzip templates.zip
+          
+          # Copy the extracted configuration files to the current directory
+          cp -r .config-templates-main/. .
+
+          # Clean up by removing the zip file and the extracted directory
+          # This prevents cluttering the workspace with temporary files
+          rm -rf templates.zip .config-templates-main
+
+      #- name: Fetch Workflows from Repo A
+      #  uses: actions/checkout@v4
+      #  with:
+      #    repository: tschm/.config-templates
+
+      #- name: Extract templates
+      #  shell: bash
+      #  run: |
+      #    echo "Extracting templates"
+      #    unzip templates.zip
+
+      #- name: Copy Workflows
+      #  run: |
+      #    #mkdir -p .github/workflows
+      #    cp -r repo-A-temp/.github/workflows/* .github/workflows/
+      #    rm -rf repo-A-temp
+
+      - name: Commit & Push Changes
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add . 
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update templates"
+          git push
