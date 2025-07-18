@@ -25,7 +25,7 @@ cleanup() {
 }
 
 # ---- Register cleanup trap ----
-# trap cleanup EXIT
+trap cleanup EXIT
 
 # ---- Check Dependencies ----
 command -v curl >/dev/null || die "curl is not installed."
@@ -69,6 +69,9 @@ fi
 cp -fR "${TEMP_DIR}/.config-templates-main/." . || {
   die "Failed to copy templates. Some files may already exist."
 }
+
+# Clean before you commit
+cleanup
 
 # Commit changes if there are any
 if git diff-index --quiet HEAD --; then
