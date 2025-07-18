@@ -5,6 +5,9 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write   # for creating/modifying PRs
+  actions: write         # for managing workflows (but not committing them)
+
 
 jobs:
   update:
