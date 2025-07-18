@@ -92,10 +92,10 @@ else
 fi
 
 ## Return to original branch
-#if git rev-parse --quiet --verify main >/dev/null; then
-#  git checkout --quiet main
-#else
-#  echo "ℹ️ main branch does not exist, staying on ${BRANCH_NAME}"
-#fi
-#
-#echo "✨ Done!"
+if git rev-parse --quiet --verify main >/dev/null; then
+  git checkout --quiet main
+else
+  echo "ℹ️ main branch does not exist, staying on ${BRANCH_NAME}"
+fi
+
+echo "✨ Done!"
