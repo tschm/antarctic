@@ -44,6 +44,8 @@ if ! unzip -q templates.zip -d "${TEMP_DIR}"; then
   die "Failed to extract templates."
 fi
 
+ls ${TEMP_DIR}
+
 # ---- Verify Extraction ----
 if [[ ! -d "${TEMP_DIR}/.config-templates-main" ]]; then
   die "Extracted directory structure doesn't match expectations."
