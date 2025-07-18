@@ -35,3 +35,6 @@ git add .
 git commit -m "Update configuration templates from tschm/.config-templates"
 
 git push origin config-sync
+
+git checkout main
+
