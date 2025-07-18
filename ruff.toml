@@ -54,6 +54,9 @@ target-version = "py312"
 # UP: pyupgrade - Upgrade syntax for newer Python
 select = ["D", "E", "F", "I", "N", "W", "UP"]
 
+[lint.pydocstyle]
+convention = "google"
+
 # Formatting configuration
 [format]
 # Use double quotes for strings
