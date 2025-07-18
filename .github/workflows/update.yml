@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                      # Fetch all history
+          token: ${{ secrets.GITHUB_TOKEN }}  # Default token (write access)
 
       - uses: tschm/cradle/actions/updater@v0.3.04
         with:
@@ -37,11 +40,15 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                      # Fetch all history
+          token: ${{ secrets.GITHUB_TOKEN }}  # Default token (write access)
 
       - name: Download the templates
         run: |
-          curl -L https://github.com/tschm/.config-templates/archive/main.zip -o templates.zip
+          curl -L -o templates.zip https://github.com/tschm/.config-templates/archive/refs/heads/main.zip
           
+          # Extract the contents of the downloaded zip file
           unzip templates.zip
           
           # Copy the extracted configuration files to the current directory
