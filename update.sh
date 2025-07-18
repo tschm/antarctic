@@ -53,15 +53,15 @@ fi
 echo "🔄 Updating git repository..."
 
 # Stash any existing changes to avoid conflicts
-#git stash push --quiet --include-untracked --message "update.sh auto-stash"
-#
-## Checkout/Create branch
-#if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
-#  git checkout --quiet "${BRANCH_NAME}"
-#else
-#  git checkout --quiet -b "${BRANCH_NAME}"
-#fi
-#
+git stash push --quiet --include-untracked --message "update.sh auto-stash"
+
+# Checkout/Create branch
+if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
+  git checkout --quiet "${BRANCH_NAME}"
+else
+  git checkout --quiet -b "${BRANCH_NAME}"
+fi
+
 ## Copy new files (preserving existing files with --ignore-existing)
 #cp -nR "${TEMP_DIR}/.config-templates-main/." . || {
 #  die "Failed to copy templates. Some files may already exist."
