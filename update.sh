@@ -44,8 +44,6 @@ if ! unzip -q templates.zip -d "${TEMP_DIR}"; then
   die "Failed to extract templates."
 fi
 
-ls ${TEMP_DIR}
-
 # ---- Verify Extraction ----
 if [[ ! -d "${TEMP_DIR}/.config-templates-main" ]]; then
   die "Extracted directory structure doesn't match expectations."
@@ -53,10 +51,9 @@ fi
 
 # ---- Git Operations ----
 echo "🔄 Updating git repository..."
-#ls -all
 
 # Stash any existing changes to avoid conflicts
-# git stash push --quiet --include-untracked --message "update.sh auto-stash"
+git stash push --quiet --include-untracked --message "update.sh auto-stash"
 
 # Checkout/Create branch
 if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
@@ -67,7 +64,7 @@ fi
 
 # Copy new files (preserving existing files with --ignore-existing)
 cp -fR "${TEMP_DIR}/.config-templates-main/." . || {
-  die "Failed to copy templates. Some files may already exist."
+  die "Failed to copy templates"
 }
 
 # Clean before you commit
