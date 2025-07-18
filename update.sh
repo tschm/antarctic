@@ -53,9 +53,10 @@ fi
 
 # ---- Git Operations ----
 echo "🔄 Updating git repository..."
+#ls -all
 
 # Stash any existing changes to avoid conflicts
-git stash push --quiet --include-untracked --message "update.sh auto-stash"
+# git stash push --quiet --include-untracked --message "update.sh auto-stash"
 
 # Checkout/Create branch
 if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
@@ -65,28 +66,28 @@ else
 fi
 
 # Copy new files (preserving existing files with --ignore-existing)
-cp -nR "${TEMP_DIR}/.config-templates-main/." . || {
+cp -fR "${TEMP_DIR}/.config-templates-main/." . || {
   die "Failed to copy templates. Some files may already exist."
 }
 
 # Commit changes if there are any
-#if git diff-index --quiet HEAD --; then
-#  echo "✅ No changes to commit."
-#else
-#  git add .
-#  if git commit -m "Update configuration templates from ${REPO_URL}"; then
-#    echo "✅ Changes committed."
-#    # Only push if commit succeeded
-#    if git push --quiet origin "${BRANCH_NAME}"; then
-#      echo "📤 Pushed changes to ${BRANCH_NAME}."
-#    else
-#      echo "⚠️ Could not push changes (remote not configured?)."
-#    fi
-#  else
-#    echo "⚠️ Could not commit changes."
-#  fi
-#fi
-#
+if git diff-index --quiet HEAD --; then
+  echo "✅ No changes to commit."
+else
+  git add .
+  if git commit -m "Update configuration templates from ${REPO_URL}"; then
+    echo "✅ Changes committed."
+    # Only push if commit succeeded
+    if git push --quiet origin "${BRANCH_NAME}"; then
+      echo "📤 Pushed changes to ${BRANCH_NAME}."
+    else
+      echo "⚠️ Could not push changes (remote not configured?)."
+    fi
+  else
+    echo "⚠️ Could not commit changes."
+  fi
+fi
+
 ## Return to original branch
 #if git rev-parse --quiet --verify main >/dev/null; then
 #  git checkout --quiet main
