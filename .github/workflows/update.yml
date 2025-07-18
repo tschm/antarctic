@@ -21,19 +21,6 @@ jobs:
           fetch-depth: 0                      # Fetch all history
           token: ${{ secrets.GITHUB_TOKEN }}  # Default token (write access)
 
-      - uses: tschm/cradle/actions/updater@v0.3.04
-        with:
-          ref: 'main'
-          repository: 'tschm/.config-templates'
-
-      - name: Commit & open PR
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "chore: sync template files from .config-templates"
-          title: "chore: sync config from .config-templates"
-          body: "This PR syncs configuration files from the central `.config-templates` repo."
-          branch: "sync/update-configs"
-          delete-branch: true
 
   sync:
     runs-on: ubuntu-latest
@@ -57,23 +44,6 @@ jobs:
           # Clean up by removing the zip file and the extracted directory
           # This prevents cluttering the workspace with temporary files
           rm -rf templates.zip .config-templates-main
-
-      #- name: Fetch Workflows from Repo A
-      #  uses: actions/checkout@v4
-      #  with:
-      #    repository: tschm/.config-templates
-
-      #- name: Extract templates
-      #  shell: bash
-      #  run: |
-      #    echo "Extracting templates"
-      #    unzip templates.zip
-
-      #- name: Copy Workflows
-      #  run: |
-      #    #mkdir -p .github/workflows
-      #    cp -r repo-A-temp/.github/workflows/* .github/workflows/
-      #    rm -rf repo-A-temp
 
       - name: Commit & Push Changes
         if: github.ref == 'refs/heads/main'
