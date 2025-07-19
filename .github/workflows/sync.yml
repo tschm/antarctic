@@ -21,7 +21,7 @@ jobs:
 
       - name: Run config sync script
         run: |
-          curl -sSL https://raw.githubusercontent.com/tschm/.config-templates/main/scripts/update.sh | bash
+          curl -sSL https://raw.githubusercontent.com/tschm/.config-templates/main/scripts/up.sh | bash
 
       - name: Create Pull Request if needed
         uses: peter-evans/create-pull-request@v6
