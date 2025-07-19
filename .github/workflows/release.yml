@@ -104,7 +104,6 @@ jobs:
         id: set_output
         run: |
           echo "built=${{ steps.check_file.outputs.exists }}" >> $GITHUB_OUTPUT
-  
 
   release:
     name: Create GitHub Release
