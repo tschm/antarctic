@@ -16,6 +16,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+
       - name: Run sync action
         uses: tschm/.config-templates@main  # Or @v1 if you tag it
         with:
