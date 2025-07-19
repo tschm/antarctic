@@ -19,10 +19,6 @@ jobs:
       - name: Checkout target repo
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: \
-          sudo apt update && sudo apt install unzip curl
-
       - name: Run config sync script
         run: |
           curl -sSL https://raw.githubusercontent.com/tschm/.config-templates/main/scripts/up.sh | bash
