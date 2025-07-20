@@ -39,7 +39,6 @@ def _():
     from mongoengine import Document
 
     class Portfolio(Document):
-        # nav = PandasField()
         weights = PandasField()
         prices = PandasField()
 
