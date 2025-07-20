@@ -81,7 +81,7 @@ clean: ## Clean generated files and directories
 	@git fetch -p
 	@git branch -vv | grep ': gone]' | awk '{print $$1}' | xargs -r git branch -D
 
-##@ Marimo & Jupyter
+##@ Marimo
 
 marimo: uv ## Start a Marimo server (use FILE=filename.py to specify a file)
 	@if [ -z "$(FILE)" ]; then \
