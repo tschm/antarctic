@@ -1,5 +1,9 @@
 """Tests for validating code examples in the project documentation.
 
+This file is part of the tschm/.config-templates repository
+(https://github.com/tschm/.config-templates).
+
+
 This module contains tests that extract Python code blocks from the README.md file
 and run them through doctest to ensure they are valid and working as expected.
 This helps maintain accurate and working examples in the documentation.
