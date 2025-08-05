@@ -143,6 +143,8 @@ jobs:
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
             echo "should_publish=true" >> $GITHUB_OUTPUT
+            tar -xf dist/dist.tar -C dist
+            rm dist/dist.tar
           fi
 
       - name: Publish to PyPI
