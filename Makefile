@@ -37,7 +37,7 @@ install: uv ## Install all dependencies using uv
 
 fmt: uv ## Run code formatters only
 	@printf "$(BLUE)Running formatters...$(RESET)\n"
-	@uvx ruff format src
+	@uvx ruff format .
 
 lint: uv ## Run linters only
 	@printf "$(BLUE)Running linters...$(RESET)\n"
