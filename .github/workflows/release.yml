@@ -132,9 +132,7 @@ jobs:
             echo "::warning::No artifacts found in dist/. Skipping PyPI publish."
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
-            echo "should_publish=true" >> $GITHUB_OUTPUT
-            tar -xf dist/dist.tar -C dist
-            rm dist/dist.tar
+            echo "should_publish=true" >> $GITHUB_OUTPUTup
           fi
 
       - name: Publish to PyPI
