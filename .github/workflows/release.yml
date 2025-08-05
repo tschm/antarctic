@@ -128,8 +128,8 @@ jobs:
       - name: Check if dist contains artifacts
         id: check_dist
         run: |
-          if [[ ! -d dist || -z "$(ls -A dist)" ]]; then
-            echo "::warning::No artifacts found in dist/. Skipping PyPI publish."
+          if [[ ! -d dist ]]; then
+            echo "::warning::No folder dist/. Skipping PyPI publish."
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
             echo "should_publish=true" >> $GITHUB_OUTPUTup
