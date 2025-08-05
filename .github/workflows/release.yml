@@ -132,7 +132,7 @@ jobs:
             echo "::warning::No folder dist/. Skipping PyPI publish."
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
-            echo "should_publish=true" >> $GITHUB_OUTPUTup
+            echo "should_publish=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Publish to PyPI
