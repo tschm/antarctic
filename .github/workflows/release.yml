@@ -96,20 +96,14 @@ jobs:
     needs: [tag, build]
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Download dist artifact
-        if: hashFiles('pyproject.toml') != ''
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
+        continue-on-error: true
 
       - name: Extract dist.tar
-        if: hashFiles('pyproject.toml') != ''
         run: |
           if [[ -f dist/dist.tar ]]; then
             echo "Extracting dist.tar"
@@ -118,12 +112,6 @@ jobs:
           else
             echo "No dist.tar found; skipping extract"
           fi
-
-      #- name: Warn if no artifacts found
-      #  run: |
-      #    if [[ ! -d dist || -z "$(ls -A dist)" ]]; then
-      #      echo "::warning::No files found in dist/. Release will be created without artifacts."
-      #    fi
 
       - name: Create GitHub Release with artifacts
         uses: softprops/action-gh-release@v2.3.2
@@ -149,7 +137,6 @@ jobs:
 
       - name: Check if dist contains artifacts
         id: check_dist
-        if: hashFiles('pyproject.toml') != ''
         run: |
           if [[ ! -d dist || -z "$(ls -A dist)" ]]; then
             echo "::warning::No artifacts found in dist/. Skipping PyPI publish."
