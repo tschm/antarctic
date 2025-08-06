@@ -6,6 +6,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/tschm/antarctic/badge)](https://www.codefactor.io/repository/github/tschm/antarctic)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://github.com/renovatebot/renovate)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tschm/antarctic)
+
 Project to persist Pandas data structures in a MongoDB database.
 
 ## Installation
