@@ -23,7 +23,8 @@ dev = [
     "pytest==8.4.1",
     "pre-commit==4.2.0",
     "mongomock==4.3.0",
-    "python-dotenv==1.1.1"
+    "python-dotenv==1.1.1",
+    "plotly==6.2.0"
 ]
 
 [build-system]
