@@ -92,8 +92,8 @@ We define a bunch of symbols and assign a price for each (or some of it):
 >>> s2 = Symbol(name="B", price=data["B"].to_frame(name="price")).save()
 
 # We can access subsets like
-for symbol in Symbol.subset(names=["B"]):
-    print(symbol)
+>>> for symbol in Symbol.subset(names=["B"]):
+...    print(symbol)
 
 # often we need a dictionary of Symbols:
 >>> symbols = Symbol.to_dict(objects=[s1, s2])
@@ -103,9 +103,9 @@ for symbol in Symbol.subset(names=["B"]):
 >>> s2.reference["MyProp2"] = "BCD"
 
 # You can loop over (subsets) of Symbols and extract reference and/or series data
-print(Symbol.reference_frame(objects=[s1, s2]))
-print(Symbol.frame(series="price", key="price"))
-print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
+>>> print(Symbol.reference_frame(objects=[s1, s2]))
+>>> print(Symbol.frame(series="price", key="price"))
+>>> print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.
