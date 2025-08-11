@@ -52,7 +52,7 @@ We introduce first a new field --- the PandasField.
 The portfolio objects works exactly the way you think it works
 
 ```python
->>> data = pd.read_csv("src/tests/resources/price.csv", index_col=0, parse_dates=True)
+>>> data = pd.read_csv("tests/resources/price.csv", index_col=0, parse_dates=True)
 >>> p = Portfolio()
 >>> p.nav = data["A"].to_frame(name="nav")
 >>> p.prices = data[["B","C","D"]] #pd.DataFrame(...)
