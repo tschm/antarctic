@@ -12,12 +12,6 @@ tasks:
       - task build:install -s
       - printf "${BLUE}[INFO] Running tests...${RESET}\n"
       - |
-        # Create README.md if it doesn't exist
-        if [ ! -f "README.md" ]; then
-          printf "${BLUE}[INFO] No README.md file found, creating one with '# Hello World' content${RESET}\n"
-          echo "# Hello World" > README.md
-        fi
-        
         # Find source folder
         SOURCE_FOLDER="src/$(find src -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | head -1 | sed 's|^src/||')"
         
@@ -36,9 +30,17 @@ tasks:
       - |
         if [ -f "pyproject.toml" ]; then
           printf "${BLUE}[INFO] Building documentation...${RESET}\n"
-          SOURCE_FOLDER=src/$(find src -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | head -1)
-          uv pip install pdoc
-          uv run pdoc -o _pdoc "$SOURCE_FOLDER"
+          if [ -d "src" ]; then
+            SOURCE_FOLDER=$(LC_ALL=C find src -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | sort | head -1)
+            if [ -z "$SOURCE_FOLDER" ]; then
+              printf "${YELLOW}[WARN] src/ exists but contains no top-level packages, skipping docs${RESET}\n"
+            else
+              uv pip install pdoc
+              uv run pdoc -o _pdoc "$SOURCE_FOLDER"
+            fi
+          else
+            printf "${YELLOW}[WARN] No src/ directory found, skipping docs${RESET}\n"
+          fi
         else
           printf "${YELLOW}[WARN] No pyproject.toml found, skipping docs${RESET}\n"
         fi
@@ -52,12 +54,8 @@ tasks:
         if [ ! -d "{{.MARIMO_FOLDER}}" ]; then
           printf "${YELLOW}[WARN] Directory '{{.MARIMO_FOLDER}}' does not exist. Skipping marimushka.${RESET}\n"
         else
-          if ! command -v uvx >/dev/null 2>&1; then
-            printf "${RED}[ERROR] 'uvx' not found. Please install 'uvx' to export Marimo notebooks.${RESET}\n"
-            exit 1
-          fi
           mkdir -p _marimushka
-          py_files=$(find "{{.MARIMO_FOLDER}}" -name "*.py" | tr '\n' ' ')
+          py_files=$(find "{{.MARIMO_FOLDER}}" -maxdepth 1 -name "*.py" | tr '\n' ' ')
           if [ -z "$py_files" ]; then
             printf "${YELLOW}[WARN] No Python files found in '{{.MARIMO_FOLDER}}'.${RESET}\n"
             echo "<html><head><title>Marimo Notebooks</title></head><body><h1>Marimo Notebooks</h1><p>No notebooks found.</p></body></html>" > _marimushka/index.html
@@ -86,13 +84,6 @@ tasks:
     desc: Build the companion book with test results and notebooks
     cmds:
       - printf "${BLUE}[INFO] Building combined documentation...${RESET}\n"
-      - |
-        # Check if jq is installed
-        if ! command -v jq &> /dev/null; then
-          printf "${RED}[ERROR] jq is not installed. Please install jq to build the book.${RESET}\n"
-          printf "${BLUE}[INFO] You can install jq with: brew install jq (macOS) or apt-get install jq (Linux)${RESET}\n"
-          exit 1
-        fi
       - printf "${BLUE}[INFO] Delete the _book folder...${RESET}\n"
       - rm -rf _book
       - printf "${BLUE}[INFO] Create empty _book folder...${RESET}\n"
@@ -139,7 +130,7 @@ tasks:
         printf "${BLUE}[INFO] Generated links.json:${RESET}\n"
         cat _book/links.json
         
-        uvx minibook@v0.0.16 --title "{{.BOOK_TITLE}}" --subtitle "{{.BOOK_SUBTITLE}}" --links "$(cat _book/links.json)" --output "_book"
+        uvx minibook --title "{{.BOOK_TITLE}}" --subtitle "{{.BOOK_SUBTITLE}}" --links "$(cat _book/links.json)" --output "_book"
         
         touch "_book/.nojekyll"
   
