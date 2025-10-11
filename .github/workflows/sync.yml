@@ -18,6 +18,7 @@ on:
 
 jobs:
   sync:
+    if: ${{ github.repository != 'tschm/.config-templates' }}
     runs-on: ubuntu-latest
     steps:
       - name: Sync Template

@@ -8,8 +8,8 @@ includes:
 tasks:
   test:
     desc: Run all tests
+    deps: ["build:install"]
     cmds:
-      - task build:install -s
       - printf "${BLUE}[INFO] Running tests...${RESET}\n"
       - |
         # Find source folder
@@ -25,8 +25,8 @@ tasks:
 
   docs:
     desc: Build documentation using pdoc
+    deps: ["build:install"]
     cmds:
-      - task build:install -s
       - |
         if [ -f "pyproject.toml" ]; then
           printf "${BLUE}[INFO] Building documentation...${RESET}\n"
@@ -47,8 +47,8 @@ tasks:
 
   marimushka:
     desc: Export Marimo notebooks to HTML
+    deps: ["build:install"]
     cmds:
-      - task build:install -s
       - printf "${BLUE}[INFO] Exporting notebooks from {{.MARIMO_FOLDER}}...${RESET}\n"
       - |
         if [ ! -d "{{.MARIMO_FOLDER}}" ]; then
@@ -91,6 +91,7 @@ tasks:
 
   book:
     desc: Build the companion book with test results and notebooks
+    deps: ["build:install"]
     cmds:
       - printf "${BLUE}[INFO] Building combined documentation...${RESET}\n"
       - printf "${BLUE}[INFO] Delete the _book folder...${RESET}\n"
@@ -145,13 +146,13 @@ tasks:
 
   marimo:
     desc: Start a Marimo server
+    deps: ["build:install"]
     cmds:
-      - task build:install -s
       - printf " ${BLUE}[INFO] Start Marimo server with {{.MARIMO_FOLDER}}...${RESET}\n"
       - |
         if [ ! -d "{{.MARIMO_FOLDER}}" ]; then
           printf " ${YELLOW}[WARN] Marimo folder '{{.MARIMO_FOLDER}}' not found, skipping start${RESET}\n"
         else
-          uv pip install marimo
+          uv sync --extra dev
           uv run marimo edit "{{.MARIMO_FOLDER}}"
         fi
