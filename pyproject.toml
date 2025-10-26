@@ -7,7 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "mongoengine>=0.25.0",
     "pandas>=2.0",
-    "pyarrow>=0.15.0",
+    "pyarrow>=22.0.0",
     "fastparquet>=0.8.0"
 ]
 authors = [{name = "Thomas Schmelzer", email = "thomas.schmelzer@gmail.com"}]
