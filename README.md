@@ -47,6 +47,7 @@ We introduce first a new field --- the PandasField.
 ...     nav = PandasField()
 ...     weights = PandasField()
 ...     prices = PandasField()
+
 ```
 
 The portfolio objects works exactly the way you think it works
@@ -60,6 +61,7 @@ The portfolio objects works exactly the way you think it works
 
 >>> nav = p.nav["nav"]
 >>> prices = p.prices
+
 ```
 
 Behind the scenes we convert the Frame objects
@@ -83,6 +85,7 @@ over all or a subset of Documents of the same type, e.g.
 
 >>> class Symbol(XDocument):
 ...    price = PandasField()
+
 ```
 
 We define a bunch of symbols and assign a price for each (or some of it):
@@ -106,6 +109,7 @@ for symbol in Symbol.subset(names=["B"]):
 print(Symbol.reference_frame(objects=[s1, s2]))
 print(Symbol.frame(series="price", key="price"))
 print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
+
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.
