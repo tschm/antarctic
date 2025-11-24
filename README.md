@@ -29,37 +29,47 @@ to make Antarctic a convenient choice for storing Pandas (time series) data.
 We introduce first a new field --- the PandasField.
 
 ```python
->>> import mongomock
->>> import pandas as pd
+import mongomock
+import pandas as pd
+import numpy as np
 
->>> from mongoengine import Document, connect
->>> from antarctic.pandas_field import PandasField
+from mongoengine import Document, connect
+from antarctic.pandas_field import PandasField
 
 # connect with your existing MongoDB
 # (here I am using a popular interface mocking a MongoDB)
->>> client = connect('mongoenginetest', 
-...                  host='mongodb://localhost', 
-...                  mongo_client_class=mongomock.MongoClient, 
-...                  uuidRepresentation="standard")
+client = connect('mongoenginetest', 
+                  host='mongodb://localhost', 
+                  mongo_client_class=mongomock.MongoClient, 
+                  uuidRepresentation="standard")
 
 # Define the blueprint for a portfolio document
->>> class Portfolio(Document):
-...     nav = PandasField()
-...     weights = PandasField()
-...     prices = PandasField()
+class Portfolio(Document):
+    nav = PandasField()
+    weights = PandasField()
+    prices = PandasField()
+
+```
+
+```result
 ```
 
 The portfolio objects works exactly the way you think it works
 
 ```python
->>> data = pd.read_csv("tests/resources/price.csv", index_col=0, parse_dates=True)
->>> p = Portfolio()
->>> p.nav = data["A"].to_frame(name="nav")
->>> p.prices = data[["B","C","D"]] #pd.DataFrame(...)
->>> portfolio = p.save()
+data = pd.read_csv("tests/resources/price.csv", index_col=0, parse_dates=True)
 
->>> nav = p.nav["nav"]
->>> prices = p.prices
+p = Portfolio()
+p.nav = data["A"].to_frame(name="nav")
+p.prices = data[["B","C","D"]] #pd.DataFrame(...)
+portfolio = p.save()
+
+nav = p.nav["nav"]
+prices = p.prices
+
+```
+
+```result
 ```
 
 Behind the scenes we convert the Frame objects
@@ -78,34 +88,42 @@ It provides some convenient tools to simplify looping
 over all or a subset of Documents of the same type, e.g.
 
 ```python
->>> from antarctic.document import XDocument
->>> from antarctic.pandas_field import PandasField
+from antarctic.document import XDocument
+from antarctic.pandas_field import PandasField
 
->>> class Symbol(XDocument):
-...    price = PandasField()
+class Symbol(XDocument):
+    price = PandasField()
+
+```
+
+```result
 ```
 
 We define a bunch of symbols and assign a price for each (or some of it):
 
 ```python
->>> s1 = Symbol(name="A", price=data["A"].to_frame(name="price")).save()
->>> s2 = Symbol(name="B", price=data["B"].to_frame(name="price")).save()
+s1 = Symbol(name="A", price=data["A"].to_frame(name="price")).save()
+s2 = Symbol(name="B", price=data["B"].to_frame(name="price")).save()
 
 # We can access subsets like
 for symbol in Symbol.subset(names=["B"]):
     print(symbol)
 
 # often we need a dictionary of Symbols:
->>> symbols = Symbol.to_dict(objects=[s1, s2])
+symbols = Symbol.to_dict(objects=[s1, s2])
 
 # Each XDocument also provides a field for reference data:
->>> s1.reference["MyProp1"] = "ABC"
->>> s2.reference["MyProp2"] = "BCD"
+s1.reference["MyProp1"] = "ABC"
+s2.reference["MyProp2"] = "BCD"
 
 # You can loop over (subsets) of Symbols and extract reference and/or series data
 print(Symbol.reference_frame(objects=[s1, s2]))
 print(Symbol.frame(series="price", key="price"))
 print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
+
+```
+
+```result
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.

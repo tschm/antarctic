@@ -20,11 +20,11 @@ homepage = "https://tschm.github.io/antarctic/book"
 [project.optional-dependencies]
 dev = [
     "pytest-cov==7.0.0",
-    "pytest==8.4.2",
-    "pre-commit==4.3.0",
+    "pytest==9.0.0",
+    "pre-commit==4.4.0",
     "mongomock==4.3.0",
-    "python-dotenv==1.1.1",
-    "plotly==6.3.1"
+    "python-dotenv==1.2.1",
+    "plotly==6.4.0"
 ]
 
 [build-system]
