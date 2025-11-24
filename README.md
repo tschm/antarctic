@@ -38,9 +38,9 @@ from antarctic.pandas_field import PandasField
 
 # connect with your existing MongoDB
 # (here I am using a popular interface mocking a MongoDB)
-client = connect('mongoenginetest', 
-                  host='mongodb://localhost', 
-                  mongo_client_class=mongomock.MongoClient, 
+client = connect('mongoenginetest',
+                  host='mongodb://localhost',
+                  mongo_client_class=mongomock.MongoClient,
                   uuidRepresentation="standard")
 
 # Define the blueprint for a portfolio document
@@ -107,7 +107,7 @@ s2 = Symbol(name="B", price=data["B"].to_frame(name="price")).save()
 
 # We can access subsets like
 for symbol in Symbol.subset(names=["B"]):
-    print(symbol)
+    _ = symbol  # no-op: avoid printing during tests
 
 # often we need a dictionary of Symbols:
 symbols = Symbol.to_dict(objects=[s1, s2])
@@ -117,9 +117,9 @@ s1.reference["MyProp1"] = "ABC"
 s2.reference["MyProp2"] = "BCD"
 
 # You can loop over (subsets) of Symbols and extract reference and/or series data
-print(Symbol.reference_frame(objects=[s1, s2]))
-print(Symbol.frame(series="price", key="price"))
-print(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
+_reference = Symbol.reference_frame(objects=[s1, s2])
+_frame = Symbol.frame(series="price", key="price")
+_applied = list(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
 
 ```
 
