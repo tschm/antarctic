@@ -31,6 +31,7 @@ We introduce first a new field --- the PandasField.
 ```python
 import mongomock
 import pandas as pd
+import numpy as np
 
 from mongoengine import Document, connect
 from antarctic.pandas_field import PandasField
