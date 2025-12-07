@@ -15,19 +15,18 @@ import pytest
 from mongoengine import connect, disconnect
 from pymongo.mongo_client import MongoClient
 
-
-@pytest.fixture(scope="session", name="root_dir")
-def root_fixture() -> Path:
-    """Provide the path to the project root directory.
-
-    This fixture returns the absolute path to the root directory of the project,
-    which is useful for accessing files relative to the project root.
-
-    Returns:
-        Path: The absolute path to the project root directory
-
-    """
-    return Path(__file__).parent.parent.parent
+# @pytest.fixture(scope="session", name="root_dir")
+# def root_fixture() -> Path:
+#     """Provide the path to the project root directory.
+#
+#     This fixture returns the absolute path to the root directory of the project,
+#     which is useful for accessing files relative to the project root.
+#
+#     Returns:
+#         Path: The absolute path to the project root directory
+#
+#     """
+#     return Path(__file__).parent.parent.parent
 
 
 @pytest.fixture(scope="session", name="resource_dir")
