@@ -10,6 +10,8 @@ include:
     - CONTRIBUTING.md
     - Makefile
     - ruff.toml
+    - book
+    - presentation
 exclude:
     - .github/workflows/docker.yml
     - .github/workflows/devcontainer.yml
