@@ -21,7 +21,7 @@ homepage = "https://tschm.github.io/antarctic/book"
 dev = [
     "pytest-cov==7.0.0",
     "pytest==9.0.2",
-    "pre-commit==4.5.0",
+    "pre-commit==4.5.1",
     "mongomock==4.3.0",
     "python-dotenv==1.2.1",
     "plotly==6.5.0"
