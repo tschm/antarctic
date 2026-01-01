@@ -1,6 +1,8 @@
 # [Antarctic](https://tschm.github.io/antarctic/book)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/antarctic)](https://pypi.org/project/antarctic/)
+[![Coverage](https://img.shields.io/endpoint?url=https://tschm.github.io/antarctic/book/tests/coverage-badge.json)](https://tschm.github.io/antarctic/book/tests/html-coverage/index.html)
 [![Book](https://github.com/tschm/antarctic/actions/workflows/book.yml/badge.svg)](https://github.com/tschm/antarctic/actions/workflows/book.yml)
 [![Release](https://github.com/tschm/antarctic/workflows/Release/badge.svg)](https://github.com/tschm/antarctic/actions/)
 [![CodeFactor](https://www.codefactor.io/repository/github/tschm/antarctic/badge)](https://www.codefactor.io/repository/github/tschm/antarctic)
