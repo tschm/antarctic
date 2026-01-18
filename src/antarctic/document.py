@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterator
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, ClassVar
 
 import pandas as pd
 from bson.json_util import RELAXED_JSON_OPTIONS
@@ -31,7 +31,7 @@ class XDocument(Document):
 
     """
 
-    meta = {"abstract": True}
+    meta: ClassVar[dict[str, bool]] = {"abstract": True}
 
     name = StringField(unique=True, required=True)
     reference = DictField()

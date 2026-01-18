@@ -78,10 +78,9 @@ def test_write_series_no_name(client: MongoClient) -> None:
     s = Singer(name="Maffay3")
 
     # Attempt to store a Series directly (without converting to DataFrame)
-    # This should raise an AssertionError
-    with pytest.raises(AssertionError):
+    # This should raise a TypeError
+    with pytest.raises(TypeError):
         s.price = pd.Series(index=[0, 1], data=2.0)
-        s.save()
 
 
 def test_write_non_pandas(client: MongoClient) -> None:
@@ -95,8 +94,7 @@ def test_write_non_pandas(client: MongoClient) -> None:
 
     """
     # Attempt to store a list in a PandasField
-    # This should raise an AssertionError
-    with pytest.raises(AssertionError):
-        s = Singer(name="Maffay4")
+    # This should raise a TypeError
+    s = Singer(name="Maffay4")
+    with pytest.raises(TypeError):
         s.price = [2.0, 2.0]
-        s.save()
