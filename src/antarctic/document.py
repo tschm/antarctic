@@ -16,7 +16,7 @@ from bson.json_util import RELAXED_JSON_OPTIONS
 from mongoengine import DateTimeField, DictField, Document, QuerySet, StringField
 
 
-class XDocument(Document):
+class XDocument(Document):  # type: ignore[misc]
     """Abstract base class for MongoDB documents with extended functionality.
 
     XDocument is an abstract MongoDB Document that cannot be instantiated directly.
@@ -148,7 +148,7 @@ class XDocument(Document):
             bool: True if this document's name is lexicographically less than the other's
 
         """
-        return self.name < other.name
+        return bool(self.name < other.name)
 
     def __eq__(self, other: Any) -> bool:
         """Check if two documents are equal.
@@ -163,7 +163,7 @@ class XDocument(Document):
 
         """
         # Two documents are the same if they have the same name and class
-        return self.__class__ == other.__class__ and self.name == other.name
+        return bool(self.__class__ == other.__class__ and self.name == other.name)
 
     def __hash__(self) -> int:
         """Generate a hash value for the document.
