@@ -54,7 +54,7 @@ def _write(value: pd.DataFrame, compression: str = "zstd") -> bytes:
         return buffer.getvalue()
 
 
-class PandasField(BaseField):
+class PandasField(BaseField):  # type: ignore[misc]
     """Custom MongoEngine field type for storing pandas DataFrames.
 
     This field handles the conversion between pandas DataFrames and binary data
@@ -95,7 +95,8 @@ class PandasField(BaseField):
                 # Already in binary format, store as-is
                 pass
             else:
-                raise AssertionError(f"Type of value {type(value)} not supported. Expected DataFrame or bytes.")
+                msg = f"Type of value {type(value)} not supported. Expected DataFrame or bytes."
+                raise TypeError(msg)
         super().__set__(instance, value)
 
     def __get__(self, instance: Any, owner: type) -> pd.DataFrame | None:

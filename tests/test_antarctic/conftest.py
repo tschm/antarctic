@@ -43,7 +43,7 @@ def resource_fixture() -> Path:
     return Path(__file__).parent / "resources"
 
 
-@pytest.fixture(scope="function", name="client")
+@pytest.fixture(name="client")
 def client_fixture() -> Generator[MongoClient, None, None]:
     """Provide a MongoDB client for database operations during tests.
 
