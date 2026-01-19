@@ -19,7 +19,7 @@ homepage = "https://tschm.github.io/antarctic/book"
 [dependency-groups]
 dev = [
     "mongomock==4.3.0",
-    "plotly==6.5.1",
+    "plotly==6.5.2",
     "numpy>=2.4",
     "marimo>=0.18",
 ]
