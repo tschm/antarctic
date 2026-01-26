@@ -36,6 +36,16 @@ packages = ["src/antarctic"]
 module = ["pandas.*", "pyarrow.*", "mongoengine.*", "bson.*"]
 ignore_missing_imports = true
 
+[tool.deptry.package_module_name_map]
+mongoengine = "mongoengine"
+pandas = "pandas"
+pyarrow = "pyarrow"
+fastparquet = "fastparquet"
+mongomock = "mongomock"
+plotly = "plotly"
+numpy = "numpy"
+marimo = "marimo"
+
 [tool.deptry.per_rule_ignores]
 # bson is part of pymongo package and should not be installed separately
 DEP001 = ["bson"]
