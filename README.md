@@ -51,9 +51,6 @@ class Portfolio(Document):
 
 ```
 
-```result
-```
-
 The portfolio objects works exactly the way you think it works
 
 ```python
@@ -67,9 +64,6 @@ portfolio = p.save()
 nav = p.nav["nav"]
 prices = p.prices
 
-```
-
-```result
 ```
 
 Behind the scenes we convert the Frame objects
@@ -96,9 +90,6 @@ class Symbol(XDocument):
 
 ```
 
-```result
-```
-
 We define a bunch of symbols and assign a price for each (or some of it):
 
 ```python
@@ -121,9 +112,6 @@ _reference = Symbol.reference_frame(objects=[s1, s2])
 _frame = Symbol.frame(series="price", key="price")
 _applied = list(Symbol.apply(func=lambda x: x.price["price"].mean(), default=np.nan))
 
-```
-
-```result
 ```
 
 The XDocument class is exposing DataFrames both for reference and time series data.
