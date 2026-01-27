@@ -72,7 +72,7 @@ def _():
 @app.cell
 def _():
     prices = pd.read_csv(
-        mo.notebook_location() / "public" / "price.csv",
+        mo.notebook_location() / "data" / "price.csv",
         index_col=0,
         parse_dates=True,
         header=0,
