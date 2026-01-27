@@ -31,19 +31,21 @@ def test_write_frame(client: MongoClient) -> None:
     """Test storing and retrieving a DataFrame in a PolarsField.
 
     This test verifies that a polars DataFrame can be stored in a PolarsField
-    and retrieved with the same structure and data.
+    and retrieved with the same structure and data after reloading from the database.
 
     Args:
         client: MongoDB client fixture
 
     """
     # Create a document with a DataFrame in the PolarsField
+    expected = pl.DataFrame({"A": [2.0, 2.0], "B": [2.0, 2.0]})
     a = Artist(name="Artist1")
-    a.data = pl.DataFrame({"A": [2.0, 2.0], "B": [2.0, 2.0]})
+    a.data = expected
     a.save()
 
-    # Verify that the retrieved DataFrame matches the original
-    assert_frame_equal(a.data, pl.DataFrame({"A": [2.0, 2.0], "B": [2.0, 2.0]}))
+    # Reload from database to verify full serialization/deserialization cycle
+    reloaded = Artist.objects.get(name="Artist1")
+    assert_frame_equal(reloaded.data, expected)
 
 
 def test_write_non_polars(client: MongoClient) -> None:
@@ -66,7 +68,8 @@ def test_write_non_polars(client: MongoClient) -> None:
 def test_write_none(client: MongoClient) -> None:
     """Test that None can be stored in a PolarsField.
 
-    This test verifies that None can be stored and retrieved from a PolarsField.
+    This test verifies that None can be stored and retrieved from a PolarsField
+    after reloading from the database.
 
     Args:
         client: MongoDB client fixture
@@ -77,5 +80,6 @@ def test_write_none(client: MongoClient) -> None:
     a.data = None
     a.save()
 
-    # Verify that the retrieved value is None
-    assert a.data is None
+    # Reload from database to verify full serialization/deserialization cycle
+    reloaded = Artist.objects.get(name="Artist3")
+    assert reloaded.data is None
