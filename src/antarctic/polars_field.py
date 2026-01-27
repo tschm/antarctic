@@ -117,17 +117,22 @@ class PolarsField(BaseField):  # type: ignore[misc]
                 raise TypeError(msg)
         super().__set__(instance, value)
 
-    def __get__(self, instance: Any, owner: type) -> pl.DataFrame | None:
+    def __get__(self, instance: Any, owner: type) -> pl.DataFrame | PolarsField | None:
         """Retrieve and convert the stored value back to a DataFrame.
 
         Args:
-            instance: The document instance
+            instance: The document instance (None for class-level access)
             owner: The document class
 
         Returns:
-            Optional[pl.DataFrame]: The retrieved DataFrame or None if no data
+            PolarsField: The descriptor itself when accessed at class level
+            pl.DataFrame: The retrieved DataFrame when accessed on an instance
+            None: If no data is stored
 
         """
+        if instance is None:
+            return self
+
         data = super().__get__(instance, owner)
 
         if data is not None:

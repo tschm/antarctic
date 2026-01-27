@@ -83,3 +83,15 @@ def test_write_none(client: MongoClient) -> None:
     # Reload from database to verify full serialization/deserialization cycle
     reloaded = Artist.objects.get(name="Artist3")
     assert reloaded.data is None
+
+
+def test_class_level_access() -> None:
+    """Test that class-level access returns the descriptor itself.
+
+    This test verifies that accessing the PolarsField on the class
+    (e.g., Artist.data) returns the PolarsField descriptor rather than
+    attempting to read data.
+
+    """
+    # Accessing the field on the class should return the descriptor
+    assert isinstance(Artist.data, PolarsField)
