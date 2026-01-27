@@ -26,6 +26,20 @@ def _read(value: bytes, columns: list[str] | None = None) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The reconstructed pandas DataFrame
 
+    Examples:
+        >>> import pandas as pd
+        >>> df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+        >>> data = _write(df)
+        >>> result = _read(data)
+        >>> result["a"].tolist()
+        [1, 2, 3]
+
+        Select specific columns:
+
+        >>> result = _read(data, columns=["b"])
+        >>> list(result.columns)
+        ['b']
+
     """
     with BytesIO(value) as buffer:
         table = pq.read_table(buffer, columns=columns)
@@ -44,6 +58,15 @@ def _write(value: pd.DataFrame, compression: str = "zstd") -> bytes:
 
     Returns:
         bytes: Binary representation of the DataFrame in parquet format
+
+    Examples:
+        >>> import pandas as pd
+        >>> df = pd.DataFrame({"x": [1.0, 2.0], "y": [3.0, 4.0]})
+        >>> data = _write(df)
+        >>> isinstance(data, bytes)
+        True
+        >>> data[:4]  # Parquet magic bytes
+        b'PAR1'
 
     """
     if isinstance(value, pd.DataFrame):
