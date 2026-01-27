@@ -8,7 +8,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/tschm/antarctic/badge)](https://www.codefactor.io/repository/github/tschm/antarctic)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://github.com/renovatebot/renovate)
 
-Project to persist Pandas data structures in a MongoDB database.
+Project to persist Pandas and Polars data structures in a MongoDB database.
 
 ## Installation
 
@@ -18,15 +18,15 @@ pip install antarctic
 
 ## Usage
 
-This project (unless the popular arctic project which I admire)
+This project (unlike the popular arctic project which I admire)
 is based on top of [MongoEngine](https://pypi.org/project/mongoengine/).
 MongoEngine is an ORM for MongoDB. MongoDB stores documents.
-We introduce a new field and extend the Document class
-to make Antarctic a convenient choice for storing Pandas (time series) data.
+We introduce new fields and extend the Document class
+to make Antarctic a convenient choice for storing Pandas and Polars (time series) data.
 
-### Fields
+### PandasField
 
-We introduce first a new field --- the PandasField.
+We introduce first the PandasField for storing Pandas DataFrames.
 
 ```python
 import mongomock
@@ -72,7 +72,44 @@ store them in a MongoDB database.
 
 The format should also be readable by R.
 
-#### Documents
+### PolarsField
+
+Antarctic also supports storing Polars DataFrames using the PolarsField.
+
+```python
+import polars as pl
+from mongoengine import Document, StringField
+from antarctic.polars_field import PolarsField
+
+class Artist(Document):
+    name = StringField(unique=True, required=True)
+    data = PolarsField()
+
+```
+
+The PolarsField works similarly to PandasField:
+
+```python
+a = Artist(name="Artist1")
+a.data = pl.DataFrame({"A": [2.0, 2.0], "B": [2.0, 2.0]})
+a.save()
+
+# Retrieve the data
+df = a.data
+
+```
+
+PolarsField uses zstd compression by default for efficient storage,
+but you can specify other compression algorithms:
+
+```python
+class CustomArtist(Document):
+    name = StringField(unique=True, required=True)
+    data = PolarsField(compression="snappy")  # Options: lz4, uncompressed, snappy, gzip, brotli, zstd
+
+```
+
+### XDocument
 
 In most cases we have copies of very similar documents,
 e.g. we store Portfolios and Symbols rather than just a Portfolio or a Symbol.

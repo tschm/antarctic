@@ -8,7 +8,8 @@ dependencies = [
     "mongoengine>=0.25.0",
     "pandas>=2.0",
     "pyarrow>=22.0.0",
-    "fastparquet>=0.8.0"
+    "fastparquet>=0.8.0",
+    "polars>=1.37.1",
 ]
 authors = [{name = "Thomas Schmelzer", email = "thomas.schmelzer@gmail.com"}]
 
@@ -33,7 +34,7 @@ packages = ["src/antarctic"]
 
 [tool.mypy]
 [[tool.mypy.overrides]]
-module = ["pandas.*", "pyarrow.*", "mongoengine.*", "bson.*"]
+module = ["pandas.*", "pyarrow.*", "mongoengine.*", "bson.*", "polars.*"]
 ignore_missing_imports = true
 
 [tool.deptry.package_module_name_map]
@@ -45,6 +46,7 @@ mongomock = "mongomock"
 plotly = "plotly"
 numpy = "numpy"
 marimo = "marimo"
+polars = "polars"
 
 [tool.deptry.per_rule_ignores]
 # bson is part of pymongo package and should not be installed separately
