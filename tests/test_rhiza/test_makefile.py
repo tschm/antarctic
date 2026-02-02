@@ -24,11 +24,14 @@ import pytest
 MAKE = shutil.which("make") or "/usr/bin/make"
 
 # Split Makefile paths that are included in the main Makefile
+# These are now located in .rhiza/make.d/ directory
 SPLIT_MAKEFILES = [
     ".rhiza/rhiza.mk",
-    "tests/tests.mk",
-    "book/book.mk",
-    "presentation/presentation.mk",
+    ".rhiza/make.d/01-test.mk",
+    ".rhiza/make.d/02-book.mk",
+    ".rhiza/make.d/03-marimo.mk",
+    ".rhiza/make.d/04-presentation.mk",
+    ".rhiza/make.d/05-github.mk",
 ]
 
 
@@ -153,7 +156,11 @@ class TestMakefile:
 
     def test_fmt_target_dry_run(self, logger, tmp_path):
         """Fmt target should invoke pre-commit via uvx with Python version in dry-run output."""
-        proc = run_make(logger, ["fmt"])
+        # Create clean environment without PYTHON_VERSION so Makefile reads from .python-version
+        env = os.environ.copy()
+        env.pop("PYTHON_VERSION", None)
+
+        proc = run_make(logger, ["fmt"], env=env)
         out = proc.stdout
         # Check for uvx command with the Python version flag
         # The PYTHON_VERSION should be read from .python-version file (e.g., "3.12")
@@ -178,7 +185,12 @@ class TestMakefile:
         env_content += "\nSOURCE_FOLDER=src\n"
         env_file.write_text(env_content)
 
-        proc = run_make(logger, ["deptry"])
+        # Create clean environment without PYTHON_VERSION so Makefile reads from .python-version
+        env = os.environ.copy()
+        env.pop("PYTHON_VERSION", None)
+
+        proc = run_make(logger, ["deptry"], env=env)
+
         out = proc.stdout
         # Check for uvx command with the Python version flag
         python_version_file = tmp_path / ".python-version"
