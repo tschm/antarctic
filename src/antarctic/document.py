@@ -16,7 +16,7 @@ from bson.json_util import RELAXED_JSON_OPTIONS
 from mongoengine import DateTimeField, DictField, Document, QuerySet, StringField
 
 
-class XDocument(Document):  # type: ignore[misc]
+class XDocument(Document):
     """Abstract base class for MongoDB documents with extended functionality.
 
     XDocument is an abstract MongoDB Document that cannot be instantiated directly.
@@ -50,7 +50,7 @@ class XDocument(Document):  # type: ignore[misc]
             pd.DataFrame: DataFrame with reference data, indexed by document name
 
         """
-        objects = objects or cls.objects
+        objects = objects or cls.objects  # type: ignore[unresolved-attribute]
 
         # Create a DataFrame with each column representing a document's reference data
         frame = pd.DataFrame(
@@ -73,10 +73,10 @@ class XDocument(Document):  # type: ignore[misc]
 
         """
         if names is None:
-            return cls.objects
+            return cls.objects  # type: ignore[unresolved-attribute]
 
         # Filter objects by name using MongoDB's $in operator
-        return cls.objects(name__in=names)
+        return cls.objects(name__in=names)  # type: ignore[unresolved-attribute]
 
     @classmethod
     def to_dict(cls, objects: QuerySet | None = None) -> dict[str, XDocument]:
@@ -90,7 +90,7 @@ class XDocument(Document):  # type: ignore[misc]
 
         """
         # Represent all documents of a class as a dictionary for easy lookup
-        objects = objects or cls.objects
+        objects = objects or cls.objects  # type: ignore[unresolved-attribute]
         return {x.name: x for x in objects}
 
     @classmethod
@@ -110,7 +110,7 @@ class XDocument(Document):  # type: ignore[misc]
             Tuple[str, Any]: Pairs of (document_name, function_result)
 
         """
-        objects = objects or cls.objects
+        objects = objects or cls.objects  # type: ignore[unresolved-attribute]
 
         for obj in objects:
             try:
@@ -132,7 +132,7 @@ class XDocument(Document):  # type: ignore[misc]
             pd.DataFrame: DataFrame with columns named by document names and values from the specified field/key
 
         """
-        objects = objects or cls.objects
+        objects = objects or cls.objects  # type: ignore[unresolved-attribute]
 
         # Extract the specified series and key from each document
         # Drop columns that contain only NaN values

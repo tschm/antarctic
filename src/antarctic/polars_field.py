@@ -72,7 +72,7 @@ def _write(value: pl.DataFrame, compression: CompressionType = "zstd") -> bytes:
     return buffer.getvalue()
 
 
-class PolarsField(BaseField):  # type: ignore[misc]
+class PolarsField(BaseField):
     """Custom MongoEngine field type for storing polars DataFrames.
 
     This field handles the conversion between polars DataFrames and binary data
