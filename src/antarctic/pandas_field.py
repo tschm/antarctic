@@ -77,7 +77,7 @@ def _write(value: pd.DataFrame, compression: str = "zstd") -> bytes:
         return buffer.getvalue()
 
 
-class PandasField(BaseField):  # type: ignore[misc]
+class PandasField(BaseField):
     """Custom MongoEngine field type for storing pandas DataFrames.
 
     This field handles the conversion between pandas DataFrames and binary data
