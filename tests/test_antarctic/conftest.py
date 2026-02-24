@@ -3,6 +3,10 @@
 This module provides fixtures that are available to all test modules in the project.
 These fixtures include paths to important directories and a MongoDB client
 for database interaction during tests.
+
+Security notes:
+- S101 (assert usage): assertions are intentional in pytest test code.
+- S603/S607 (subprocess): any subprocess calls in tests use trusted, fixed arguments.
 """
 
 from __future__ import annotations

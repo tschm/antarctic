@@ -2,6 +2,10 @@
 
 Provides the 'root' fixture that returns the repository root as a pathlib.Path,
 enabling tests to locate files and scripts relative to the project root.
+
+Security notes:
+- S101 (assert usage): assertions are intentional in pytest test code.
+- S603/S607 (subprocess): any subprocess calls in tests use trusted, fixed arguments.
 """
 
 import logging
